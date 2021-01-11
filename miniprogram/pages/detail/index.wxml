@@ -1,0 +1,32 @@
+<!--pages/detail/index.wxml-->
+<view class="container">
+	<view class="punchGoalCard">
+		<view class="punchGoalCard__content">
+			<iconfont name="{{info.iconName}}"></iconfont>
+			<view class="punchGoalCard__content-information">
+				<view>{{info.goalName}}</view>
+				<view class="punchGoalCard__content-count">已打卡{{info.count}}天</view>
+			</view>
+		</view>
+		<view
+		 bindtap="punch"
+		 data-id="{{info._id}}"
+		 class="punchButton"
+		>打卡
+		</view>
+	</view>
+	<view class="time">
+		<view>开始时间</view>
+		<view>{{info.startTime}}</view>
+	</view>
+	<view class="time">
+		<view>结束时间</view>
+		<view>{{info.endTime}}</view>
+	</view>
+	<view wx:for="{{punchList}}" class="punchGoalCard">
+		<view>{{item.comment}}</view>
+		<view>打卡时间：{{item.date}}</view>
+	</view>
+	<view bindtap="rePunch" class="button">补打卡</view>
+</view>
+

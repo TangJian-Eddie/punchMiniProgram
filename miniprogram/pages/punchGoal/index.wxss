@@ -1,0 +1,46 @@
+/* pages/punchGoal/index.wxss */
+.container {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  margin: 5vh 5vw;
+}
+.punchIcon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+.punchName {
+  display: flex;
+  align-items: center;
+}
+.punchName > input {
+  flex: 1;
+  margin-left: 30rpx;
+  height: 74rpx;
+  padding-left: 35rpx;
+  background: rgba(155, 155, 155, 0.15);
+  border-radius: 37rpx;
+}
+.picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50rpx 0;
+}
+.tip {
+  color: #797979;
+}
+.button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65rpx;
+  line-height: 65rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #ffc01a;
+  border-radius: 30rpx;
+}

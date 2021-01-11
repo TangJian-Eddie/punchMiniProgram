@@ -1,0 +1,8 @@
+<!--pages/punch/index.wxml-->
+<view class="container">
+	<iconfont name="{{info.iconName}}"></iconfont>
+	<view>{{info.goalName}}</view>
+	<textarea bindinput="inputChange" value="{{punch.comment}}"></textarea>
+	<view>保存</view>
+</view>
+

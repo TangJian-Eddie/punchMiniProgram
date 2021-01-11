@@ -1,0 +1,37 @@
+<!--pages/home/index.wxml-->
+<view class="container">
+	<button
+	 bindgetuserinfo="getUserInfo"
+	 open-type="getUserInfo"
+	 wx:if="{{!userInfo}}"
+	>登录
+	</button>
+	<view wx:if="{{userInfo}}">
+		<view class="userBox">
+			<view class="userBox__nickName">{{userInfo.nickName}}</view>
+			<image src="{{userInfo.avatarUrl}}" />
+		</view>
+		<view
+		 wx:for="{{punchGoalList}}"
+		 class="punchGoalCard"
+		 bindtap="toDetail"
+		 data-info="{{item}}"
+		>
+			<view class="punchGoalCard__content">
+				<iconfont name="{{item.iconName}}"></iconfont>
+				<view class="punchGoalCard__content-information">
+					<view>{{item.goalName}}</view>
+					<view class="punchGoalCard__content-count">已打卡{{item.count}}天</view>
+				</view>
+			</view>
+			<view
+			 catchtap="toPunch"
+			 data-info="{{item}}"
+			 class="punchButton"
+			>打卡
+			</view>
+		</view>
+		<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
+	</view>
+</view>
+
