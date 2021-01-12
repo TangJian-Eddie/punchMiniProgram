@@ -1,4 +1,5 @@
 // pages/punch/index.js
+import { formatDate } from "../../utils/formatDate";
 Page({
   /**
    * 页面的初始数据
@@ -17,6 +18,11 @@ Page({
       "punch.comment": e.detail.value,
     });
   },
+  timePick(e) {
+    this.setData({
+      "punch.date": e.detail.value,
+    });
+  },
   punch() {
     wx.cloud.callFunction({
       name: "punch",
@@ -25,6 +31,9 @@ Page({
       },
       success: (res) => {
         console.log(res);
+        wx.navigateBack({
+          delta: 1,
+        });
       },
       fail: (res) => {
         console.log("创建失败", res);
@@ -40,7 +49,7 @@ Page({
       this.setData({
         info,
         "punch.punchGoalId": info._id,
-        "punch.date": new Date(),
+        "punch.date": formatDate(new Date()),
       });
     }
     if (options.rePunch) {

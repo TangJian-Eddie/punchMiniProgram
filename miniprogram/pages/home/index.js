@@ -53,10 +53,8 @@ Page({
    */
   onLoad: function (options) {
     if (app.globalData.userInfo) {
-      const { userInfo } = app.globalData;
-      this.getData(userInfo.userId);
       this.setData({
-        userInfo,
+        userInfo: app.globalData.userInfo,
       });
     }
   },
@@ -89,7 +87,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    if (app.globalData.userInfo) {
+      this.getData(app.globalData.userInfo.userId);
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

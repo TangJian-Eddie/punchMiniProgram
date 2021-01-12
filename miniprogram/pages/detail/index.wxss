@@ -5,6 +5,9 @@
   height: 90vh;
   margin: 5vh 5vw;
 }
+.scroll{
+  height:70vh
+}
 .punchGoalCard {
   display: flex;
   justify-content: space-between;

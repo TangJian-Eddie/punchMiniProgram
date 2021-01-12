@@ -53,6 +53,9 @@ Page({
       },
       success: (res) => {
         console.log(res);
+        wx.navigateBack({
+          delta: 1,
+        });
       },
       fail: (res) => {
         console.log("创建失败", res);

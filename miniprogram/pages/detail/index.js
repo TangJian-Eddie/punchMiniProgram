@@ -6,13 +6,34 @@ Page({
   data: {
     info: {},
     punchList: [],
+    fetchConf: {
+      page: 1,
+      pageSize: 10,
+      hasNext: true,
+    },
   },
 
-  rePunch(){
+  rePunch() {
     const info = JSON.stringify(this.data.info);
     wx.navigateTo({
       url: `/pages/punch/index?info=${info}&rePunch=1`,
     });
+  },
+  toPunch() {
+    const info = JSON.stringify(this.data.info);
+    wx.navigateTo({
+      url: `/pages/punch/index?info=${info}`,
+    });
+  },
+
+  loadMore() {
+    const { page, hasNext } = this.data.fetchConf;
+    if (hasNext) {
+      this.setData({
+        "fetchConf.page": page + 1,
+      });
+      this.getData(this.data.info._id);
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -23,28 +44,31 @@ Page({
       this.setData({
         info,
       });
-      this.getData(info._id);
     }
   },
 
   getData(id) {
     const punchGoalId = id;
+    const { page, pageSize } = this.data.fetchConf;
     wx.cloud.callFunction({
       name: "getPunchList",
       data: {
         data: {
           punchGoalId,
+          page,
+          pageSize,
         },
       },
       success: (res) => {
-        console.log(res);
+        let hasNext = true;
+        if (res.result.total <= page * pageSize) {
+          hasNext = false;
+        }
         this.setData({
-          punchList: res.result.data,
+          punchList: this.data.punchList.concat(res.result.list),
+          "fetchConf.hasNext": hasNext,
         });
-      },
-      fail: (res) => {
-        console.log("登录失败", res);
-      },
+      }
     });
   },
   /**
@@ -55,7 +79,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    this.getData(this.data.info._id);
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

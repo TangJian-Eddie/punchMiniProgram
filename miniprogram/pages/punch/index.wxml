@@ -1,8 +1,14 @@
-<!--pages/punch/index.wxml-->
+<!-- pages/punch/index.wxml -->
 <view class="container">
-	<iconfont name="{{info.iconName}}"></iconfont>
-	<view>{{info.goalName}}</view>
-	<textarea bindinput="inputChange" value="{{punch.comment}}"></textarea>
-	<view>保存</view>
+		<iconfont name="{{info.iconName}}"></iconfont>
+		<view>{{info.goalName}}</view>
+		<textarea bindinput="inputChange" value="{{punch.comment}}" placeholder="请输入备注..."></textarea>
+		<picker mode="date" value="{{punch.date}}" bindchange="timePick">
+				<view class="picker">
+						<view>补打卡时间</view>
+						<view wx:if="{{punch.date}}">{{punch.date}}</view>
+						<view wx:else class="tip">请选择补打卡时间</view>
+				</view>
+		</picker>
+		<view class="button" bindtap="punch">保存</view>
 </view>
-

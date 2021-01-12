@@ -3,10 +3,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  margin: 5vh 5vw;
 }
 .container > textarea {
   margin: 30rpx 0;
   background: rgba(155, 155, 155, 0.15);
   border-radius: 37rpx;
   padding: 20rpx 30rpx;
+}
+.picker {
+  width: 80vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tip {
+  color: #797979;
+}
+.button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65rpx;
+  line-height: 65rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #ffc01a;
+  border-radius: 30rpx;
 }
