@@ -12,7 +12,26 @@ Page({
       hasNext: true,
     },
   },
-
+  handleEdit() {},
+  handleDelete(e) {
+    const { id } = e.currentTarget.dataset;
+    wx.showModal({
+      content: "确认删除这次打卡记录",
+      success: (result) => {
+        if (result.confirm) {
+          wx.cloud.callFunction({
+            name: "deletePunch",
+            data: {
+              id,
+            },
+            success: () => {
+              this.getData(this.data.info._id);
+            },
+          });
+        }
+      },
+    });
+  },
   rePunch() {
     const info = JSON.stringify(this.data.info);
     wx.navigateTo({
@@ -68,7 +87,7 @@ Page({
           punchList: this.data.punchList.concat(res.result.list),
           "fetchConf.hasNext": hasNext,
         });
-      }
+      },
     });
   },
   /**

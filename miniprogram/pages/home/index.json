@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "movable-item": "/components/movable-item/index"
+  }
 }

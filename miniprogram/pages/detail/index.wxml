@@ -19,10 +19,12 @@
 				<view>{{info.endTime}}</view>
 		</view>
 		<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll">
-				<view wx:for="{{punchList}}" class="punchGoalCard">
-						<view>{{item.comment}}</view>
-						<view>打卡时间：{{item.date}}</view>
-				</view>
+				<movable-item bind:handleDelete="handleDelete" bind:handleEdit="handleEdit" wx:for="{{punchList}}" data-id="{{item._id}}">
+						<view class="punchGoalCard">
+								<view>{{item.comment}}</view>
+								<view>打卡时间：{{item.date}}</view>
+						</view>
+				</movable-item>
 		</scroll-view>
 		<view bindtap="rePunch" class="button">补打卡</view>
 </view>

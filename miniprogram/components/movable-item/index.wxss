@@ -1,0 +1,41 @@
+.movable-item {
+  position: relative;
+  width: 100%;
+  z-index: 999;
+}
+.movable-item movable-area {
+  height: 120rpx;
+  width: calc(90vw - 300rpx);
+}
+.movable-item movable-view {
+  height: 120rpx;
+  width: 90vw;
+  background: #fff;
+  z-index: 999;
+}
+.edit-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 150rpx;
+  width: 150rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 120rpx;
+  z-index: 1;
+  background: #ffc920;
+  text-align: center;
+}
+.movable-item .delete-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 150rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 120rpx;
+  z-index: 1;
+  background: #ff4949;
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+<!-- components/movable-item/index.wxml -->
+<view class="movable-item">
+  <movable-area>
+    <movable-view out-of-bounds="true" direction="horizontal" x="{{xmove}}" inertia="true" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" >
+      <slot></slot>
+    </movable-view>
+  </movable-area>
+  <view class="edit-btn" bindtap="handleEdit">修改</view>
+  <view class="delete-btn" bindtap="handleDelete">删除</view>
+</view>

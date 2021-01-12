@@ -25,7 +25,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16rpx 20rpx;
 }
 .punchGoalCard__content {
   display: flex;
@@ -59,3 +58,5 @@
   background-color: #ffc01a;
   border-radius: 30rpx;
 }
+
+
