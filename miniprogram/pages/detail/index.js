@@ -53,7 +53,6 @@ Page({
       url: `/pages/punch/index?info=${info}`,
     });
   },
-
   loadMore() {
     const { page, hasNext } = this.data.fetchConf;
     if (hasNext) {
@@ -108,6 +107,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      punchList: [],
+      fetchConf: {
+        page: 1,
+        pageSize: 10,
+        hasNext: true,
+      },
+    });
     this.getData(this.data.info._id);
   },
 
