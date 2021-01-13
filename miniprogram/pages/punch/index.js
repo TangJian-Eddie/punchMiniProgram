@@ -52,6 +52,12 @@ Page({
         "punch.date": formatDate(new Date()),
       });
     }
+    if (options.punch) {
+      const punch = JSON.parse(options.punch);
+      this.setData({
+        punch,
+      });
+    }
     if (options.rePunch) {
       console.log("补打卡");
       this.setData({

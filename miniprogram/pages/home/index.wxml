@@ -6,8 +6,8 @@
 						<view class="userBox__nickName">{{userInfo.nickName}}</view>
 						<image src="{{userInfo.avatarUrl}}" />
 				</view>
-				<movable-item>
-						<view wx:for="{{punchGoalList}}" class="punchGoalCard" bindtap="toDetail" data-info="{{item}}">
+				<movable-item bind:handleDelete="handleDelete" bind:handleEdit="handleEdit" wx:for="{{punchGoalList}}" data-item="{{item}}">
+						<view class="punchGoalCard" bindtap="toDetail" data-info="{{item}}">
 								<view class="punchGoalCard__content">
 										<iconfont name="{{item.iconName}}"></iconfont>
 										<view class="punchGoalCard__content-information">

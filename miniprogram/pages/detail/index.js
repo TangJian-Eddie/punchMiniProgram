@@ -1,4 +1,5 @@
 // pages/detail/index.js
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -12,9 +13,15 @@ Page({
       hasNext: true,
     },
   },
-  handleEdit() {},
+  handleEdit(e) {
+    const info = JSON.stringify(this.data.info);
+    const punch = JSON.stringify(e.currentTarget.dataset.item);
+    wx.navigateTo({
+      url: `/pages/punch/index?info=${info}&punch=${punch}`,
+    });
+  },
   handleDelete(e) {
-    const { id } = e.currentTarget.dataset;
+    const { _id, punchGoalId } = e.currentTarget.dataset.item;
     wx.showModal({
       content: "确认删除这次打卡记录",
       success: (result) => {
@@ -22,9 +29,11 @@ Page({
           wx.cloud.callFunction({
             name: "deletePunch",
             data: {
-              id,
+              id: _id,
+              punchGoalId,
             },
             success: () => {
+              app.toast("删除成功");
               this.getData(this.data.info._id);
             },
           });

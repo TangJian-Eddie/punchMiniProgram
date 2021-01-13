@@ -47,7 +47,7 @@ Page({
       date: new Date(),
     };
     wx.cloud.callFunction({
-      name: "createPunchGoal",
+      name: "punchGoal",
       data: {
         data,
       },
@@ -65,7 +65,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    if (options.punchGoal) {
+      const punchGoal = JSON.parse(options.punchGoal);
+      this.setData({
+        goal: punchGoal,
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

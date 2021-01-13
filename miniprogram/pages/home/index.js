@@ -9,6 +9,33 @@ Page({
     punchGoalList: [],
   },
 
+  handleEdit(e) {
+    const punchGoal = JSON.stringify(e.currentTarget.dataset.item);
+    wx.navigateTo({
+      url: `/pages/punchGoal/index?punchGoal=${punchGoal}`,
+    });
+  },
+  handleDelete(e) {
+    const { _id } = e.currentTarget.dataset.item;
+    wx.showModal({
+      content: "确认删除这个打卡目标",
+      success: (result) => {
+        if (result.confirm) {
+          wx.cloud.callFunction({
+            name: "deletePunchGoal",
+            data: {
+              id: _id,
+            },
+            success: () => {
+              app.toast("删除成功");
+              this.getData(app.globalData.userInfo.userId);
+            },
+          });
+        }
+      },
+    });
+  },
+
   getUserInfo(e) {
     wx.cloud.callFunction({
       name: "login",

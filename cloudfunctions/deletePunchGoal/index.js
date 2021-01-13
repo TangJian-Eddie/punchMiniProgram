@@ -3,16 +3,15 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const collection = db.collection("punch");
 const goalCollection = db.collection("punchGoal");
-const _ = db.command;
 exports.main = async (event, context) => {
   console.log(event);
   collection
-    .doc(event.id)
+    .where({ punchGoalId: event.id })
     .remove()
     .then(() => {
       goalCollection
-        .doc(event.punchGoalId)
-        .update({ data: { count: _.inc(-1) } })
+        .doc(event.id)
+        .remove()
         .then((res) => {
           return res;
         });
