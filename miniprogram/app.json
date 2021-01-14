@@ -1,7 +1,30 @@
 {
-  "pages": ["pages/home/index", "pages/punchGoal/index","pages/punch/index", "pages/detail/index"],
+  "pages": [
+    "pages/home/index",
+    "pages/calendar/index",
+    "pages/punchGoal/index",
+    "pages/punch/index",
+    "pages/detail/index"
+  ],
   "usingComponents": {
     "iconfont": "/components/iconfont/iconfont"
+  },
+  "tabBar": {
+    "selectedColor": "#FFC01A",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "/images/home.png",
+        "selectedIconPath": "/images/home_active.png"
+      },
+      {
+        "pagePath": "pages/calendar/index",
+        "text": "日历",
+        "iconPath": "/images/calendar.png",
+        "selectedIconPath": "/images/calendar_active.png"
+      }
+    ]
   },
   "window": {
     "backgroundColor": "#F6F6F6",

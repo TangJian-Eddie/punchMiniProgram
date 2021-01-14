@@ -1,0 +1,6 @@
+<!-- pages/calendar/index.wxml -->
+<view>{{year}}{{month}}{{date}}</view>
+<calendar bind:afterTapDate="afterTapDate" bind:onSwipe="onSwipe" bind:whenChangeMonth="whenChangeMonth"></calendar>
+<view>
+  我在这一天
+</view>

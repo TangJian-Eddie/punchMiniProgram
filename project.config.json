@@ -26,7 +26,7 @@
 		},
 		"bundle": false,
 		"useIsolateContext": true,
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false,
 		"useMultiFrameRuntime": false,
 		"useApiHook": true,
@@ -43,6 +43,14 @@
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
 		"plugin": {
 			"list": []
 		},
@@ -55,8 +63,9 @@
 		"miniprogram": {
 			"list": [
 				{
-					"name": "pages/punchGoal/index",
-					"pathName": "pages/punchGoal/index",
+					"id": -1,
+					"name": "pages/calendar/index",
+					"pathName": "pages/calendar/index",
 					"scene": null
 				}
 			]
