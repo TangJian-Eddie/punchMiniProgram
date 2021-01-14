@@ -11,6 +11,8 @@ Page({
       comment: "",
       date: "",
     },
+    firstPunch: true,
+    timeText: "打卡时间",
   },
 
   inputChange(e) {
@@ -52,16 +54,20 @@ Page({
         "punch.date": formatDate(new Date()),
       });
     }
+    // 修改打卡
     if (options.punch) {
       const punch = JSON.parse(options.punch);
       this.setData({
         punch,
+        firstPunch: false,
       });
     }
+    // 补打卡
     if (options.rePunch) {
-      console.log("补打卡");
       this.setData({
         "punch.date": "",
+        firstPunch: false,
+        timeText: "补打卡时间",
       });
     }
   },
