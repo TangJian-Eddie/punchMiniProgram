@@ -66,6 +66,13 @@
 					"id": -1,
 					"name": "pages/calendar/index",
 					"pathName": "pages/calendar/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/punchGoal/index",
+					"pathName": "pages/punchGoal/index",
 					"scene": null
 				}
 			]

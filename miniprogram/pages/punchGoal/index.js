@@ -11,6 +11,7 @@ Page({
       goalName: "",
       startTime: "",
       endTime: "",
+      punchTimes: 1,
     },
   },
   chooseImage(e) {
