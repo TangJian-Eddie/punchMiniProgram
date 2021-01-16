@@ -27,6 +27,10 @@ Page({
               id: _id,
             },
             success: () => {
+              if (res.data.code != 200) {
+                app.toast(res.data.msg);
+                return;
+              }
               app.toast("删除成功");
               this.getData(app.globalData.userInfo.userId);
             },
@@ -44,6 +48,10 @@ Page({
       },
       success: (res) => {
         console.log(res);
+        if (res.data.code != 200) {
+          app.toast(res.data.msg);
+          return;
+        }
         wx.setStorageSync("userInfo", res.result.data);
         this.setData({
           userInfo: res.result.data,

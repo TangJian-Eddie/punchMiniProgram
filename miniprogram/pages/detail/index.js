@@ -33,6 +33,10 @@ Page({
               punchGoalId,
             },
             success: () => {
+              if (res.data.code != 200) {
+                app.toast(res.data.msg);
+                return;
+              }
               app.toast("删除成功");
               this.getData(this.data.info._id);
             },
