@@ -41,10 +41,10 @@ const updatePunch = (data) => {
   });
 };
 const checkLimit = (data) => {
-  const { date, punchGoalId, id = null } = data;
+  const { date, punchGoalId, _id = null } = data;
   return new Promise(async (resolve, reject) => {
-    if (id) {
-      let dateRes = await collection.doc(id).field({ date: true }).get();
+    if (_id) {
+      let dateRes = await collection.doc(_id).field({ date: true }).get();
       if (dateRes.data.date === date) resolve(true);
     }
     goalCollection
@@ -53,10 +53,11 @@ const checkLimit = (data) => {
       .get()
       .then((punchTimesRes) => {
         collection
-          .where({ date })
+          .where({ date, punchGoalId })
           .count()
           .then((res) => {
-            if (punchTimesRes.data.punchTimes < res.total) {
+            console.log(punchTimesRes, res);
+            if (punchTimesRes.data.punchTimes > res.total) {
               resolve(true);
             } else {
               resolve(false);
