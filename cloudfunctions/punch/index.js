@@ -4,91 +4,112 @@ const db = cloud.database();
 const collection = db.collection("punch");
 const goalCollection = db.collection("punchGoal");
 const _ = db.command;
-const createPunch = async (data) => {
-  let isLimit = await checkLimit(data.date, data.punchGoalId);
-  if (!isLimit) {
-    return {
-      code: 403,
-      message: "今天打卡次数达到限制，请勿重复打卡",
-      result: null,
-    };
-  }
-  try {
-    await collection.add({ data: { ...data } });
-    return goalCollection
-      .doc(data.punchGoalId)
-      .update({ data: { count: _.inc(1) } })
-      .then((res) => {
-        return {
-          code: 200,
-          message: "新增打卡成功",
-          result: res,
-        };
+
+const createPunch = (data) => {
+  return new Promise((resolve, reject) => {
+    collection
+      .add({ data: { ...data } })
+      .then(() => {
+        goalCollection
+          .doc(data.punchGoalId)
+          .update({ data: { count: _.inc(1) } })
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
       })
       .catch((err) => {
-        return {
-          code: 500,
-          message: "打卡天数增加失败",
-          result: err,
-        };
+        reject(err);
       });
-  } catch (err) {
-    return {
-      code: 500,
-      message: "新增打卡失败",
-      result: err,
-    };
-  }
+  });
 };
-const updatePunch = async (data) => {
-  let res = await checkLimit(data.date, data.punchGoalId, data._id);
-  if (!res) {
-    return {
-      code: 403,
-      message: "今天打卡次数达到限制，请勿重复打卡",
-      result: null,
-    };
-  }
+const updatePunch = (data) => {
   const id = data._id;
   delete data._id;
-  await collection.doc(id).set({ data: { ...data } });
-  return {
-    code: 200,
-    message: "修改打卡成功",
-    result: res,
-  };
+  return new Promise((resolve, reject) => {
+    collection
+      .doc(id)
+      .update({ data: { ...data } })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 };
-const checkLimit = (date, punchGoalId, id) => {
+const checkLimit = (data) => {
+  const { date, punchGoalId, id = null } = data;
   return new Promise(async (resolve, reject) => {
-    if(id){
+    if (id) {
       let dateRes = await collection.doc(id).field({ date: true }).get();
-      if(dateRes.data.date===date) resolve(true)
+      if (dateRes.data.date === date) resolve(true);
     }
     goalCollection
       .doc(punchGoalId)
       .field({ punchTimes: true })
       .get()
-      .then((res) => {
+      .then((punchTimesRes) => {
         collection
           .where({ date })
           .count()
-          .then((res2) => {
-            if (res.data.punchTimes < res2.total) {
+          .then((res) => {
+            if (punchTimesRes.data.punchTimes < res.total) {
               resolve(true);
             } else {
               resolve(false);
             }
+          })
+          .catch((err) => {
+            reject(err);
           });
+      })
+      .catch((err) => {
+        reject(err);
       });
   });
 };
-exports.main = (event, context) => {
+exports.main = async (event, context) => {
   console.log(event);
-  let res;
-  if (event.data._id) {
-    res = updatePunch(event.data);
-  } else {
-    res = createPunch(event.data);
+  if (
+    !["comment", "date", "punchGoalId"].every((item) => {
+      return Object.keys(event.data).indexOf(item) >= 0;
+    })
+  ) {
+    return {
+      code: 500,
+      msg: "参数错误！",
+    };
   }
-  return res;
+  try {
+    let res = await checkLimit(event.data);
+    if (!res) {
+      return {
+        code: 403,
+        message: "今天打卡次数达到限制，请勿重复打卡",
+        result: null,
+      };
+    }
+    if (event.data._id) {
+      await updatePunch(event.data);
+      return {
+        code: 200,
+        msg: "修改成功",
+      };
+    } else {
+      await createPunch(event.data);
+      return {
+        code: 200,
+        msg: "新增成功",
+      };
+    }
+  } catch (err) {
+    return {
+      code: 500,
+      msg: "服务器错误！",
+      err,
+    };
+  }
 };

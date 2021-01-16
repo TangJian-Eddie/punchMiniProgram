@@ -44,11 +44,11 @@ Page({
       },
       success: (res) => {
         console.log(res);
-        wx.setStorageSync("userInfo", res.result);
+        wx.setStorageSync("userInfo", res.result.data);
         this.setData({
-          userInfo: res.result,
+          userInfo: res.result.data,
         });
-        this.getData(res.result.userId);
+        this.getData(res.result.data.userId);
       },
       fail: (res) => {
         console.log("登录失败", res);
