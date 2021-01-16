@@ -3,11 +3,11 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const collection = db.collection("users");
 
-const addUser = async (OPENID, userInfo) => {
+const addUser = (OPENID, userInfo) => {
   return new Promise((resolve, reject) => {
     collection
       .doc(OPENID)
-      .set({ data: {...userInfo} })
+      .set({ data: userInfo })
       .then(() => {
         resolve();
       })
@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
       code: 200,
       msg: "登陆成功",
       data: {
-        userId: _openid,
+        userId: OPENID,
         ...userInfo,
       },
     };

@@ -92,7 +92,7 @@ Page({
           hasNext = false;
         }
         this.setData({
-          punchList: this.data.punchList.concat(res.result.list),
+          punchList: this.data.punchList.concat(res.result.data.list),
           "fetchConf.hasNext": hasNext,
         });
       },

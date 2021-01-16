@@ -97,7 +97,7 @@ Page({
       success: (res) => {
         console.log(res);
         this.setData({
-          punchGoalList: res.result.data,
+          punchGoalList: res.result.data.list,
         });
       },
       fail: (res) => {

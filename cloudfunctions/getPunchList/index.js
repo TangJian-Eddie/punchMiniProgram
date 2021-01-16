@@ -37,7 +37,7 @@ const getPunchListTotal = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (
-    !["comment", "date", "punchGoalId"].every((item) => {
+    !["page", "pageSize", "punchGoalId"].every((item) => {
       return Object.keys(event.data).indexOf(item) >= 0;
     })
   ) {
@@ -51,7 +51,7 @@ exports.main = async (event, context) => {
     const list = await getPunchList(event.data);
     return {
       code: 200,
-      msg: "新增成功",
+      msg: "查询成功",
       data: {
         total,
         list,
