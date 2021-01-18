@@ -26,7 +26,7 @@ Page({
             data: {
               id: _id,
             },
-            success: () => {
+            success: (res) => {
               if (res.result.code != 200) {
                 app.toast(res.result.msg);
                 return;
