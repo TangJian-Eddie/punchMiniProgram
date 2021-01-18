@@ -34,8 +34,8 @@ Page({
               punchGoalId,
             },
           }).then((res) => {
-            if (res.result.code != 200) {
-              app.toast(res.result.msg);
+            if (res.code != 200) {
+              app.toast(res.msg);
               return;
             }
             app.toast("删除成功");
@@ -101,11 +101,11 @@ Page({
       },
     }).then((res) => {
       let hasNext = true;
-      if (res.result.total <= page * pageSize) {
+      if (res.total <= page * pageSize) {
         hasNext = false;
       }
       this.setData({
-        punchList: this.data.punchList.concat(res.result.data.list),
+        punchList: this.data.punchList.concat(res.data.list),
         "fetchConf.hasNext": hasNext,
       });
     });
