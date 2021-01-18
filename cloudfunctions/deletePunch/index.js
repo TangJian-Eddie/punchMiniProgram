@@ -29,14 +29,14 @@ const deletePunch = (id, punchGoalId) => {
 
 exports.main = async (event, context) => {
   console.log(event);
-  if (!event.id || !event.punchGoalId) {
+  if (!event.data.id || !event.data.punchGoalId) {
     return {
       code: 400,
       msg: "参数错误！",
     };
   }
   try {
-    await deletePunch(event.id, event.punchGoalId);
+    await deletePunch(event.data.id, event.data.punchGoalId);
     return {
       code: 200,
       msg: "删除成功",

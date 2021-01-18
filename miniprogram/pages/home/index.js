@@ -1,5 +1,6 @@
 // pages/home/index.js
 const app = getApp();
+import { fetch } from "../../utils/fetch";
 Page({
   /**
    * 页面的初始数据
@@ -21,19 +22,16 @@ Page({
       content: "确认删除这个打卡目标",
       success: (result) => {
         if (result.confirm) {
-          wx.cloud.callFunction({
+          fetch({
             name: "deletePunchGoal",
-            data: {
-              id: _id,
-            },
-            success: (res) => {
-              if (res.result.code != 200) {
-                app.toast(res.result.msg);
-                return;
-              }
-              app.toast("删除成功");
-              this.getData(app.globalData.userInfo.userId);
-            },
+            data: { id: _id },
+          }).then((res) => {
+            if (res.code != 200) {
+              app.toast(res.msg);
+              return;
+            }
+            app.toast("删除成功");
+            this.getData(app.globalData.userInfo.userId);
           });
         }
       },
@@ -41,26 +39,19 @@ Page({
   },
 
   getUserInfo(e) {
-    wx.cloud.callFunction({
+    fetch({
       name: "login",
-      data: {
-        userInfo: e.detail.userInfo,
-      },
-      success: (res) => {
-        console.log(res);
-        if (res.result.code != 200) {
-          app.toast(res.result.msg);
-          return;
-        }
-        wx.setStorageSync("userInfo", res.result.data);
-        this.setData({
-          userInfo: res.result.data,
-        });
-        this.getData(res.result.data.userId);
-      },
-      fail: (res) => {
-        console.log("登录失败", res);
-      },
+      data: { userInfo: e.detail.userInfo },
+    }).then((res) => {
+      if (res.code != 200) {
+        app.toast(res.msg);
+        return;
+      }
+      wx.setStorageSync("userInfo", res.data);
+      this.setData({
+        userInfo: res.data,
+      });
+      this.getData(res.data.userId);
     });
   },
 
@@ -95,22 +86,13 @@ Page({
   },
 
   getData(userId) {
-    wx.cloud.callFunction({
+    fetch({
       name: "getPunchGoal",
-      data: {
-        data: {
-          userId,
-        },
-      },
-      success: (res) => {
-        console.log(res);
-        this.setData({
-          punchGoalList: res.result.data.list,
-        });
-      },
-      fail: (res) => {
-        console.log("登录失败", res);
-      },
+      data: { userId },
+    }).then((res) => {
+      this.setData({
+        punchGoalList: res.data.list,
+      });
     });
   },
 

@@ -18,7 +18,7 @@ const addUser = (OPENID, userInfo) => {
 };
 
 exports.main = async (event, context) => {
-  const { userInfo } = event;
+  const { userInfo } = event.data;
   const { OPENID, APPID, UNIONID } = cloud.getWXContext();
   console.log(event);
   console.log(OPENID, APPID, UNIONID);
