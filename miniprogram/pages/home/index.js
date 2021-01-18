@@ -27,8 +27,8 @@ Page({
               id: _id,
             },
             success: () => {
-              if (res.data.code != 200) {
-                app.toast(res.data.msg);
+              if (res.result.code != 200) {
+                app.toast(res.result.msg);
                 return;
               }
               app.toast("删除成功");
@@ -48,8 +48,8 @@ Page({
       },
       success: (res) => {
         console.log(res);
-        if (res.data.code != 200) {
-          app.toast(res.data.msg);
+        if (res.result.code != 200) {
+          app.toast(res.result.msg);
           return;
         }
         wx.setStorageSync("userInfo", res.result.data);

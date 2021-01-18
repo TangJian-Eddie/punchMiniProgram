@@ -33,8 +33,8 @@ Page({
         data: this.data.punch,
       },
       success: (res) => {
-        if (res.data.code != 200) {
-          app.toast(res.data.msg);
+        if (res.result.code != 200) {
+          app.toast(res.result.msg);
           return;
         }
         wx.navigateBack({
