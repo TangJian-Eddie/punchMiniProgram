@@ -1,4 +1,5 @@
 export function formatDate(date, fmt = "YYYY-MM-DD") {
+  if (!(date instanceof Date)) date = new Date(date);
   var o = {
     "M+": date.getMonth() + 1, //月份
     "D+": date.getDate(), //日

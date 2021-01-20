@@ -1,43 +1,53 @@
 /* pages/detail/index.wxss */
-.container {
-  position: relative;
-  width: 90vw;
-  height: 90vh;
-  margin: 5vh 5vw;
+.scroll {
+  height: 70vh;
 }
-.scroll{
-  height:70vh
+.punchGoalTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1dcb96;
 }
-.punchGoalCard {
+/* .punchGoalStatistics  {
+  display: flex;
+  align-items: center;
+} */
+.punchGoalStatistics__title {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+.circle {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #000;
+  margin-right: 15rpx;
+}
+.punchGoalStatistics__item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 16rpx 20rpx;
 }
-.punchGoalCard__content {
-  display: flex;
-  align-items: center;
-}
-.punchGoalCard__content-information {
-  margin-left: 20rpx;
-}
-.punchGoalCard__content-count {
+.punchGoalStatistics__item-count {
   color: #aaaaaa;
 }
-.punchButton {
-  width: 130rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  text-align: center;
-  font-size: 28rpx;
-  color: #fff;
-  background-color: #2fc4ff;
-  border-radius: 35rpx;
-}
-.time{
+.punchGoalCard{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+.main{
+  display: flex;
+  align-items: center;
+}
+.comment {
+  color: #aeaaaa;
+}
+
 .button {
   position: absolute;
   bottom: 0;

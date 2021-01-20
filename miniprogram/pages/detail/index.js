@@ -59,12 +59,6 @@ Page({
       url: `/pages/punch/index?info=${info}&rePunch=1`,
     });
   },
-  toPunch() {
-    const info = JSON.stringify(this.data.info);
-    wx.navigateTo({
-      url: `/pages/punch/index?info=${info}`,
-    });
-  },
   resetData() {
     this.setData({
       punchList: [],

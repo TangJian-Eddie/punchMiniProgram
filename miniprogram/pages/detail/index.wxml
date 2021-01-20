@@ -1,30 +1,46 @@
 <!-- pages/detail/index.wxml -->
-<view class="container">
-		<view class="punchGoalCard">
-				<view class="punchGoalCard__content">
-						<iconfont name="{{info.iconName}}"></iconfont>
-						<view class="punchGoalCard__content-information">
-								<view>{{info.goalName}}</view>
-								<view class="punchGoalCard__content-count">已打卡{{info.count}}天</view>
-						</view>
-				</view>
-				<view bindtap="toPunch" data-id="{{info._id}}" class="punchButton">打卡</view>
-		</view>
-		<view class="time">
-				<view>开始时间</view>
-				<view>{{info.startTime}}</view>
-		</view>
-		<view class="time">
-				<view>结束时间</view>
-				<view>{{info.endTime}}</view>
-		</view>
-		<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll">
-				<slide-delete bind:action="handleAction" wx:for="{{punchList}}" wx:key="index" data-item="{{item}}">
-						<view class="punchGoalCard">
-								<view>{{item.comment}}</view>
-								<view>打卡时间：{{item.date}}</view>
-						</view>
-				</slide-delete>
-		</scroll-view>
-		<view bindtap="rePunch" class="button">补打卡</view>
+<view class="punchGoalTitle">
+		<iconfont name="{{info.iconName}}"></iconfont>
+		<view>{{info.goalName}}</view>
+		<view>变成更优秀的自己</view>
 </view>
+<view class="punchGoalStatistics">
+		<view class="punchGoalStatistics__title">统计</view>
+		<view class="punchGoalStatistics__item">
+				<view class="left">
+						<view class="circle"></view>
+						<view>已打卡</view>
+				</view>
+				<view class="punchGoalStatistics__item-count">{{info.count}}天</view>
+		</view>
+		<view class="punchGoalStatistics__item">
+				<view class="left">
+						<view class="circle"></view>
+						<view>开始时间</view>
+				</view>
+				<view class="punchGoalStatistics__item-count">{{info.startTime}}</view>
+		</view>
+		<view class="punchGoalStatistics__item">
+				<view class="left">
+						<view class="circle"></view>
+						<view>结束时间</view>
+				</view>
+				<view class="punchGoalStatistics__item-count">{{info.endTime}}</view>
+		</view>
+</view>
+<view class="punchGoalStatistics__title">打卡详情</view>
+<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll">
+		<slide-delete bind:action="handleAction" wx:for="{{punchList}}" wx:key="index" data-item="{{item}}">
+				<view class="punchGoalCard">
+						<view class="main">
+								<view class="circle"></view>
+								<view class="content">
+										<view>{{item.date}}</view>
+										<view class="comment">{{item.comment}}</view>
+								</view>
+						</view>
+						<view>45分钟</view>
+				</view>
+		</slide-delete>
+</scroll-view>
+<view bindtap="rePunch" class="button">补打卡</view>
