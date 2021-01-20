@@ -6,7 +6,7 @@
 						<view class="userBox__nickName">{{userInfo.nickName}}</view>
 						<image src="{{userInfo.avatarUrl}}" />
 				</view>
-				<movable-item bind:handleDelete="handleDelete" bind:handleEdit="handleEdit" wx:for="{{punchGoalList}}" data-item="{{item}}">
+				<slide-delete bind:action="handleAction" wx:for="{{punchGoalList}}" wx:key="index" data-item="{{item}}">
 						<view class="punchGoalCard" bindtap="toDetail" data-info="{{item}}">
 								<view class="punchGoalCard__content">
 										<iconfont name="{{item.iconName}}"></iconfont>
@@ -17,7 +17,7 @@
 								</view>
 								<view catchtap="toPunch" data-info="{{item}}" class="punchButton">打卡</view>
 						</view>
-				</movable-item>
+				</slide-delete>
 				<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
 		</view>
 </view>

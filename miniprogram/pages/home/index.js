@@ -9,6 +9,14 @@ Page({
     punchGoalList: [],
   },
 
+  handleAction(e) {
+    const { type } = e.detail;
+    if (type === "edit") {
+      this.handleEdit(e);
+    } else if (type === "delete") {
+      this.handleDelete(e);
+    }
+  },
   handleEdit(e) {
     const punchGoal = JSON.stringify(e.currentTarget.dataset.item);
     wx.navigateTo({

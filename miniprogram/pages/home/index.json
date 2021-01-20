@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "movable-item": "/components/movable-item/index"
+    "slide-delete": "/components/slide-delete/index"
   }
 }
