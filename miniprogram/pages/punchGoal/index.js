@@ -1,4 +1,5 @@
 // pages/punchGoal/index.js
+import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
   /**
@@ -47,24 +48,18 @@ Page({
       ...goal,
       date: new Date(),
     };
-    wx.cloud.callFunction({
+    fetch({
       name: "punchGoal",
-      data: {
-        data,
-      },
-      success: (res) => {
-        console.log(res);
-        if (res.data.code != 200) {
-          app.toast(res.data.msg);
-          return;
-        }
-        wx.navigateBack({
-          delta: 1,
-        });
-      },
-      fail: (res) => {
-        console.log("创建失败", res);
-      },
+      data,
+    }).then((res) => {
+      if (res.code != 200) {
+        app.toast(res.msg);
+        return;
+      }
+      app.toast(res.msg);
+      wx.navigateBack({
+        delta: 1,
+      });
     });
   },
   /**

@@ -1,5 +1,6 @@
 // pages/punch/index.js
 import { formatDate } from "../../utils/formatDate";
+import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
   /**
@@ -27,23 +28,18 @@ Page({
     });
   },
   punch() {
-    wx.cloud.callFunction({
+    fetch({
       name: "punch",
-      data: {
-        data: this.data.punch,
-      },
-      success: (res) => {
-        if (res.data.code != 200) {
-          app.toast(res.data.msg);
-          return;
-        }
-        wx.navigateBack({
-          delta: 1,
-        });
-      },
-      fail: (res) => {
-        console.log("创建失败", res);
-      },
+      data: this.data.punch,
+    }).then((res) => {
+      if (res.code != 200) {
+        app.toast(res.msg);
+        return;
+      }
+      app.toast(res.msg);
+      wx.navigateBack({
+        delta: 1,
+      });
     });
   },
   /**

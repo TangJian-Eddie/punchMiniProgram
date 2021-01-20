@@ -1,4 +1,5 @@
 // pages/detail/index.js
+import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
   /**
@@ -34,20 +35,19 @@ Page({
       content: "确认删除这次打卡记录",
       success: (result) => {
         if (result.confirm) {
-          wx.cloud.callFunction({
+          fetch({
             name: "deletePunch",
             data: {
               id: _id,
               punchGoalId,
             },
-            success: () => {
-              if (res.data.code != 200) {
-                app.toast(res.data.msg);
-                return;
-              }
-              app.toast("删除成功");
-              this.getData(this.data.info._id);
-            },
+          }).then((res) => {
+            if (res.code != 200) {
+              app.toast(res.msg);
+              return;
+            }
+            app.toast("删除成功");
+            this.resetData();
           });
         }
       },
@@ -64,6 +64,17 @@ Page({
     wx.navigateTo({
       url: `/pages/punch/index?info=${info}`,
     });
+  },
+  resetData() {
+    this.setData({
+      punchList: [],
+      fetchConf: {
+        page: 1,
+        pageSize: 10,
+        hasNext: true,
+      },
+    });
+    this.getData(this.data.info._id);
   },
   loadMore() {
     const { page, hasNext } = this.data.fetchConf;
@@ -89,25 +100,22 @@ Page({
   getData(id) {
     const punchGoalId = id;
     const { page, pageSize } = this.data.fetchConf;
-    wx.cloud.callFunction({
+    fetch({
       name: "getPunchList",
       data: {
-        data: {
-          punchGoalId,
-          page,
-          pageSize,
-        },
+        punchGoalId,
+        page,
+        pageSize,
       },
-      success: (res) => {
-        let hasNext = true;
-        if (res.result.total <= page * pageSize) {
-          hasNext = false;
-        }
-        this.setData({
-          punchList: this.data.punchList.concat(res.result.data.list),
-          "fetchConf.hasNext": hasNext,
-        });
-      },
+    }).then((res) => {
+      let hasNext = true;
+      if (res.total <= page * pageSize) {
+        hasNext = false;
+      }
+      this.setData({
+        punchList: this.data.punchList.concat(res.data.list),
+        "fetchConf.hasNext": hasNext,
+      });
     });
   },
   /**
@@ -119,15 +127,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      punchList: [],
-      fetchConf: {
-        page: 1,
-        pageSize: 10,
-        hasNext: true,
-      },
-    });
-    this.getData(this.data.info._id);
+    this.resetData();
   },
 
   /**
