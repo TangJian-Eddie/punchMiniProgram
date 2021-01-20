@@ -76,7 +76,11 @@ exports.main = async (event, context) => {
   console.log(event);
   if (
     !["comment", "date", "punchGoalId"].every((item) => {
-      return Object.keys(event.data).indexOf(item) >= 0;
+      return (
+        event.data[item] !== "" ||
+        event.data[item] !== null ||
+        event.data[item] !== undefined
+      );
     })
   ) {
     return {
@@ -84,6 +88,7 @@ exports.main = async (event, context) => {
       msg: "参数错误！",
     };
   }
+  event.data.date = new Date(event.data.date);
   try {
     let res = await checkLimit(event.data);
     if (!res) {

@@ -11,8 +11,9 @@ Page({
     punch: {
       punchGoalId: "",
       comment: "",
-      date: "",
+      date: null,
     },
+    showDate: "",
     firstPunch: true,
     timeText: "打卡时间",
   },
@@ -23,8 +24,9 @@ Page({
     });
   },
   timePick(e) {
+    this.data.punch.date = new Date(e.detail.value);
     this.setData({
-      "punch.date": e.detail.value,
+      showDate: e.detail.value,
     });
   },
   punch() {
@@ -48,24 +50,23 @@ Page({
   onLoad: function (options) {
     if (options.info) {
       const info = JSON.parse(options.info);
-      this.setData({
-        info,
-        "punch.punchGoalId": info._id,
-        "punch.date": formatDate(new Date()),
-      });
+      this.data.punch.punchGoalId = info._id;
+      this.data.punch.date = new Date();
+      this.setData({ info });
     }
     // 修改打卡
     if (options.punch) {
       const punch = JSON.parse(options.punch);
       this.setData({
         punch,
+        showDate: formatDate(punch.date),
         firstPunch: false,
       });
     }
     // 补打卡
     if (options.rePunch) {
+      this.data.punch.date = null;
       this.setData({
-        "punch.date": "",
         firstPunch: false,
         timeText: "补打卡时间",
       });

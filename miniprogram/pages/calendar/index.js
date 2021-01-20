@@ -4,9 +4,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    year: (new Date).getFullYear(),
-    month: (new Date).getMonth()+1,
-    date: (new Date).getDate()
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
   },
 
   afterTapDate(e) {
@@ -22,8 +22,33 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    // if (app.globalData.userInfo) {
+    //   this.getData(app.globalData.userInfo.userId)
+    // }
+  },
 
+  getData(id) {
+    const punchGoalId = id;
+    const { page, pageSize } = this.data.fetchConf;
+    fetch({
+      name: "getPunchList",
+      data: {
+        punchGoalId,
+        page,
+        pageSize,
+      },
+    }).then((res) => {
+      let hasNext = true;
+      if (res.total <= page * pageSize) {
+        hasNext = false;
+      }
+      this.setData({
+        punchList: this.data.punchList.concat(res.data.list),
+        "fetchConf.hasNext": hasNext,
+      });
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

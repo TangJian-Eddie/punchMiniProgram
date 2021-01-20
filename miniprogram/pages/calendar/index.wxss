@@ -1,1 +1,21 @@
 /* pages/calendar/index.wxss */
+.title {
+  display: flex;
+  align-items: center;
+  background-color: #fdf8cd;
+  padding: 30rpx;
+}
+.date {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+.year-status {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+}
+.status-suc {
+  color: #7fffd4;
+}
+.status-fail {
+  color: #f08080;
+}

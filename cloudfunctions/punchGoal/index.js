@@ -43,13 +43,21 @@ exports.main = async (event, context) => {
   ];
   if (
     !params.every((item) => {
-      return Object.keys(event.data).indexOf(item) >= 0;
+      return (
+        event.data[item] !== "" ||
+        event.data[item] !== null ||
+        event.data[item] !== undefined
+      );
     })
   ) {
     return {
       code: 500,
       msg: "参数错误！",
     };
+  }
+  const dateList = ["startTime", "endTime", "date"];
+  for (let item of dateList) {
+    event.data[item] = new Date(event.data[item]);
   }
   try {
     if (event.data._id) {

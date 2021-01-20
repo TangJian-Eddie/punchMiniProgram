@@ -1,4 +1,5 @@
 // pages/punchGoal/index.js
+import { formatDate } from "../../utils/formatDate";
 import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
@@ -14,6 +15,8 @@ Page({
       endTime: "",
       punchTimes: 1,
     },
+    showstartTime: "",
+    showendTime: "",
   },
   chooseImage(e) {
     const { name } = e.currentTarget.dataset;
@@ -29,8 +32,9 @@ Page({
   },
   timePick(e) {
     const { type } = e.currentTarget.dataset;
+    this.data.goal[type] = new Date(e.detail.value);
     this.setData({
-      [`goal.${type}`]: e.detail.value,
+      [`show${type}`]: e.detail.value,
     });
   },
   createPunchGoal() {
@@ -70,6 +74,8 @@ Page({
       const punchGoal = JSON.parse(options.punchGoal);
       this.setData({
         goal: punchGoal,
+        showstartTime: formatDate(punchGoal.startTime),
+        showendTime: formatDate(punchGoal.endTime),
       });
     }
   },
