@@ -1,4 +1,6 @@
 // pages/calendar/index.js
+const app = getApp();
+import { fetch } from "../../utils/fetch";
 Page({
   /**
    * 页面的初始数据
@@ -22,30 +24,33 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    // if (app.globalData.userInfo) {
-    //   this.getData(app.globalData.userInfo.userId)
-    // }
+  onLoad: function () {
+    this.setData(
+      {
+        userId: app.globalData.userInfo.userId,
+      },
+      () => {
+        this.getData();
+      }
+    );
   },
 
   getData(id) {
-    const punchGoalId = id;
-    const { page, pageSize } = this.data.fetchConf;
+    if (!app.globalData.userInfo) {
+      app.toast("请返回首页登陆");
+      return;
+    }
+    const { userId, year, month } = this.data;
     fetch({
-      name: "getPunchList",
+      name: "getPunchByMonth",
       data: {
-        punchGoalId,
-        page,
-        pageSize,
+        userId,
+        year,
+        month,
       },
     }).then((res) => {
-      let hasNext = true;
-      if (res.total <= page * pageSize) {
-        hasNext = false;
-      }
       this.setData({
-        punchList: this.data.punchList.concat(res.data.list),
-        "fetchConf.hasNext": hasNext,
+        [`punchList${year}${month}`]: res.data.list,
       });
     });
   },
