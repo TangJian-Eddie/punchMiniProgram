@@ -1,11 +1,23 @@
 <!-- pages/calendar/index.wxml -->
 <view class="title">
-  <view class="date">{{month}}月{{date}}日</view>
-  <view class="year-status">
-    <view class="year">{{year}}</view>
-    <view class="status-suc" wx:if="{{isPunch}}">完成了{{punchTimes}}打卡</view>
-    <view class="status-fail" wx:else>当天未打卡</view>
-  </view>
+	<view class="date">{{month}}月{{date}}日</view>
+	<view class="year-status">
+		<view class="year">{{year}}</view>
+		<view class="status-suc" wx:if="{{showTodoLabel}}">完成了{{punchTimes}}打卡</view>
+		<view class="status-fail" wx:else>当天未打卡</view>
+	</view>
 </view>
-<calendar bind:afterTapDate="afterTapDate" bind:onSwipe="onSwipe" bind:whenChangeMonth="whenChangeMonth"></calendar>
+<calendar
+ id="calendar"
+ bind:afterTapDate="afterTapDate"
+ bind:whenChangeMonth="whenChangeMonth"
+></calendar>
 <view>我在这一天</view>
+<view wx:for="{{todayPunch}}" class="punchList">
+	<iconfont name="{{item.iconName}}"></iconfont>
+	<view class="punchList__content">
+		<view>{{item.goalName}}</view>
+		<view>{{item.comment}}</view>
+	</view>
+</view>
+

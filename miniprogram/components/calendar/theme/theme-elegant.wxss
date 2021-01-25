@@ -36,6 +36,7 @@
 
 .elegant_todo-circle {
   border-color: #161035;
+  background-color: #fdec98;
 }
 
 .elegant_todo-dot {

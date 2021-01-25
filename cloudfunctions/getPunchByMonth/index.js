@@ -6,7 +6,7 @@ const collection = db.collection("punch");
 
 const getPunchByMonth = (data) => {
   const { userId, year, month } = data;
-  return new Promise( (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     collection
       .aggregate()
       .project({
@@ -16,12 +16,14 @@ const getPunchByMonth = (data) => {
         userId: true,
         punchYear: $.year("$date"),
         punchMonth: $.month("$date"),
+        punchDate: $.dayOfMonth("$date"),
       })
       .match({
         userId,
         punchYear: year,
         punchMonth: month,
       })
+      .sort({ date: -1 })
       .end()
       .then((res) => {
         resolve(res.list);

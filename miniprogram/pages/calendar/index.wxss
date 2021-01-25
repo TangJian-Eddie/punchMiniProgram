@@ -19,3 +19,11 @@
 .status-fail {
   color: #f08080;
 }
+.punchList{
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+}
+.punchList__content{
+  margin-left: 30rpx;
+}

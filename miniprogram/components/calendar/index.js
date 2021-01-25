@@ -1,4 +1,5 @@
 import plugins from "./plugins/index";
+import todo from "./plugins/todo";
 import { calcJumpData } from "./core";
 import { renderCalendar } from "./render";
 import { calcTargetYMInfo } from "./helper";
@@ -87,6 +88,7 @@ Component({
           config,
         },
         () => {
+          plugins.use(todo);
           for (let plugin of plugins.installed) {
             const [, p] = plugin;
             if (typeof p.install === "function") {
