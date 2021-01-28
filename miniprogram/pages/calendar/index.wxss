@@ -19,11 +19,27 @@
 .status-fail {
   color: #f08080;
 }
-.punchList{
-  display: flex;
-  align-items: center;
+.punchList {
   margin-left: 30rpx;
 }
-.punchList__content{
+.punchList__content {
+  display: flex;
+  align-items: center;
+}
+.punchList__content-main {
   margin-left: 30rpx;
+}
+.punchList__title {
+  display: flex;
+  align-items: center;
+}
+.punchList__title > view{
+  margin-left: 18rpx;
+}
+.circle {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #000;
+  margin:0 25rpx;
 }

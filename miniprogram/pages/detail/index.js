@@ -73,6 +73,7 @@ Page({
   loadMore() {
     const { page, hasNext } = this.data.fetchConf;
     if (hasNext) {
+      console.log("load more...");
       this.setData({
         "fetchConf.page": page + 1,
       });
@@ -103,7 +104,7 @@ Page({
       },
     }).then((res) => {
       let hasNext = true;
-      if (res.total <= page * pageSize) {
+      if (res.data.total <= page * pageSize) {
         hasNext = false;
       }
       this.setData({

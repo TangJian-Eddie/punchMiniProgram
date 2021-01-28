@@ -1,6 +1,6 @@
 /* pages/detail/index.wxss */
 .scroll {
-  height: 70vh;
+  height: 60vh;
 }
 .punchGoalTitle {
   display: flex;
@@ -8,11 +8,13 @@
   justify-content: space-around;
   align-items: center;
   background-color: #1dcb96;
+  height: 16vh;
 }
-/* .punchGoalStatistics  {
-  display: flex;
-  align-items: center;
-} */
+.container {
+  position: relative;
+  height: 82vh;
+  margin: 0 5vw 2vh;
+}
 .punchGoalStatistics__title {
   font-size: 40rpx;
   font-weight: 600;
@@ -35,12 +37,13 @@
 .punchGoalStatistics__item-count {
   color: #aaaaaa;
 }
-.punchGoalCard{
+.punchGoalCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20rpx 0;
 }
-.main{
+.main {
   display: flex;
   align-items: center;
 }
