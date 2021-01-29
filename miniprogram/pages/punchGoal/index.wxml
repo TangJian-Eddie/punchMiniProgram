@@ -2,10 +2,7 @@
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="container">
 		<view class="punchIcon">
-				<iconfont name="kaoyan" data-name="kaoyan" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == 'kaoyan'}}"></iconfont>
-				<iconfont name="jianshen" data-name="jianshen" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == 'jianshen'}}"></iconfont>
-				<iconfont name="heshui" data-name="heshui" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == 'heshui'}}"></iconfont>
-				<iconfont name="paobu" data-name="paobu" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == 'paobu'}}"></iconfont>
+				<iconfont wx:for="{{iconfontList}}" wx:key="index" name="{{item}}" data-name="{{item}}" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == item}}"></iconfont>
 		</view>
 		<view class="inputContainer">
 				<view>习惯名称</view>
@@ -27,7 +24,9 @@
 				<switch bindchange="switchChange" checked="{{isEndTime}}"></switch>
 		</view>
 		<picker mode="date" value="{{utils.substrvalue(goal.endTime,0,10)}}" bindchange="timePick" data-type="endTime">
-				<view wx:if="{{goal.endTime && isEndTime}}" class="endTimeContainer">{{utils.substrvalue(goal.endTime,0,10)}}</view>
+				<view wx:if="{{goal.endTime && isEndTime}}" class="endTimeContainer">
+						{{utils.substrvalue(goal.endTime,0,10)}}
+				</view>
 				<view wx:if="{{isEndTime && !goal.endTime}}" class="tip endTimeContainer">请选择结束时间</view>
 		</picker>
 		<view class="numberInputContainer">

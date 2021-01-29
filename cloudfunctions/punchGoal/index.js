@@ -34,45 +34,29 @@ exports.main = async (event, context) => {
   console.log(event);
   const params = ["goalName", "iconName", "punchTimes", "startTime"];
   if (
-    !params.every((item) => {
-      return (
+    !params.every(
+      (item) =>
         event.data[item] !== "" &&
         event.data[item] !== null &&
         event.data[item] !== undefined
-      );
-    })
+    )
   ) {
-    return {
-      code: 500,
-      msg: "参数错误！",
-    };
+    return { code: 500, msg: "参数错误！" };
   }
   event.data.date = new Date();
-  const { OPENID } = cloud.getWXContext();
-  event.data.userId = OPENID;
-  const dateList = ["startTime", "endTime"];
-  for (let item of dateList) {
+  event.data.userId = cloud.getWXContext().OPENID;
+  for (const item of ["startTime", "endTime"]) {
     event.data[item] = event.data[item] ? new Date(event.data[item]) : null;
   }
   try {
     if (event.data._id) {
       await updatePunchGoal(event.data);
-      return {
-        code: 200,
-        msg: "修改成功",
-      };
+      return { code: 200, msg: "修改成功" };
     } else {
       await createPunchGoal(event.data);
-      return {
-        code: 200,
-        msg: "新增成功",
-      };
+      return { code: 200, msg: "新增成功" };
     }
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

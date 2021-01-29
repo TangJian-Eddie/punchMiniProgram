@@ -21,10 +21,9 @@ const getPunchList = (data) => {
   });
 };
 const getPunchListTotal = (data) => {
-  const { punchGoalId } = data;
   return new Promise(async (resolve, reject) => {
     collection
-      .where({ punchGoalId })
+      .where({ punchGoalId: data.punchGoalId })
       .count()
       .then((res) => {
         resolve(res.total);
@@ -37,31 +36,17 @@ const getPunchListTotal = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (
-    !["page", "pageSize", "punchGoalId"].every((item) => {
-      return Object.keys(event.data).indexOf(item) >= 0;
-    })
+    !["page", "pageSize", "punchGoalId"].every(
+      (item) => Object.keys(event.data).indexOf(item) >= 0
+    )
   ) {
-    return {
-      code: 500,
-      msg: "参数错误！",
-    };
+    return { code: 500, msg: "参数错误！" };
   }
   try {
     const total = await getPunchListTotal(event.data);
     const list = await getPunchList(event.data);
-    return {
-      code: 200,
-      msg: "查询成功",
-      data: {
-        total,
-        list,
-      },
-    };
+    return { code: 200, msg: "查询成功", data: { total, list } };
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

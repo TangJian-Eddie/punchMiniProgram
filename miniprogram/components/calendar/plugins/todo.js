@@ -67,7 +67,7 @@ export default () => {
             circle = true,
             dotColor = '',
             pos = 'bottom',
-            showLabelAlways,
+            showLabelAlways = true,
             dates: todoDates = []
           } = options
           const { todos = [] } = calendar

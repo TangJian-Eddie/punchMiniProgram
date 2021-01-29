@@ -27,16 +27,9 @@ exports.main = async (event, context) => {
     return {
       code: 200,
       msg: "登陆成功",
-      data: {
-        userId: OPENID,
-        ...userInfo,
-      },
+      data: { userId: OPENID, ...userInfo },
     };
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

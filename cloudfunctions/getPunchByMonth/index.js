@@ -18,11 +18,7 @@ const getPunchByMonth = (data) => {
         punchMonth: $.month("$date"),
         punchDate: $.dayOfMonth("$date"),
       })
-      .match({
-        userId,
-        punchYear: year,
-        punchMonth: month,
-      })
+      .match({ userId, punchYear: year, punchMonth: month })
       .sort({ date: -1 })
       .end()
       .then((res) => {
@@ -36,29 +32,16 @@ const getPunchByMonth = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (
-    !["userId", "year", "month"].every((item) => {
-      return Object.keys(event.data).indexOf(item) >= 0;
-    })
+    !["userId", "year", "month"].every(
+      (item) => Object.keys(event.data).indexOf(item) >= 0
+    )
   ) {
-    return {
-      code: 500,
-      msg: "参数错误！",
-    };
+    return { code: 500, msg: "参数错误！" };
   }
   try {
     const list = await getPunchByMonth(event.data);
-    return {
-      code: 200,
-      msg: "查询成功",
-      data: {
-        list,
-      },
-    };
+    return { code: 200, msg: "查询成功", data: { list } };
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

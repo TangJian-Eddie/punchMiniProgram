@@ -20,25 +20,12 @@ const getPunchGoalList = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (!event.data.userId) {
-    return {
-      code: 500,
-      msg: "参数错误！",
-    };
+    return { code: 500, msg: "参数错误！" };
   }
   try {
     const list = await getPunchGoalList(event.data);
-    return {
-      code: 200,
-      msg: "查询成功",
-      data: {
-        list,
-      },
-    };
+    return { code: 200, msg: "查询成功", data: { list } };
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

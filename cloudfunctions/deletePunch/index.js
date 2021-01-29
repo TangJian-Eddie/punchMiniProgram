@@ -30,22 +30,12 @@ const deletePunch = (id, punchGoalId) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (!event.data.id || !event.data.punchGoalId) {
-    return {
-      code: 400,
-      msg: "参数错误！",
-    };
+    return { code: 400, msg: "参数错误！" };
   }
   try {
     await deletePunch(event.data.id, event.data.punchGoalId);
-    return {
-      code: 200,
-      msg: "删除成功",
-    };
+    return { code: 200, msg: "删除成功" };
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userId: app.globalData.userInfo.userId,
     goal: {
       iconName: "",
       goalName: "",
@@ -16,29 +15,26 @@ Page({
       punchTimes: 1,
     },
     isEndTime: false,
+    iconfontList: ["kaoyan", "jianshen", "heshui", "paobu"],
   },
   chooseImage(e) {
     const { name } = e.currentTarget.dataset;
-    this.setData({
-      "goal.iconName": name,
-    });
+    if (this.data.goal.iconName) {
+      this.setData({ "goal.iconName": "" });
+      return;
+    }
+    this.setData({ "goal.iconName": name });
   },
   inputChange(e) {
     const { type } = e.currentTarget.dataset;
-    this.setData({
-      [`goal.${type}`]: e.detail.value,
-    });
+    this.setData({ [`goal.${type}`]: e.detail.value });
   },
   switchChange(e) {
-    this.setData({
-      isEndTime: e.detail.value,
-    });
+    this.setData({ isEndTime: e.detail.value });
   },
   timePick(e) {
     const { type } = e.currentTarget.dataset;
-    this.setData({
-      [`goal.${type}`]: e.detail.value,
-    });
+    this.setData({ [`goal.${type}`]: e.detail.value });
   },
   createPunchGoal() {
     const { goal } = this.data;
@@ -51,18 +47,13 @@ Page({
       app.toast("有未填写完成的信息");
       return;
     }
-    const data = goal;
     fetch({
       name: "punchGoal",
-      data,
+      data: goal,
     }).then((res) => {
       app.toast(res.msg);
-      if (res.code != 200) {
-        return;
-      }
-      wx.navigateBack({
-        delta: 1,
-      });
+      if (res.code != 200) return;
+      wx.navigateBack();
     });
   },
   /**
@@ -71,13 +62,9 @@ Page({
   onLoad: function (options) {
     if (options.punchGoal) {
       const punchGoal = JSON.parse(options.punchGoal);
-      this.setData({
-        goal: punchGoal,
-      });
+      this.setData({ goal: punchGoal });
       if (punchGoal.endTime) {
-        this.setData({
-          isEndTime: true,
-        });
+        this.setData({ isEndTime: true });
       }
     }
   },

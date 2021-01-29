@@ -56,7 +56,6 @@ const checkLimit = (data) => {
           .where({ date, punchGoalId })
           .count()
           .then((res) => {
-            console.log(punchTimesRes, res);
             if (punchTimesRes.data.punchTimes > res.total) {
               resolve(true);
             } else {
@@ -75,22 +74,17 @@ const checkLimit = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (
-    !["comment", "date", "punchGoalId"].every((item) => {
-      return (
+    !["comment", "date", "punchGoalId"].every(
+      (item) =>
         event.data[item] !== "" &&
         event.data[item] !== null &&
         event.data[item] !== undefined
-      );
-    })
+    )
   ) {
-    return {
-      code: 500,
-      msg: "参数错误！",
-    };
+    return { code: 500, msg: "参数错误！" };
   }
   event.data.date = new Date(event.data.date);
-  const { OPENID } = cloud.getWXContext();
-  event.data.userId = OPENID;
+  event.data.userId = cloud.getWXContext().OPENID;
   try {
     let res = await checkLimit(event.data);
     if (!res) {
@@ -102,22 +96,12 @@ exports.main = async (event, context) => {
     }
     if (event.data._id) {
       await updatePunch(event.data);
-      return {
-        code: 200,
-        msg: "修改成功",
-      };
+      return { code: 200, msg: "修改成功" };
     } else {
       await createPunch(event.data);
-      return {
-        code: 200,
-        msg: "新增成功",
-      };
+      return { code: 200, msg: "新增成功" };
     }
   } catch (err) {
-    return {
-      code: 500,
-      msg: "服务器错误！",
-      err,
-    };
+    return { code: 500, msg: "服务器错误！", err };
   }
 };

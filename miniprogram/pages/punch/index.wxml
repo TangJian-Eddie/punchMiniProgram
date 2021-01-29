@@ -4,7 +4,7 @@
 		<iconfont name="{{info.iconName}}"></iconfont>
 		<view>{{info.goalName}}</view>
 		<textarea bindinput="inputChange" value="{{punch.comment}}" placeholder="请输入备注..."></textarea>
-		<picker mode="date" value="{{utils.substrvalue(punch.date,0,10)}}" bindchange="timePick" wx:if="{{!firstPunch}}">
+		<picker mode="date" value="{{utils.substrvalue(punch.date,0,10)}}" bindchange="timePick" wx:if="{{!todayPunch}}">
 				<view class="picker">
 						<view>{{timeText}}</view>
 						<view wx:if="{{punch.date}}">{{utils.substrvalue(punch.date,0,10)}}</view>

@@ -20,26 +20,23 @@ Page({
   },
   handleEdit(e) {
     const punchGoal = JSON.stringify(e.currentTarget.dataset.item);
-    wx.navigateTo({
-      url: `/pages/punchGoal/index?punchGoal=${punchGoal}`,
-    });
+    wx.navigateTo({ url: `/pages/punchGoal/index?punchGoal=${punchGoal}` });
   },
   handleDelete(e) {
-    const { _id } = e.currentTarget.dataset.item;
+    const { item, index } = e.currentTarget.dataset;
     wx.showModal({
       content: "确认删除这个打卡目标",
       success: (result) => {
         if (result.confirm) {
           fetch({
             name: "deletePunchGoal",
-            data: { id: _id },
+            data: { id: item._id },
           }).then((res) => {
-            if (res.code != 200) {
-              app.toast(res.msg);
-              return;
-            }
-            app.toast("删除成功");
-            this.getData(app.globalData.userInfo.userId);
+            app.toast(res.msg);
+            if (res.code != 200) return;
+            const { punchGoalList } = this.data;
+            punchGoalList.splice(index, 1);
+            this.setData({ punchGoalList });
           });
         }
       },
@@ -56,30 +53,21 @@ Page({
         return;
       }
       wx.setStorageSync("userInfo", res.data);
-      this.setData({
-        userInfo: res.data,
-      });
+      this.setData({ userInfo: res.data });
       this.getData(res.data.userId);
     });
   },
 
   toCreatePunchGoal() {
-    wx.navigateTo({
-      url: "/pages/punchGoal/index",
-    });
+    wx.navigateTo({ url: "/pages/punchGoal/index" });
   },
-
   toDetail(e) {
     const info = JSON.stringify(e.currentTarget.dataset.info);
-    wx.navigateTo({
-      url: `/pages/detail/index?info=${info}`,
-    });
+    wx.navigateTo({ url: `/pages/detail/index?info=${info}` });
   },
   toPunch(e) {
     const info = JSON.stringify(e.currentTarget.dataset.info);
-    wx.navigateTo({
-      url: `/pages/punch/index?info=${info}`,
-    });
+    wx.navigateTo({ url: `/pages/punch/index?info=${info}` });
   },
 
   /**
@@ -87,9 +75,7 @@ Page({
    */
   onLoad: function (options) {
     if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-      });
+      this.setData({ userInfo: app.globalData.userInfo });
     }
   },
 
@@ -98,9 +84,7 @@ Page({
       name: "getPunchGoal",
       data: { userId },
     }).then((res) => {
-      this.setData({
-        punchGoalList: res.data.list,
-      });
+      this.setData({ punchGoalList: res.data.list });
     });
   },
 
