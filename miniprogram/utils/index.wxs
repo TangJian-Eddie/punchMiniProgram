@@ -1,0 +1,13 @@
+var substrvalue = function (value, star, end, omitte = false) {
+  if (value && value.length > end) {
+    var res = omitte
+      ? value.substring(star, end - 1) + '...'
+      : value.substring(star, end);
+    return res;
+  }
+  return value;
+};
+
+module.exports = {
+  substrvalue: substrvalue,
+};

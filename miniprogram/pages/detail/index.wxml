@@ -1,8 +1,9 @@
 <!-- pages/detail/index.wxml -->
+<wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="punchGoalTitle">
 		<iconfont name="{{info.iconName}}"></iconfont>
 		<view>{{info.goalName}}</view>
-		<view>变成更优秀的自己</view>
+		<view>{{info.comment}}</view>
 </view>
 <view class="container">
 		<view class="punchGoalStatistics">
@@ -19,24 +20,24 @@
 								<view class="circle"></view>
 								<view>开始时间</view>
 						</view>
-						<view class="punchGoalStatistics__item-count">{{info.startTime}}</view>
+						<view class="punchGoalStatistics__item-count">{{utils.substrvalue(info.startTime,0,10)}}</view>
 				</view>
-				<view class="punchGoalStatistics__item">
+				<view class="punchGoalStatistics__item" wx:if="{{info.endTime}}">
 						<view class="left">
 								<view class="circle"></view>
 								<view>结束时间</view>
 						</view>
-						<view class="punchGoalStatistics__item-count">{{info.endTime}}</view>
+						<view class="punchGoalStatistics__item-count">{{utils.substrvalue(info.endTime,0,10)}}</view>
 				</view>
 		</view>
 		<view class="punchGoalStatistics__title">打卡详情</view>
-		<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll">
+		<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
 				<slide-delete bind:action="handleAction" wx:for="{{punchList}}" wx:key="index" data-item="{{item}}">
 						<view class="punchGoalCard">
 								<view class="main">
 										<view class="circle"></view>
 										<view class="content">
-												<view>{{item.date}}</view>
+												<view>{{utils.substrvalue(info.date,0,10)}}</view>
 												<view class="comment">{{item.comment}}</view>
 										</view>
 								</view>

@@ -77,8 +77,8 @@ exports.main = async (event, context) => {
   if (
     !["comment", "date", "punchGoalId"].every((item) => {
       return (
-        event.data[item] !== "" ||
-        event.data[item] !== null ||
+        event.data[item] !== "" &&
+        event.data[item] !== null &&
         event.data[item] !== undefined
       );
     })
@@ -89,6 +89,8 @@ exports.main = async (event, context) => {
     };
   }
   event.data.date = new Date(event.data.date);
+  const { OPENID } = cloud.getWXContext();
+  event.data.userId = OPENID;
   try {
     let res = await checkLimit(event.data);
     if (!res) {

@@ -1,5 +1,4 @@
 // pages/punchGoal/index.js
-import { formatDate } from "../../utils/formatDate";
 import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
@@ -11,12 +10,12 @@ Page({
     goal: {
       iconName: "",
       goalName: "",
+      comment: "",
       startTime: "",
       endTime: "",
       punchTimes: 1,
     },
-    showstartTime: "",
-    showendTime: "",
+    isEndTime: false,
   },
   chooseImage(e) {
     const { name } = e.currentTarget.dataset;
@@ -30,37 +29,37 @@ Page({
       [`goal.${type}`]: e.detail.value,
     });
   },
+  switchChange(e) {
+    this.setData({
+      isEndTime: e.detail.value,
+    });
+  },
   timePick(e) {
     const { type } = e.currentTarget.dataset;
-    this.data.goal[type] = new Date(e.detail.value);
     this.setData({
-      [`show${type}`]: e.detail.value,
+      [`goal.${type}`]: e.detail.value,
     });
   },
   createPunchGoal() {
     const { goal } = this.data;
     if (
       Object.keys(goal).some((value) => {
+        if (value == "comment" || value == "endTime") return false;
         return goal[value] === "";
       })
     ) {
       app.toast("有未填写完成的信息");
       return;
     }
-    const data = {
-      userId: this.data.userId,
-      ...goal,
-      date: new Date(),
-    };
+    const data = goal;
     fetch({
       name: "punchGoal",
       data,
     }).then((res) => {
+      app.toast(res.msg);
       if (res.code != 200) {
-        app.toast(res.msg);
         return;
       }
-      app.toast(res.msg);
       wx.navigateBack({
         delta: 1,
       });
@@ -74,9 +73,12 @@ Page({
       const punchGoal = JSON.parse(options.punchGoal);
       this.setData({
         goal: punchGoal,
-        showstartTime: formatDate(punchGoal.startTime),
-        showendTime: formatDate(punchGoal.endTime),
       });
+      if (punchGoal.endTime) {
+        this.setData({
+          isEndTime: true,
+        });
+      }
     }
   },
 });

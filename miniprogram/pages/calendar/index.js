@@ -39,6 +39,18 @@ Page({
     const { year, month } = e.detail.next;
     if (!this.data[`punchList-${year}-${month}`]) {
       this.getData(year, month);
+    }else{
+      let dates = [];
+      for (let item of this.data[`punchList-${year}-${month}`]) {
+        dates.push({
+          year: item.punchYear,
+          month: item.punchMonth,
+          date: item.punchDate,
+          todoText: { comment: item.comment, punchGoalId: item.punchGoalId },
+        });
+      }
+      const calendar = this.selectComponent("#calendar").calendar;
+      calendar.setTodos({ dates });
     }
   },
   /**
@@ -92,10 +104,7 @@ Page({
           todoText: { comment: item.comment, punchGoalId: item.punchGoalId },
         });
       }
-      console.log(dates);
-      this.setData({
-        [`punchList-${year}-${month}`]: res.data.list,
-      });
+      this.data[`punchList-${year}-${month}`] = res.data.list
       const calendar = this.selectComponent("#calendar").calendar;
       calendar.setTodos({ dates });
     });

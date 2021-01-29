@@ -3,7 +3,7 @@
 		<view class="date">{{month}}月{{date}}日</view>
 		<view class="year-status">
 				<view class="year">{{year}}</view>
-				<view class="status-suc" wx:if="{{showTodoLabel}}">完成了{{punchTimes}}打卡</view>
+				<view class="status-suc" wx:if="{{showTodoLabel}}">完成了打卡</view>
 				<view class="status-fail" wx:else>当天未打卡</view>
 		</view>
 </view>

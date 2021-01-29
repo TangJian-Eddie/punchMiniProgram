@@ -32,20 +32,12 @@ const updatePunchGoal = (data) => {
 };
 exports.main = async (event, context) => {
   console.log(event);
-  const params = [
-    "goalName",
-    "iconName",
-    "punchTimes",
-    "startTime",
-    "endTime",
-    "userId",
-    "date",
-  ];
+  const params = ["goalName", "iconName", "punchTimes", "startTime"];
   if (
     !params.every((item) => {
       return (
-        event.data[item] !== "" ||
-        event.data[item] !== null ||
+        event.data[item] !== "" &&
+        event.data[item] !== null &&
         event.data[item] !== undefined
       );
     })
@@ -55,9 +47,12 @@ exports.main = async (event, context) => {
       msg: "参数错误！",
     };
   }
-  const dateList = ["startTime", "endTime", "date"];
+  event.data.date = new Date();
+  const { OPENID } = cloud.getWXContext();
+  event.data.userId = OPENID;
+  const dateList = ["startTime", "endTime"];
   for (let item of dateList) {
-    event.data[item] = new Date(event.data[item]);
+    event.data[item] = event.data[item] ? new Date(event.data[item]) : null;
   }
   try {
     if (event.data._id) {

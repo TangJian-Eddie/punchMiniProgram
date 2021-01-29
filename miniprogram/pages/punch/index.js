@@ -1,5 +1,4 @@
 // pages/punch/index.js
-import { formatDate } from "../../utils/formatDate";
 import { fetch } from "../../utils/fetch";
 const app = getApp();
 Page({
@@ -13,7 +12,6 @@ Page({
       comment: "",
       date: null,
     },
-    showDate: "",
     firstPunch: true,
     timeText: "打卡时间",
   },
@@ -24,9 +22,8 @@ Page({
     });
   },
   timePick(e) {
-    this.data.punch.date = new Date(e.detail.value);
     this.setData({
-      showDate: e.detail.value,
+      'punch.date': e.detail.value,
     });
   },
   punch() {
@@ -59,7 +56,6 @@ Page({
       const punch = JSON.parse(options.punch);
       this.setData({
         punch,
-        showDate: formatDate(punch.date),
         firstPunch: false,
       });
     }
