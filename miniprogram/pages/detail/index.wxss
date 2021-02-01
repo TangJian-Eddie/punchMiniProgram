@@ -1,23 +1,32 @@
 /* pages/detail/index.wxss */
 .scroll {
-  height: 60vh;
+  height: 55vh;
 }
 .punchGoalTitle {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  background-color: #1dcb96;
-  height: 16vh;
+  background-color: #5fc79a;
+  height: 20vh;
+  color: #fff;
+}
+.iconfont{
+  background-color: #fff;
+  border-radius: 50%;
+}
+.goalName{
+  margin: 16rpx 0;
 }
 .container {
   position: relative;
   height: 82vh;
-  margin: 0 5vw 2vh;
+  margin: 1.5vh 5vw 2vh;
 }
 .punchGoalStatistics__title {
   font-size: 40rpx;
   font-weight: 600;
+  margin-top: 22rpx;
 }
 .left {
   display: flex;
@@ -33,22 +42,19 @@
 .punchGoalStatistics__item {
   display: flex;
   justify-content: space-between;
+  margin: 20rpx 0;
 }
 .punchGoalStatistics__item-count {
   color: #aaaaaa;
 }
 .punchGoalCard {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin: 20rpx 0;
 }
-.main {
-  display: flex;
-  align-items: center;
-}
 .comment {
   color: #aeaaaa;
+  margin-left: 24rpx;
 }
 
 .button {

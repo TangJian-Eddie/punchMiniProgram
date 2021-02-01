@@ -1,9 +1,24 @@
 /* pages/calendar/index.wxss */
-.title {
+.calendarTile {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background-color: #fdf8cd;
   padding: 30rpx;
+}
+.title {
+  display: flex;
+  align-items: center;
+}
+.today {
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  background-color: #5fc79a;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  font-size: 26rpx;
 }
 .date {
   font-size: 40rpx;
@@ -14,13 +29,13 @@
   font-size: 24rpx;
 }
 .status-suc {
-  color: #7fffd4;
+  color: #5fc79a;
 }
 .status-fail {
   color: #f08080;
 }
 .punchList {
-  margin-left: 30rpx;
+  padding-left: 30rpx;
 }
 .punchList__content {
   display: flex;
@@ -28,18 +43,24 @@
 }
 .punchList__content-main {
   margin-left: 30rpx;
+  font-size: 28rpx;
+}
+.comment{
+  color:  #aeaaaa;
 }
 .punchList__title {
   display: flex;
   align-items: center;
+  margin-bottom: 20rpx;
 }
-.punchList__title > view{
-  margin-left: 18rpx;
+.punchList__title > view {
+  margin-left: 20rpx;
+  font-size: 36rpx;
 }
 .circle {
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
   background-color: #000;
-  margin:0 25rpx;
+  margin: 0 25rpx;
 }

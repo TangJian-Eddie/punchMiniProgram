@@ -14,6 +14,10 @@ Page({
     punchGoalList: [],
   },
 
+  jumpToday() {
+    const calendar = this.selectComponent("#calendar").calendar;
+    calendar.jump();
+  },
   afterTapDate(e) {
     console.log("afterTapDate", e.detail); // => { year: 2019, month: 12, date: 3, ...}
     const { year, month, date, todoText } = e.detail;

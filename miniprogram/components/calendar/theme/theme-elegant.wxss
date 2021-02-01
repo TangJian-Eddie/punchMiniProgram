@@ -31,7 +31,7 @@
 }
 
 .elegant_normal-date {
-  color: #777;
+  color: #000;
 }
 
 .elegant_todo-circle {
