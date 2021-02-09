@@ -65,3 +65,7 @@
   background-color: #000;
   margin: 0 25rpx;
 }
+.calendarImage{
+  width: 30rpx;
+  height: auto;
+}

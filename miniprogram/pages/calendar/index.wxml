@@ -17,14 +17,16 @@
 ></calendar>
 <view class="punchList">
 	<view class="punchList__title">
-		<view class="icon">
-			<image src="../../assets/habit_1.png" mode="widthFix" />
-		</view>
+		<image
+		 class="calendarImage"
+		 src="../../assets/calendar.png"
+		 mode="widthFix"
+		/>
 		<view>我在这一天</view>
 	</view>
 	<view wx:for="{{todayPunch}}" class="punchList__content">
 		<view class="circle"></view>
-		<view class="icon">
+		<view class="icon" style="background:{{item.iconBackground}}">
 			<image src="../../assets/{{item.iconName}}.png" mode="widthFix" />
 		</view>
 		<view class="punchList__content-main">

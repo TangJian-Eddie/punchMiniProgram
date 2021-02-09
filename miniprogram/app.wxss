@@ -12,7 +12,7 @@
   width: 25rpx;
   height: auto;
 }
-.customIcon{
+.customIcon {
   width: 100rpx;
   height: 100rpx;
   border: 1px solid #000;
@@ -23,7 +23,7 @@
   box-shadow: 0 2rpx 10rpx 0 #999;
   margin: 20rpx auto 50rpx;
 }
-.customIcon>image{
+.customIcon > image {
   width: 40rpx;
   height: auto;
 }
@@ -38,4 +38,21 @@
   color: #fff;
   background-color: #ffc01a;
   border-radius: 30rpx;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+}
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.31);
+  z-index: -1;
 }

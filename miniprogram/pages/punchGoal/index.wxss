@@ -5,7 +5,7 @@
   height: 90vh;
   margin: 5vh 5vw;
 }
-.customIcon{
+.customIcon {
   width: 100rpx;
   height: 100rpx;
   border: 1px solid #000;
@@ -16,7 +16,7 @@
   box-shadow: 0 2rpx 10rpx 0 #999;
   margin: 20rpx auto 50rpx;
 }
-.customIcon>image{
+.customIcon > image {
   width: 40rpx;
   height: auto;
 }
@@ -72,4 +72,47 @@
   color: #fff;
   background-color: #ffc01a;
   border-radius: 30rpx;
+}
+.colorCircle {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+}
+.confirm{
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  color: #5191c6;
+}
+.modal__content {
+  position: fixed;
+  top: 20vh;
+  left: 0;
+  width: 100vw;
+  height: 80vh;
+  background-color: #fff;
+}
+.modal__content-title {
+  background: #e0e0e0;
+  width: 270rpx;
+  margin-top: 50rpx;
+  height: 80rpx;
+  padding-left: 30rpx;
+  line-height: 80rpx;
+  border-radius: 0 20px 20px 0;
+}
+.iconList {
+  display: grid;
+  grid-template-columns: repeat(12, 20%);
+  grid-row-gap: 30rpx;
+  justify-items: center;
+  margin: 20rpx;
+  overflow: scroll;
+}
+.colorList {
+  display: grid;
+  grid-template-columns: repeat(6, 16.6%);
+  grid-row-gap: 40rpx;
+  justify-items: center;
+  margin: 40rpx 0;
 }

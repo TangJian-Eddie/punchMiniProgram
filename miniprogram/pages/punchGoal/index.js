@@ -1,11 +1,23 @@
 // pages/punchGoal/index.js
 import { fetch } from "../../utils/fetch";
+import { colorList } from "../../constant/colorList";
+import {
+  iconList_habit,
+  iconList_physical,
+  iconList_learn,
+  iconList_reflection,
+} from "../../constant/iconList";
 const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    iconList_habit,
+    iconList_physical,
+    iconList_learn,
+    iconList_reflection,
+    colorList,
     goal: {
       iconName: "",
       goalName: "",
@@ -13,8 +25,10 @@ Page({
       startTime: "",
       endTime: "",
       punchTimes: 1,
+      iconBackground: "#FFFFFF",
     },
     isEndTime: false,
+    modalShow: false,
   },
   inputChange(e) {
     const { type } = e.currentTarget.dataset;
@@ -26,6 +40,22 @@ Page({
   timePick(e) {
     const { type } = e.currentTarget.dataset;
     this.setData({ [`goal.${type}`]: e.detail.value });
+  },
+  changeModalShow() {
+    this.setData({ modalShow: !this.data.modalShow });
+  },
+  chooseIcon(e) {
+    const { type, index } = e.currentTarget.dataset;
+    const icon = `${type}_${index + 1}`;
+    this.setData({
+      "goal.iconName": icon,
+    });
+  },
+  chooseColor(e) {
+    const { item } = e.currentTarget.dataset;
+    this.setData({
+      "goal.iconBackground": item,
+    });
   },
   createPunchGoal() {
     const { goal } = this.data;

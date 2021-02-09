@@ -1,7 +1,7 @@
 <!-- pages/punch/index.wxml -->
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="container">
-	<view class="customIcon">
+	<view class="customIcon" style="background:{{info.iconBackground}}">
 		<image src="../../assets/{{info.iconName}}.png" mode="widthFix" />
 	</view>
 	<view>{{info.goalName}}</view>
