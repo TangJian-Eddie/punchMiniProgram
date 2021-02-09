@@ -2,7 +2,7 @@
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="punchGoalTitle">
 	<view class="icon" style="background:{{info.iconBackground}}">
-		<image src="../../assets/{{info.iconName}}.png" mode="widthFix" />
+		<image src="../../assets/icon/{{info.iconName}}.png" mode="widthFix" />
 	</view>
 	<view class="goalName">{{info.goalName}}</view>
 	<view>{{info.comment}}</view>

@@ -27,7 +27,7 @@
 	<view wx:for="{{todayPunch}}" class="punchList__content">
 		<view class="circle"></view>
 		<view class="icon" style="background:{{item.iconBackground}}">
-			<image src="../../assets/{{item.iconName}}.png" mode="widthFix" />
+			<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
 		</view>
 		<view class="punchList__content-main">
 			<view>{{item.goalName}}</view>

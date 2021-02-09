@@ -14,14 +14,14 @@
       {
         "pagePath": "pages/home/index",
         "text": "首页",
-        "iconPath": "/images/home.png",
-        "selectedIconPath": "/images/home_active.png"
+        "iconPath": "/assets/tabBar/home.png",
+        "selectedIconPath": "/assets/tabBar/home_active.png"
       },
       {
         "pagePath": "pages/calendar/index",
         "text": "日历",
-        "iconPath": "/images/calendar.png",
-        "selectedIconPath": "/images/calendar_active.png"
+        "iconPath": "/assets/tabBar/calendar.png",
+        "selectedIconPath": "/assets/tabBar/calendar_active.png"
       }
     ]
   },

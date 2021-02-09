@@ -25,7 +25,7 @@
 			>
 				<view class="punchGoalCard__content">
 					<view class="icon" style="background:{{item.iconBackground}}">
-						<image src="../../assets/{{item.iconName}}.png" mode="widthFix" />
+						<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
 					</view>
 					<view class="punchGoalCard__content-information">
 						<view>{{item.goalName}}</view>

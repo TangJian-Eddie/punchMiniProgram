@@ -4,7 +4,7 @@
 	<view class="customIcon" style="background:{{goal.iconBackground}}">
 		<image
 		 wx:if="{{goal.iconName}}"
-		 src="../../assets/{{goal.iconName}}.png"
+		 src="../../assets/icon/{{goal.iconName}}.png"
 		 mode="widthFix"
 		 bindtap="changeModalShow"
 		/>
@@ -81,7 +81,7 @@
 			 data-type="habit"
 			 data-index="{{index}}"
 			>
-				<image src="../../assets/habit_{{index+1}}.png" mode="widthFix" />
+				<image src="../../assets/icon/habit_{{index+1}}.png" mode="widthFix" />
 			</view>
 			<view
 			 class="icon"
@@ -91,7 +91,7 @@
 			 data-type="physical"
 			 data-index="{{index}}"
 			>
-				<image src="../../assets/physical_{{index+1}}.png" mode="widthFix" />
+				<image src="../../assets/icon/physical_{{index+1}}.png" mode="widthFix" />
 			</view>
 			<view
 			 class="icon"
@@ -101,7 +101,7 @@
 			 data-type="learn"
 			 data-index="{{index}}"
 			>
-				<image src="../../assets/learn_{{index+1}}.png" mode="widthFix" />
+				<image src="../../assets/icon/learn_{{index+1}}.png" mode="widthFix" />
 			</view>
 			<view
 			 class="icon"
@@ -111,7 +111,7 @@
 			 data-type="reflection"
 			 data-index="{{index}}"
 			>
-				<image src="../../assets/reflection_{{index+1}}.png" mode="widthFix" />
+				<image src="../../assets/icon/reflection_{{index+1}}.png" mode="widthFix" />
 			</view>
 		</view>
 		<view class="modal__content-title">请选择背景颜色</view>

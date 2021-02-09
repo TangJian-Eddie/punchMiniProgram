@@ -3,7 +3,7 @@
 	<view class="customIcon">
 		<image
 		 wx:if="{{iconName}}"
-		 src="../../../assets/{{iconName}}.png"
+		 src="../../../assets/icon/{{iconName}}.png"
 		 mode="widthFix"
 		/>
 	</view>
@@ -24,7 +24,7 @@
 		 data-type="habit"
 		 data-index="{{index}}"
 		>
-			<image src="../../../assets/habit_{{index+1}}.png" mode="widthFix" />
+			<image src="../../../assets/icon/habit_{{index+1}}.png" mode="widthFix" />
 		</view>
 		<view
 		 class="icon"
@@ -34,7 +34,7 @@
 		 data-type="physical"
 		 data-index="{{index}}"
 		>
-			<image src="../../../assets/physical_{{index+1}}.png" mode="widthFix" />
+			<image src="../../../assets/icon/physical_{{index+1}}.png" mode="widthFix" />
 		</view>
 		<view
 		 class="icon"
@@ -44,7 +44,7 @@
 		 data-type="learn"
 		 data-index="{{index}}"
 		>
-			<image src="../../../assets/learn_{{index+1}}.png" mode="widthFix" />
+			<image src="../../../assets/icon/learn_{{index+1}}.png" mode="widthFix" />
 		</view>
 		<view
 		 class="icon"
@@ -54,7 +54,7 @@
 		 data-type="reflection"
 		 data-index="{{index}}"
 		>
-			<image src="../../../assets/reflection_{{index+1}}.png" mode="widthFix" />
+			<image src="../../../assets/icon/reflection_{{index+1}}.png" mode="widthFix" />
 		</view>
 	</view>
 	<view class="button" bindtap="next">下一步</view>

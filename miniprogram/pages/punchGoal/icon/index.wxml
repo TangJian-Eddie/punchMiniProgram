@@ -14,7 +14,7 @@
 			 data-index="{{index}}"
 			>
 				<view class="icon">
-					<image src="../../../assets/habit_{{index+1}}.png" mode="widthFix" />
+					<image src="../../../assets/icon/habit_{{index+1}}.png" mode="widthFix" />
 				</view>
 				<view class="iconName">{{item}}</view>
 			</view>
@@ -30,7 +30,7 @@
 			 data-index="{{index}}"
 			>
 				<view class="icon">
-					<image src="../../../assets/physical_{{index+1}}.png" mode="widthFix" />
+					<image src="../../../assets/icon/physical_{{index+1}}.png" mode="widthFix" />
 				</view>
 				<view class="iconName">{{item}}</view>
 			</view>
@@ -46,7 +46,7 @@
 			 data-index="{{index}}"
 			>
 				<view class="icon">
-					<image src="../../../assets/learn_{{index+1}}.png" mode="widthFix" />
+					<image src="../../../assets/icon/learn_{{index+1}}.png" mode="widthFix" />
 				</view>
 				<view class="iconName">{{item}}</view>
 			</view>
@@ -62,7 +62,7 @@
 			 data-index="{{index}}"
 			>
 				<view class="icon">
-					<image src="../../../assets/reflection_{{index+1}}.png" mode="widthFix" />
+					<image src="../../../assets/icon/reflection_{{index+1}}.png" mode="widthFix" />
 				</view>
 				<view class="iconName">{{item}}</view>
 			</view>
