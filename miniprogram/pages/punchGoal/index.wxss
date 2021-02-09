@@ -5,11 +5,20 @@
   height: 90vh;
   margin: 5vh 5vw;
 }
-.punchIcon {
+.customIcon{
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px solid #000;
+  border-radius: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 50rpx;
+  box-shadow: 0 2rpx 10rpx 0 #999;
+  margin: 20rpx auto 50rpx;
+}
+.customIcon>image{
+  width: 40rpx;
+  height: auto;
 }
 .inputContainer {
   display: flex;

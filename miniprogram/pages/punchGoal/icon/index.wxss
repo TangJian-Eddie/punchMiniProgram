@@ -1,0 +1,32 @@
+.container {
+  padding: 2vh 2vw;
+}
+.iconList {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-row-gap: 30rpx;
+  justify-items: center;
+  margin: 20rpx 0;
+}
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.iconName {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+}
+.custom {
+  background-color: rgba(230, 230, 230, 0.6);
+  text-align: center;
+  padding: 10rpx;
+  border-radius: 14rpx;
+  color: #7d7d7d;
+  margin: 30rpx 0;
+}
+
+.subTitle {
+  font-size: 28rpx;
+  margin: 20rpx 0;
+}

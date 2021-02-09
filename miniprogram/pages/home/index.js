@@ -59,7 +59,7 @@ Page({
   },
 
   toCreatePunchGoal() {
-    wx.navigateTo({ url: "/pages/punchGoal/index" });
+    wx.navigateTo({ url: "/pages/punchGoal/icon/index" });
   },
   toDetail(e) {
     const info = JSON.stringify(e.currentTarget.dataset.info);

@@ -1,11 +1,9 @@
 <!-- pages/detail/index.wxml -->
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="punchGoalTitle">
-	<iconfont
-	 name="{{info.iconName}}"
-	 class="iconfont"
-	 size="50"
-	></iconfont>
+	<view class="icon">
+		<image src="../../assets/{{info.iconName}}.png" mode="widthFix" />
+	</view>
 	<view class="goalName">{{info.goalName}}</view>
 	<view>{{info.comment}}</view>
 </view>

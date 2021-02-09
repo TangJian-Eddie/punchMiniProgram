@@ -1,0 +1,72 @@
+<view class="container">
+	<view class="title">手动创建</view>
+	<view class="custom" bindtap="customIcon">+自定义目标</view>
+	<view class="title">快速创建</view>
+	<view>
+		<view class="subTitle">习惯</view>
+		<view class="iconList">
+			<view
+			 class="iconContainer"
+			 wx:for="{{iconList_habit}}"
+			 wx:key="index"
+			 bindtap="chooseIcon"
+			 data-type="habit"
+			 data-index="{{index}}"
+			>
+				<view class="icon">
+					<image src="../../../assets/habit_{{index+1}}.png" mode="widthFix" />
+				</view>
+				<view class="iconName">{{item}}</view>
+			</view>
+		</view>
+		<view class="subTitle">锻炼</view>
+		<view class="iconList">
+			<view
+			 class="iconContainer"
+			 wx:for="{{iconList_physical}}"
+			 wx:key="index"
+			 bindtap="chooseIcon"
+			 data-type="physical"
+			 data-index="{{index}}"
+			>
+				<view class="icon">
+					<image src="../../../assets/physical_{{index+1}}.png" mode="widthFix" />
+				</view>
+				<view class="iconName">{{item}}</view>
+			</view>
+		</view>
+		<view class="subTitle">学习</view>
+		<view class="iconList">
+			<view
+			 class="iconContainer"
+			 wx:for="{{iconList_learn}}"
+			 wx:key="index"
+			 bindtap="chooseIcon"
+			 data-type="learn"
+			 data-index="{{index}}"
+			>
+				<view class="icon">
+					<image src="../../../assets/learn_{{index+1}}.png" mode="widthFix" />
+				</view>
+				<view class="iconName">{{item}}</view>
+			</view>
+		</view>
+		<view class="subTitle">思考</view>
+		<view class="iconList">
+			<view
+			 class="iconContainer"
+			 wx:for="{{iconList_reflection}}"
+			 wx:key="index"
+			 bindtap="chooseIcon"
+			 data-type="reflection"
+			 data-index="{{index}}"
+			>
+				<view class="icon">
+					<image src="../../../assets/reflection_{{index+1}}.png" mode="widthFix" />
+				</view>
+				<view class="iconName">{{item}}</view>
+			</view>
+		</view>
+	</view>
+</view>
+

@@ -45,8 +45,9 @@
   margin-left: 30rpx;
   font-size: 28rpx;
 }
-.comment{
-  color:  #aeaaaa;
+
+.comment {
+  color: #aeaaaa;
 }
 .punchList__title {
   display: flex;

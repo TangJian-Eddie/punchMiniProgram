@@ -1,15 +1,27 @@
 <!-- pages/punch/index.wxml -->
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="container">
-		<iconfont name="{{info.iconName}}"></iconfont>
-		<view>{{info.goalName}}</view>
-		<textarea bindinput="inputChange" value="{{punch.comment}}" placeholder="请输入备注..."></textarea>
-		<picker mode="date" value="{{utils.substrvalue(punch.date,0,10)}}" bindchange="timePick" wx:if="{{!todayPunch}}">
-				<view class="picker">
-						<view>{{timeText}}</view>
-						<view wx:if="{{punch.date}}">{{utils.substrvalue(punch.date,0,10)}}</view>
-						<view wx:else class="tip">请选择{{timeText}}</view>
-				</view>
-		</picker>
-		<view class="button" bindtap="punch">保存</view>
+	<view class="customIcon">
+		<image src="../../assets/{{info.iconName}}.png" mode="widthFix" />
+	</view>
+	<view>{{info.goalName}}</view>
+	<textarea
+	 bindinput="inputChange"
+	 value="{{punch.comment}}"
+	 placeholder="请输入备注..."
+	></textarea>
+	<picker
+	 mode="date"
+	 value="{{utils.substrvalue(punch.date,0,10)}}"
+	 bindchange="timePick"
+	 wx:if="{{!todayPunch}}"
+	>
+		<view class="picker">
+			<view>{{timeText}}</view>
+			<view wx:if="{{punch.date}}">{{utils.substrvalue(punch.date,0,10)}}</view>
+			<view wx:else class="tip">请选择{{timeText}}</view>
+		</view>
+	</picker>
+	<view class="button" bindtap="punch">保存</view>
 </view>
+

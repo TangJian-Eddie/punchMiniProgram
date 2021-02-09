@@ -2,13 +2,12 @@
   "pages": [
     "pages/home/index",
     "pages/calendar/index",
-    "pages/punchGoal/index",
+    "pages/punchGoal/icon/index",
     "pages/punch/index",
-    "pages/detail/index"
+    "pages/detail/index",
+    "pages/punchGoal/index",
+    "pages/punchGoal/customIcon/index"
   ],
-  "usingComponents": {
-    "iconfont": "/components/iconfont/iconfont"
-  },
   "tabBar": {
     "selectedColor": "#FFC01A",
     "list": [

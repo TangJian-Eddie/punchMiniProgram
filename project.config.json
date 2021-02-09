@@ -43,12 +43,6 @@
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
     "plugin": {
       "list": []
     },
@@ -68,9 +62,9 @@
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/punchGoal/index",
-          "pathName": "pages/punchGoal/index",
+          "name": "pages/punchGoal/icon/index",
+          "pathName": "pages/punchGoal/icon/index",
+          "query": "",
           "scene": null
         }
       ]

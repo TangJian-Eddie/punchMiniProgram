@@ -1,40 +1,65 @@
 <!-- pages/punchGoal/index.wxml -->
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="container">
-		<view class="punchIcon">
-				<iconfont wx:for="{{iconfontList}}" wx:key="index" name="{{item}}" data-name="{{item}}" bindtap="chooseImage" wx:if="{{!goal.iconName || goal.iconName == item}}"></iconfont>
+	<view class="customIcon">
+		<image src="../../assets/{{goal.iconName}}.png" mode="widthFix" />
+	</view>
+	<view class="inputContainer">
+		<view>习惯名称</view>
+		<input
+		 class="textInput"
+		 value="{{goal.goalName}}"
+		 bindinput="inputChange"
+		 data-type="goalName"
+		/>
+	</view>
+	<view class="inputContainer">
+		<view>备注</view>
+		<input
+		 class="textInput"
+		 value="{{goal.comment}}"
+		 bindinput="inputChange"
+		 data-type="comment"
+		/>
+	</view>
+	<picker
+	 mode="date"
+	 value="{{utils.substrvalue(goal.startTime,0,10)}}"
+	 bindchange="timePick"
+	 data-type="startTime"
+	>
+		<view class="picker">
+			<view>开始时间：</view>
+			<view wx:if="{{goal.startTime}}">{{utils.substrvalue(goal.startTime,0,10)}}</view>
+			<view wx:else class="tip">请选择开始时间</view>
 		</view>
+	</picker>
+	<view class="picker {{isEndTime?'endTime':''}}">
+		<view>结束时间：</view>
+		<switch bindchange="switchChange" checked="{{isEndTime}}"></switch>
+	</view>
+	<picker
+	 mode="date"
+	 value="{{utils.substrvalue(goal.endTime,0,10)}}"
+	 bindchange="timePick"
+	 data-type="endTime"
+	>
+		<view wx:if="{{goal.endTime && isEndTime}}" class="endTimeContainer">{{utils.substrvalue(goal.endTime,0,10)}}</view>
+		<view wx:if="{{isEndTime && !goal.endTime}}" class="tip endTimeContainer">请选择结束时间</view>
+	</picker>
+	<view class="numberInputContainer">
+		<view>每日打卡次数</view>
 		<view class="inputContainer">
-				<view>习惯名称</view>
-				<input class="textInput" value="{{goal.goalName}}" bindinput="inputChange" data-type="goalName" />
+			<input
+			 class="numberInput"
+			 value="{{goal.punchTimes}}"
+			 bindinput="inputChange"
+			 data-type="punchTimes"
+			 type="number"
+			/>
+			<view>次</view>
 		</view>
-		<view class="inputContainer">
-				<view>备注</view>
-				<input class="textInput" value="{{goal.comment}}" bindinput="inputChange" data-type="comment" />
-		</view>
-		<picker mode="date" value="{{utils.substrvalue(goal.startTime,0,10)}}" bindchange="timePick" data-type="startTime">
-				<view class="picker">
-						<view>开始时间：</view>
-						<view wx:if="{{goal.startTime}}">{{utils.substrvalue(goal.startTime,0,10)}}</view>
-						<view wx:else class="tip">请选择开始时间</view>
-				</view>
-		</picker>
-		<view class='picker {{isEndTime?"endTime":""}}'>
-				<view>结束时间：</view>
-				<switch bindchange="switchChange" checked="{{isEndTime}}"></switch>
-		</view>
-		<picker mode="date" value="{{utils.substrvalue(goal.endTime,0,10)}}" bindchange="timePick" data-type="endTime">
-				<view wx:if="{{goal.endTime && isEndTime}}" class="endTimeContainer">
-						{{utils.substrvalue(goal.endTime,0,10)}}
-				</view>
-				<view wx:if="{{isEndTime && !goal.endTime}}" class="tip endTimeContainer">请选择结束时间</view>
-		</picker>
-		<view class="numberInputContainer">
-				<view>每日打卡次数</view>
-				<view class="inputContainer">
-						<input class="numberInput" value="{{goal.punchTimes}}" bindinput="inputChange" data-type="punchTimes" type='number' />
-						<view>次</view>
-				</view>
-		</view>
-		<view class="button" bindtap="createPunchGoal">完成</view>
+	</view>
+	<view class="button" bindtap="createPunchGoal">完成</view>
 </view>
+

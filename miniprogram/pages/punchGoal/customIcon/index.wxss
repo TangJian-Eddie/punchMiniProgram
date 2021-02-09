@@ -1,0 +1,35 @@
+.container {
+  padding: 2vh 4vw;
+}
+.iconList {
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-row-gap: 30rpx;
+  justify-items: center;
+  margin: 20rpx 0;
+}
+.customIcon{
+    width: 100rpx;
+    height: 100rpx;
+    border: 1px solid #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2rpx 10rpx 0 #999;
+    margin: 20rpx auto 50rpx;
+}
+.customIcon>image{
+    width: 40rpx;
+    height: auto;
+}
+.title {
+  font-size: 28rpx;
+  margin: 20rpx 0;
+}
+.input{
+  background-color: rgba(230, 230, 230, 0.6);
+  padding: 10rpx 20rpx;
+  border-radius: 14rpx;
+  margin: 20rpx 0;
+}

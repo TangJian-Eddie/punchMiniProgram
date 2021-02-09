@@ -1,0 +1,62 @@
+<!--miniprogram/pages/punchGoal/customIcon/index.wxml-->
+<view class="container">
+	<view class="customIcon">
+		<image
+		 wx:if="{{iconName}}"
+		 src="../../../assets/{{iconName}}.png"
+		 mode="widthFix"
+		/>
+	</view>
+	<view class="title">给你的打卡目标命名</view>
+	<input
+	 bindinput="goalNameInput"
+	 value="{{goalName}}"
+	 placeholder="请输入你的打卡目标"
+	 class="input"
+	/>
+	<view class="title">挑选一个图标</view>
+	<view class="iconList">
+		<view
+		 class="icon"
+		 wx:for="{{iconList_habit}}"
+		 wx:key="index"
+		 bindtap="chooseIcon"
+		 data-type="habit"
+		 data-index="{{index}}"
+		>
+			<image src="../../../assets/habit_{{index+1}}.png" mode="widthFix" />
+		</view>
+		<view
+		 class="icon"
+		 wx:for="{{iconList_physical}}"
+		 wx:key="index"
+		 bindtap="chooseIcon"
+		 data-type="physical"
+		 data-index="{{index}}"
+		>
+			<image src="../../../assets/physical_{{index+1}}.png" mode="widthFix" />
+		</view>
+		<view
+		 class="icon"
+		 wx:for="{{iconList_learn}}"
+		 wx:key="index"
+		 bindtap="chooseIcon"
+		 data-type="learn"
+		 data-index="{{index}}"
+		>
+			<image src="../../../assets/learn_{{index+1}}.png" mode="widthFix" />
+		</view>
+		<view
+		 class="icon"
+		 wx:for="{{iconList_reflection}}"
+		 wx:key="index"
+		 bindtap="chooseIcon"
+		 data-type="reflection"
+		 data-index="{{index}}"
+		>
+			<image src="../../../assets/reflection_{{index+1}}.png" mode="widthFix" />
+		</view>
+	</view>
+	<view class="button" bindtap="next">下一步</view>
+</view>
+

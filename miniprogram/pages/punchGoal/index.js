@@ -15,15 +15,6 @@ Page({
       punchTimes: 1,
     },
     isEndTime: false,
-    iconfontList: ["kaoyan", "jianshen", "heshui", "paobu"],
-  },
-  chooseImage(e) {
-    const { name } = e.currentTarget.dataset;
-    if (this.data.goal.iconName) {
-      this.setData({ "goal.iconName": "" });
-      return;
-    }
-    this.setData({ "goal.iconName": name });
   },
   inputChange(e) {
     const { type } = e.currentTarget.dataset;
