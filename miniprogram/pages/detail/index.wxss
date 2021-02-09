@@ -1,6 +1,6 @@
 /* pages/detail/index.wxss */
 .scroll {
-  height: 55vh;
+  height: 49vh;
 }
 .punchGoalTitle {
   display: flex;
@@ -20,13 +20,13 @@
 }
 .container {
   position: relative;
-  height: 82vh;
+  height: 76vh;
   margin: 1.5vh 5vw 2vh;
 }
 .punchGoalStatistics__title {
   font-size: 40rpx;
   font-weight: 600;
-  margin-top: 22rpx;
+  margin: 22rpx 0;
 }
 .left {
   display: flex;
@@ -68,4 +68,8 @@
   color: #fff;
   background-color: #ffc01a;
   border-radius: 30rpx;
+  z-index: 100;
+}
+.punchGoalContainer{
+  padding-bottom: 100rpx;
 }

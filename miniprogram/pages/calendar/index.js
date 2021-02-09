@@ -12,6 +12,7 @@ Page({
     showTodoLabel: false,
     todayPunch: [],
     punchGoalList: [],
+    scrollHeight: "",
   },
 
   jumpToday() {
@@ -59,6 +60,10 @@ Page({
     this.data.userId = app.globalData.userInfo.userId;
     this.getData(this.data.year, this.data.month);
     this.getGoalData();
+    const { windowHeight, windowWidth } = wx.getSystemInfoSync();
+    this.setData({
+      scrollHeight: windowHeight - (windowWidth / 750) * 810,
+    });
   },
 
   getGoalData() {

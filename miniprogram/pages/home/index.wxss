@@ -59,4 +59,6 @@
   border-radius: 30rpx;
 }
 
-
+.scroll{
+  height: 70vh;
+}

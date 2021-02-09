@@ -11,35 +11,45 @@
 			<view class="userBox__nickName">{{userInfo.nickName}}</view>
 			<image src="{{userInfo.avatarUrl}}" />
 		</view>
-		<slide-delete
-		 bind:action="handleAction"
-		 wx:for="{{punchGoalList}}"
-		 wx:key="index"
-		 data-item="{{item}}"
-		 data-index="{{index}}"
+		<scroll-view
+		 scroll-y="{{true}}"
+		 bindscrolltolower="loadMore"
+		 class="scroll"
+		 enhanced="{{true}}"
+		 show-scrollbar="{{false}}"
 		>
-			<view
-			 class="punchGoalCard"
-			 bindtap="toDetail"
-			 data-info="{{item}}"
-			>
-				<view class="punchGoalCard__content">
-					<view class="icon" style="background:{{item.iconBackground}}">
-						<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
+			<view class="punchGoalContainer">
+				<slide-delete
+				 bind:action="handleAction"
+				 wx:for="{{punchGoalList}}"
+				 wx:key="index"
+				 data-item="{{item}}"
+				 data-index="{{index}}"
+				>
+					<view
+					 class="punchGoalCard"
+					 bindtap="toDetail"
+					 data-info="{{item}}"
+					>
+						<view class="punchGoalCard__content">
+							<view class="icon" style="background:{{item.iconBackground}}">
+								<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
+							</view>
+							<view class="punchGoalCard__content-information">
+								<view>{{item.goalName}}</view>
+								<view class="punchGoalCard__content-count">已打卡{{item.count}}天</view>
+							</view>
+						</view>
+						<view
+						 catchtap="toPunch"
+						 data-info="{{item}}"
+						 class="punchButton"
+						>打卡
+						</view>
 					</view>
-					<view class="punchGoalCard__content-information">
-						<view>{{item.goalName}}</view>
-						<view class="punchGoalCard__content-count">已打卡{{item.count}}天</view>
-					</view>
-				</view>
-				<view
-				 catchtap="toPunch"
-				 data-info="{{item}}"
-				 class="punchButton"
-				>打卡
-				</view>
+				</slide-delete>
 			</view>
-		</slide-delete>
+		</scroll-view>
 		<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
 	</view>
 </view>

@@ -40,22 +40,24 @@
 	 enhanced="{{true}}"
 	 show-scrollbar="{{false}}"
 	>
-		<slide-delete
-		 bind:action="handleAction"
-		 wx:for="{{punchList}}"
-		 wx:key="index"
-		 data-item="{{item}}"
-		>
-			<view class="punchGoalCard">
-				<view class="content">
-					<view style="display:flex;align-items:center">
-						<view class="circle"></view>
-						<view>{{utils.substrvalue(item.date,0,10)}}</view>
+		<view class="punchGoalContainer">
+			<slide-delete
+			 bind:action="handleAction"
+			 wx:for="{{punchList}}"
+			 wx:key="index"
+			 data-item="{{item}}"
+			>
+				<view class="punchGoalCard">
+					<view class="content">
+						<view style="display:flex;align-items:center">
+							<view class="circle"></view>
+							<view>{{utils.substrvalue(item.date,0,10)}}</view>
+						</view>
+						<view class="comment">{{item.comment}}</view>
 					</view>
-					<view class="comment">{{item.comment}}</view>
 				</view>
-			</view>
-		</slide-delete>
+			</slide-delete>
+		</view>
 	</scroll-view>
 	<view bindtap="rePunch" class="button">补打卡</view>
 </view>

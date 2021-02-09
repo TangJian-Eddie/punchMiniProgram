@@ -24,15 +24,25 @@
 		/>
 		<view>我在这一天</view>
 	</view>
-	<view wx:for="{{todayPunch}}" class="punchList__content">
-		<view class="circle"></view>
-		<view class="icon" style="background:{{item.iconBackground}}">
-			<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
+	<scroll-view
+	 scroll-y="{{true}}"
+	 bindscrolltolower="loadMore"
+	 style="height:{{scrollHeight}}px"
+	 enhanced="{{true}}"
+	 show-scrollbar="{{false}}"
+	>
+		<view class="punchListContainer">
+			<view wx:for="{{todayPunch}}" class="punchList__content">
+				<view class="circle"></view>
+				<view class="icon" style="background:{{item.iconBackground}}">
+					<image src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
+				</view>
+				<view class="punchList__content-main">
+					<view>{{item.goalName}}</view>
+					<view class="comment">{{item.comment}}</view>
+				</view>
+			</view>
 		</view>
-		<view class="punchList__content-main">
-			<view>{{item.goalName}}</view>
-			<view class="comment">{{item.comment}}</view>
-		</view>
-	</view>
+	</scroll-view>
 </view>
 
