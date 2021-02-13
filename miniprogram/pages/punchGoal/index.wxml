@@ -30,6 +30,7 @@
 	<picker
 	 mode="date"
 	 value="{{utils.substrvalue(goal.startTime,0,10)}}"
+	 start="{{pickerStart}}"
 	 bindchange="timePick"
 	 data-type="startTime"
 	>
@@ -46,6 +47,7 @@
 	<picker
 	 mode="date"
 	 value="{{utils.substrvalue(goal.endTime,0,10)}}"
+	 start="{{pickerStart}}"
 	 bindchange="timePick"
 	 data-type="endTime"
 	>

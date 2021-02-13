@@ -12,14 +12,15 @@
 	></textarea>
 	<picker
 	 mode="date"
+	 end="{{pickerEnd}}"
 	 value="{{utils.substrvalue(punch.date,0,10)}}"
 	 bindchange="timePick"
 	 wx:if="{{!todayPunch}}"
 	>
 		<view class="picker">
-			<view>{{timeText}}</view>
+			<view>打卡时间</view>
 			<view wx:if="{{punch.date}}">{{utils.substrvalue(punch.date,0,10)}}</view>
-			<view wx:else class="tip">请选择{{timeText}}</view>
+			<view wx:else class="tip">请选择打卡时间</view>
 		</view>
 	</picker>
 	<view class="button" bindtap="punch">保存</view>

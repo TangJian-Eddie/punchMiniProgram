@@ -1,9 +1,9 @@
 <!-- pages/calendar/index.wxml -->
 <view class="calendarTile">
 	<view class="title">
-		<view class="date">{{month}}月{{date}}日</view>
+		<view class="date">{{selectDate.month}}月{{selectDate.date}}日</view>
 		<view class="year-status">
-			<view class="year">{{year}}年</view>
+			<view class="year">{{selectDate.year}}年</view>
 			<view class="status-suc" wx:if="{{todayPunch.length!==0}}">完成了{{todayPunch.length}}次打卡</view>
 			<view class="status-fail" wx:else>当天未打卡</view>
 		</view>

@@ -1,6 +1,7 @@
 // pages/punchGoal/index.js
 import { fetch } from "../../utils/fetch";
 import { colorList } from "../../constant/colorList";
+import { formatDate } from "../../utils/formatDate";
 import {
   iconList_habit,
   iconList_physical,
@@ -22,13 +23,14 @@ Page({
       iconName: "",
       goalName: "",
       comment: "",
-      startTime: "",
+      startTime: formatDate(new Date()),
       endTime: "",
       punchTimes: 1,
       iconBackground: "#FFFFFF",
     },
     isEndTime: false,
     modalShow: false,
+    pickerStart: "",
   },
   inputChange(e) {
     const { type } = e.currentTarget.dataset;
@@ -39,6 +41,13 @@ Page({
   },
   timePick(e) {
     const { type } = e.currentTarget.dataset;
+    if (
+      type === "endTime" &&
+      new Date(e.detail.value) < new Date(this.data.goal.startTime)
+    ) {
+      app.toast("结束时间应在开始时间之后~");
+      return;
+    }
     this.setData({ [`goal.${type}`]: e.detail.value });
   },
   changeModalShow() {
@@ -74,6 +83,14 @@ Page({
     }).then((res) => {
       app.toast(res.msg);
       if (res.code != 200) return;
+      app.event.emit("punchGoalChange", {
+        punchGoal: goal,
+        /* type 
+             1 新增打卡目标
+             2 修改打卡目标
+             3 删除打卡目标 */
+        type: goal._id ? 2 : 1,
+      });
       wx.navigateBack();
     });
   },
@@ -83,7 +100,10 @@ Page({
   onLoad: function (options) {
     if (options.punchGoal) {
       const punchGoal = JSON.parse(options.punchGoal);
-      this.setData({ goal: punchGoal });
+      this.setData({
+        goal: { ...this.data.goal, ...punchGoal },
+        pickerStart: formatDate(new Date()),
+      });
       if (punchGoal.endTime) {
         this.setData({ isEndTime: true });
       }

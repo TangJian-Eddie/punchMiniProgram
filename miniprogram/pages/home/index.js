@@ -33,10 +33,18 @@ Page({
             data: { id: item._id },
           }).then((res) => {
             app.toast(res.msg);
-            if (res.code != 200) return;
+            if (res.code !== 200) return;
             const { punchGoalList } = this.data;
             punchGoalList.splice(index, 1);
             this.setData({ punchGoalList });
+            app.event.emit("punchGoalChange", {
+              punchGoal: item,
+              /* type 
+                   1 新增打卡目标
+                   2 修改打卡目标
+                   3 删除打卡目标 */
+              type: 3,
+            });
           });
         }
       },
@@ -48,16 +56,14 @@ Page({
       name: "login",
       data: { userInfo: e.detail.userInfo },
     }).then((res) => {
-      if (res.code != 200) {
-        app.toast(res.msg);
-        return;
-      }
+      app.toast(res.msg);
+      if (res.code !== 200) return;
       wx.setStorageSync("userInfo", res.data);
+      app.globalData.userInfo = res.dataÏ;
       this.setData({ userInfo: res.data });
       this.getData(res.data.userId);
     });
   },
-
   toCreatePunchGoal() {
     wx.navigateTo({ url: "/pages/punchGoal/icon/index" });
   },
@@ -70,18 +76,51 @@ Page({
     wx.navigateTo({ url: `/pages/punch/index?info=${info}` });
   },
 
-  loadMore(){
-
-  },
+  loadMore() {},
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.event.on("punchGoalChange", this.punchGoalChange, this);
+    app.event.on("punchChange", this.punchChange, this);
     if (app.globalData.userInfo) {
       this.setData({ userInfo: app.globalData.userInfo });
+      this.getData(app.globalData.userInfo.userId);
     }
   },
 
+  punchGoalChange(e) {
+    const { type, punchGoal } = e;
+    const { punchGoalList } = this.data;
+    if (type === 1) {
+      this.getData(this.data.userInfo.userId);
+      return;
+    }
+    if (type === 2) {
+      const index = punchGoalList.findIndex(
+        (item) => item._id === punchGoal._id
+      );
+      this.setData({ [`punchGoalList[${index}]`]: punchGoal });
+    }
+  },
+
+  punchChange(e) {
+    const { type, punch } = e;
+    const { punchGoalList } = this.data;
+    if (type === 2) return;
+    const index = punchGoalList.findIndex(
+      (item) => item._id === punch.punchGoalId
+    );
+    let count;
+    if (type === 1) {
+      count = ++punchGoalList[index].count;
+    } else if (type === 3) {
+      count = --punchGoalList[index].count;
+    }
+    this.setData({
+      [`punchGoalList[${index}.count]`]: count,
+    });
+  },
   getData(userId) {
     fetch({
       name: "getPunchGoal",
@@ -99,11 +138,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    if (app.globalData.userInfo) {
-      this.getData(app.globalData.userInfo.userId);
-    }
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -113,7 +148,10 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () {
+    app.event.off("punchGoalChange", this.punchGoalChange);
+    app.event.off("punchChange", this.punchChange);
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

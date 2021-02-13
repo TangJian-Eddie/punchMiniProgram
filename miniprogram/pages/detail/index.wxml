@@ -46,6 +46,7 @@
 			 wx:for="{{punchList}}"
 			 wx:key="index"
 			 data-item="{{item}}"
+			 data-index="{{index}}"
 			>
 				<view class="punchGoalCard">
 					<view class="content">

@@ -1,5 +1,7 @@
 //app.js
+const Event = require("./utils/event.js");
 App({
+  event: new Event(),
   onLaunch: function () {
     if (!wx.cloud) {
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
@@ -10,9 +12,7 @@ App({
       });
     }
     const userInfo = wx.getStorageSync("userInfo");
-    this.globalData = {
-      userInfo,
-    };
+    this.globalData = { userInfo };
   },
   toast(title) {
     wx.showToast({
