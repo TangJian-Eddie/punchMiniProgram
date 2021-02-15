@@ -43,6 +43,7 @@
 		<view class="punchGoalContainer">
 			<slide-delete
 			 bind:action="handleAction"
+			 pid="{{item._id}}"
 			 wx:for="{{punchList}}"
 			 wx:key="index"
 			 data-item="{{item}}"

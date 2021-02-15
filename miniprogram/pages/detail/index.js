@@ -53,9 +53,9 @@ Page({
                          3 删除打卡 */
               type: 3,
             });
-            const { punchList } = this.data;
+            const { punchList, info } = this.data;
             punchList.splice(index, 1);
-            this.setData({ punchList });
+            this.setData({ punchList, "info.count": --info.count });
           });
         }
       },

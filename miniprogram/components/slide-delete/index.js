@@ -2,7 +2,25 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    pid: {
+      type: Number,
+      observer(newVal) {
+        if (newVal) {
+          this.setData(
+            {
+              animate: true,
+            },
+            () => {
+              this.setData({
+                translateX: 0,
+              });
+            }
+          );
+        }
+      },
+    },
+  },
 
   /**
    * 组件的初始数据
@@ -75,7 +93,6 @@ Component({
         return;
       }
       let translateX = 0;
-      console.log(this.startX, this.moveX);
       if (
         (this.startX === 0 && -this.moveX < this.actionWidth / 2) ||
         (this.startX === -this.actionWidth && this.moveX > this.actionWidth / 2)

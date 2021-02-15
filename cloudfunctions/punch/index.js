@@ -45,7 +45,7 @@ const checkLimit = (data) => {
   return new Promise(async (resolve, reject) => {
     if (_id) {
       let dateRes = await collection.doc(_id).field({ date: true }).get();
-      if (dateRes.data.date === date) resolve(true);
+      if (String(dateRes.data.date).slice(0,10) === String(date).slice(0,10)) resolve(true);
     }
     goalCollection
       .doc(punchGoalId)
@@ -90,7 +90,7 @@ exports.main = async (event, context) => {
     if (!res) {
       return {
         code: 403,
-        message: "今天打卡次数达到限制，请勿重复打卡",
+        msg: "今天打卡次数达到限制，请勿重复打卡",
         result: null,
       };
     }

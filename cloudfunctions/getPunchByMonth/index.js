@@ -19,7 +19,18 @@ const getPunchByMonth = (data) => {
         punchDate: $.dayOfMonth("$date"),
       })
       .match({ userId, punchYear: year, punchMonth: month })
-      .sort({ date: -1 })
+      .group({
+        _id: "$punchDate",
+        list: $.push({
+          _id: "$_id",
+          comment: "$comment",
+          date: "$date",
+          punchGoalId: "$punchGoalId",
+          punchYear: "$punchYear",
+          punchMonth: "$punchMonth",
+          punchDate: "$punchDate",
+        }),
+      })
       .end()
       .then((res) => {
         resolve(res.list);

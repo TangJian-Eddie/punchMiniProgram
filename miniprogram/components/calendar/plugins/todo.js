@@ -137,6 +137,7 @@ export default () => {
           const _dates = [...existCalendarData.dates]
           _dates.forEach(item => {
             item.showTodoLabel = false
+            delete item.todoText
           })
           return renderCalendar.call(component, {
             ...existCalendarData,

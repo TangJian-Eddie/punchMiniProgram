@@ -75,8 +75,6 @@ Page({
     const info = JSON.stringify(e.currentTarget.dataset.info);
     wx.navigateTo({ url: `/pages/punch/index?info=${info}` });
   },
-
-  loadMore() {},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -118,7 +116,7 @@ Page({
       count = --punchGoalList[index].count;
     }
     this.setData({
-      [`punchGoalList[${index}.count]`]: count,
+      [`punchGoalList[${index}].count`]: count,
     });
   },
   getData(userId) {
