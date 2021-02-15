@@ -1,38 +1,40 @@
 <!-- pages/detail/index.wxml -->
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
-<view class="punchGoalTitle">
+<view class="top">
 	<view class="icon" style="background:{{info.iconBackground}}">
-		<image src="../../assets/icon/{{info.iconName}}.png" mode="widthFix" />
+		<image
+		 wx:if="{{info.iconName}}"
+		 src="../../assets/icon/{{info.iconName}}.png"
+		 mode="widthFix"
+		/>
 	</view>
-	<view class="goalName">{{info.goalName}}</view>
+	<view class="top__goalName">{{info.goalName}}</view>
 	<view>{{info.comment}}</view>
 </view>
-<view class="container">
-	<view class="punchGoalStatistics">
-		<view class="punchGoalStatistics__title">统计</view>
-		<view class="punchGoalStatistics__item">
-			<view class="left">
-				<view class="circle"></view>
-				<view>已打卡</view>
-			</view>
-			<view class="punchGoalStatistics__item-count">{{info.count}}天</view>
+<view class="content">
+	<view class="title">统计</view>
+	<view class="statisticsItem">
+		<view class="statisticsItem__key">
+			<view class="circle"></view>
+			<view>已打卡</view>
 		</view>
-		<view class="punchGoalStatistics__item">
-			<view class="left">
-				<view class="circle"></view>
-				<view>开始时间</view>
-			</view>
-			<view class="punchGoalStatistics__item-count">{{utils.substrvalue(info.startTime,0,10)}}</view>
-		</view>
-		<view class="punchGoalStatistics__item" wx:if="{{info.endTime}}">
-			<view class="left">
-				<view class="circle"></view>
-				<view>结束时间</view>
-			</view>
-			<view class="punchGoalStatistics__item-count">{{utils.substrvalue(info.endTime,0,10)}}</view>
-		</view>
+		<view class="statisticsItem__value">{{info.count}}天</view>
 	</view>
-	<view class="punchGoalStatistics__title">打卡详情</view>
+	<view class="statisticsItem">
+		<view class="statisticsItem__key">
+			<view class="circle"></view>
+			<view>开始时间</view>
+		</view>
+		<view class="statisticsItem__value">{{utils.substrvalue(info.startTime,0,10)}}</view>
+	</view>
+	<view class="statisticsItem" wx:if="{{info.endTime}}">
+		<view class="statisticsItem__key">
+			<view class="circle"></view>
+			<view>结束时间</view>
+		</view>
+		<view class="statisticsItem__value">{{utils.substrvalue(info.endTime,0,10)}}</view>
+	</view>
+	<view class="title">打卡详情</view>
 	<scroll-view
 	 scroll-y="{{true}}"
 	 bindscrolltolower="loadMore"
@@ -40,23 +42,21 @@
 	 enhanced="{{true}}"
 	 show-scrollbar="{{false}}"
 	>
-		<view class="punchGoalContainer">
+		<view class="punchContainer">
 			<slide-delete
 			 bind:action="handleAction"
-			 pid="{{item._id}}"
+			 parentId="{{item._id}}"
 			 wx:for="{{punchList}}"
 			 wx:key="index"
 			 data-item="{{item}}"
 			 data-index="{{index}}"
 			>
-				<view class="punchGoalCard">
-					<view class="content">
-						<view style="display:flex;align-items:center">
-							<view class="circle"></view>
-							<view>{{utils.substrvalue(item.date,0,10)}}</view>
-						</view>
-						<view class="comment">{{item.comment}}</view>
+				<view class="punchCard">
+					<view class="punchCard__time">
+						<view class="circle"></view>
+						<view>{{utils.substrvalue(item.date,0,10)}}</view>
 					</view>
+					<view class="punchCard__comment">{{item.comment}}</view>
 				</view>
 			</slide-delete>
 		</view>

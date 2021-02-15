@@ -1,16 +1,16 @@
 /* pages/calendar/index.wxss */
-.calendarTile {
+.top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fdf8cd;
   padding: 30rpx;
 }
-.title {
+.top > .top__content {
   display: flex;
   align-items: center;
 }
-.today {
+.top > .top__today {
   width: 50rpx;
   height: 50rpx;
   text-align: center;
@@ -20,52 +20,49 @@
   border-radius: 50%;
   font-size: 26rpx;
 }
-.date {
+.top > .top__content > .top__content-date {
   font-size: 40rpx;
   font-weight: 600;
 }
-.year-status {
+.top > .top__content > .top__content-yearStatus {
   margin-left: 16rpx;
   font-size: 24rpx;
 }
-.status-suc {
+.top > .top__content > .top__content-yearStatus > .top__content-yearStatus-suc {
   color: #5fc79a;
 }
-.status-fail {
+.top
+  > .top__content
+  > .top__content-yearStatus
+  > .top__content-yearStatus-fail {
   color: #f08080;
 }
+
 .punchList {
   padding-left: 30rpx;
 }
-.punchList__content {
-  display: flex;
-  align-items: center;
-}
-.punchList__content-main {
-  margin-left: 30rpx;
-  font-size: 28rpx;
-}
-
-.comment {
-  color: #aeaaaa;
-}
-.punchList__title {
+.punchList > .punchList__title {
   display: flex;
   align-items: center;
   margin-bottom: 20rpx;
 }
-.punchList__title > view {
+.punchList > .punchList__title > view {
   margin-left: 20rpx;
   font-size: 36rpx;
 }
-.circle {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background-color: #000;
-  margin: 0 25rpx;
-}
-.calendarImage{
+.punchList > .punchList__title > image {
   width: 30rpx;
   height: auto;
+}
+
+.punchCard {
+  display: flex;
+  align-items: center;
+}
+.punchCard > .punchCard__content {
+  margin-left: 30rpx;
+  font-size: 28rpx;
+}
+.punchCard > .punchCard__content > .punchCard__content-comment {
+  color: #aeaaaa;
 }

@@ -2,7 +2,11 @@
 <wxs src="../../utils/index.wxs" module="utils"></wxs>
 <view class="container">
 	<view class="customIcon" style="background:{{info.iconBackground}}">
-		<image src="../../assets/icon/{{info.iconName}}.png" mode="widthFix" />
+		<image
+		 wx:if="{{info.iconName}}"
+		 src="../../assets/icon/{{info.iconName}}.png"
+		 mode="widthFix"
+		/>
 	</view>
 	<view>{{info.goalName}}</view>
 	<textarea
@@ -20,7 +24,7 @@
 		<view class="picker">
 			<view>打卡时间</view>
 			<view wx:if="{{punch.date}}">{{utils.substrvalue(punch.date,0,10)}}</view>
-			<view wx:else class="tip">请选择打卡时间</view>
+			<view wx:else class="picker__tip">请选择打卡时间</view>
 		</view>
 	</picker>
 	<view class="button" bindtap="punch">保存</view>

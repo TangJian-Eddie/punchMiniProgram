@@ -1,3 +1,8 @@
+.container {
+  position: relative;
+  width: 90vw;
+  margin: 5vh 5vw;
+}
 .icon {
   width: 68rpx;
   height: 68rpx;
@@ -27,6 +32,14 @@
   width: 40rpx;
   height: auto;
 }
+.circle {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: #000;
+  margin: 0 25rpx;
+}
+
 .button {
   position: fixed;
   bottom: 2vh;
@@ -55,4 +68,13 @@
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.31);
   z-index: -1;
+}
+.bottom-tip {
+  width: 100%;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 14px;
+  color: #808695;
+  padding-bottom: 40rpx;
 }

@@ -3,8 +3,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    pid: {
-      type: Number,
+    parentId: {
+      type: String,
+      value: '',
       observer(newVal) {
         if (newVal) {
           this.setData(
@@ -55,7 +56,7 @@ Component({
     /**
      * 处理touchmove事件
      */
-    handleTouchMove: function (e) {
+    handleTouchMove(e) {
       this.touchMoveX = e.touches[0].pageX;
       this.touchMoveY = e.touches[0].pageY;
       this.moveX = this.touchMoveX - this.touchStartX;
@@ -87,7 +88,7 @@ Component({
     /**
      * 处理touchend事件
      */
-    handleTouchEnd: function (e) {
+    handleTouchEnd(e) {
       // 非左右滑动时不进行任何操作
       if (this.direction !== "X") {
         return;

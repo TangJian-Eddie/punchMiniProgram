@@ -1,31 +1,10 @@
 /* pages/punchGoal/index.wxss */
-.container {
-  position: relative;
-  width: 90vw;
-  height: 90vh;
-  margin: 5vh 5vw;
-}
-.customIcon {
-  width: 100rpx;
-  height: 100rpx;
-  border: 1px solid #000;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2rpx 10rpx 0 #999;
-  margin: 20rpx auto 50rpx;
-}
-.customIcon > image {
-  width: 40rpx;
-  height: auto;
-}
 .inputContainer {
   display: flex;
   align-items: center;
   margin: 50rpx 0;
 }
-.inputContainer > .textInput {
+.inputContainer > .inputContainer__textInput {
   flex: 1;
   margin-left: 30rpx;
   height: 74rpx;
@@ -38,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.numberInput {
+.inputContainer > .inputContainer__numberInput {
   width: 115rpx;
   height: 74rpx;
   background: rgba(155, 155, 155, 0.15);
@@ -46,44 +25,22 @@
   text-align: center;
   margin-right: 20rpx;
 }
+
 .picker {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 50rpx;
 }
-.picker.endTime {
-  margin-bottom: 20rpx;
-}
-.endTimeContainer {
+.endTime {
+  margin-top: 20rpx;
   text-align: right;
 }
 .tip {
   color: #797979;
 }
-.button {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 65rpx;
-  line-height: 65rpx;
-  text-align: center;
-  color: #fff;
-  background-color: #ffc01a;
-  border-radius: 30rpx;
-}
-.colorCircle {
-  width: 68rpx;
-  height: 68rpx;
-  border-radius: 50%;
-}
-.confirm{
-  position: absolute;
-  right: 30rpx;
-  top: 30rpx;
-  color: #5191c6;
-}
+
+/* 修改图标模态框 */
 .modal__content {
   position: fixed;
   top: 20vh;
@@ -92,7 +49,13 @@
   height: 80vh;
   background-color: #fff;
 }
-.modal__content-title {
+.modal__content > .modal__content-confirm {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  color: #5191c6;
+}
+.modal__content > .modal__content-title {
   background: #e0e0e0;
   width: 270rpx;
   margin-top: 50rpx;
@@ -101,7 +64,7 @@
   line-height: 80rpx;
   border-radius: 0 20px 20px 0;
 }
-.iconList {
+.modal__content > .modal__content-iconList {
   display: grid;
   grid-template-columns: repeat(12, 20%);
   grid-row-gap: 30rpx;
@@ -109,10 +72,17 @@
   margin: 20rpx;
   overflow: scroll;
 }
-.colorList {
+.modal__content > .modal__content-colorList {
   display: grid;
   grid-template-columns: repeat(6, 16.6%);
   grid-row-gap: 40rpx;
   justify-items: center;
   margin: 40rpx 0;
+}
+.modal__content
+  > .modal__content-colorList
+  > .modal__content-colorList-colorCircle {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
 }

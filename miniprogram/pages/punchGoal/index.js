@@ -91,7 +91,7 @@ Page({
              3 删除打卡目标 */
         type: goal._id ? 2 : 1,
       });
-      wx.navigateBack();
+      wx.switchTab({ url: "/pages/home/index" });
     });
   },
   /**

@@ -12,7 +12,7 @@
 	<view class="inputContainer">
 		<view>习惯名称</view>
 		<input
-		 class="textInput"
+		 class="inputContainer__textInput"
 		 value="{{goal.goalName}}"
 		 bindinput="inputChange"
 		 data-type="goalName"
@@ -21,7 +21,7 @@
 	<view class="inputContainer">
 		<view>备注</view>
 		<input
-		 class="textInput"
+		 class="inputContainer__textInput"
 		 value="{{goal.comment}}"
 		 bindinput="inputChange"
 		 data-type="comment"
@@ -40,7 +40,7 @@
 			<view wx:else class="tip">请选择开始时间</view>
 		</view>
 	</picker>
-	<view class="picker {{isEndTime?'endTime':''}}">
+	<view class="picker">
 		<view>结束时间：</view>
 		<switch bindchange="switchChange" checked="{{isEndTime}}"></switch>
 	</view>
@@ -51,14 +51,14 @@
 	 bindchange="timePick"
 	 data-type="endTime"
 	>
-		<view wx:if="{{goal.endTime && isEndTime}}" class="endTimeContainer">{{utils.substrvalue(goal.endTime,0,10)}}</view>
-		<view wx:if="{{isEndTime && !goal.endTime}}" class="tip endTimeContainer">请选择结束时间</view>
+		<view wx:if="{{goal.endTime && isEndTime}}" class="endTime">{{utils.substrvalue(goal.endTime,0,10)}}</view>
+		<view wx:if="{{isEndTime && !goal.endTime}}" class="tip endTime">请选择结束时间</view>
 	</picker>
 	<view class="numberInputContainer">
 		<view>每日打卡次数</view>
 		<view class="inputContainer">
 			<input
-			 class="numberInput"
+			 class="inputContainer__numberInput"
 			 value="{{goal.punchTimes}}"
 			 bindinput="inputChange"
 			 data-type="punchTimes"
@@ -72,9 +72,9 @@
 <view class="modal" wx:if="{{modalShow}}">
 	<view class="mask"></view>
 	<view class="modal__content">
-		<view class="confirm" bindtap="changeModalShow">完成</view>
+		<view class="modal__content-confirm" bindtap="changeModalShow">完成</view>
 		<view class="modal__content-title">请选择图标</view>
-		<view class="iconList">
+		<view class="modal__content-iconList">
 			<view
 			 class="icon"
 			 wx:for="{{iconList_habit}}"
@@ -117,12 +117,12 @@
 			</view>
 		</view>
 		<view class="modal__content-title">请选择背景颜色</view>
-		<view class="colorList">
+		<view class="modal__content-colorList">
 			<view
 			 wx:for="{{colorList}}"
 			 wx:key="index"
 			 style="background-color:{{item}}"
-			 class="colorCircle"
+			 class="modal__content-colorList-colorCircle"
 			 bindtap="chooseColor"
 			 data-item="{{item}}"
 			></view>

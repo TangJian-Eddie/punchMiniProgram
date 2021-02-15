@@ -1,12 +1,12 @@
 <view class="container">
-	<view class="title">手动创建</view>
+	<view>手动创建</view>
 	<view class="custom" bindtap="customIcon">+自定义目标</view>
-	<view class="title">快速创建</view>
+	<view>快速创建</view>
 	<view>
 		<view class="subTitle">习惯</view>
 		<view class="iconList">
 			<view
-			 class="iconContainer"
+			 class="iconList__iconContainer"
 			 wx:for="{{iconList_habit}}"
 			 wx:key="index"
 			 bindtap="chooseIcon"
@@ -16,13 +16,13 @@
 				<view class="icon">
 					<image src="../../../assets/icon/habit_{{index+1}}.png" mode="widthFix" />
 				</view>
-				<view class="iconName">{{item}}</view>
+				<view class="iconList__iconContainer-iconName">{{item}}</view>
 			</view>
 		</view>
 		<view class="subTitle">锻炼</view>
 		<view class="iconList">
 			<view
-			 class="iconContainer"
+			 class="iconList__iconContainer"
 			 wx:for="{{iconList_physical}}"
 			 wx:key="index"
 			 bindtap="chooseIcon"
@@ -32,13 +32,13 @@
 				<view class="icon">
 					<image src="../../../assets/icon/physical_{{index+1}}.png" mode="widthFix" />
 				</view>
-				<view class="iconName">{{item}}</view>
+				<view class="iconList__iconContainer-iconName">{{item}}</view>
 			</view>
 		</view>
 		<view class="subTitle">学习</view>
 		<view class="iconList">
 			<view
-			 class="iconContainer"
+			 class="iconList__iconContainer"
 			 wx:for="{{iconList_learn}}"
 			 wx:key="index"
 			 bindtap="chooseIcon"
@@ -48,13 +48,13 @@
 				<view class="icon">
 					<image src="../../../assets/icon/learn_{{index+1}}.png" mode="widthFix" />
 				</view>
-				<view class="iconName">{{item}}</view>
+				<view class="iconList__iconContainer-iconName">{{item}}</view>
 			</view>
 		</view>
 		<view class="subTitle">思考</view>
 		<view class="iconList">
 			<view
-			 class="iconContainer"
+			 class="iconList__iconContainer"
 			 wx:for="{{iconList_reflection}}"
 			 wx:key="index"
 			 bindtap="chooseIcon"
@@ -64,7 +64,7 @@
 				<view class="icon">
 					<image src="../../../assets/icon/reflection_{{index+1}}.png" mode="widthFix" />
 				</view>
-				<view class="iconName">{{item}}</view>
+				<view class="iconList__iconContainer-iconName">{{item}}</view>
 			</view>
 		</view>
 	</view>

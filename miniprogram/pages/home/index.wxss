@@ -1,10 +1,4 @@
 /* pages/home/index.wxss */
-.container {
-  position: relative;
-  width: 90vw;
-  height: 90vh;
-  margin: 5vh 5vw;
-}
 .userBox {
   margin: 5vw;
   display: flex;
@@ -21,22 +15,28 @@
   border-radius: 50%;
   margin-left: 50rpx;
 }
+.scroll {
+  height: 70vh;
+}
 .punchGoalCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.punchGoalCard__content {
+.punchGoalCard > .punchGoalCard__content {
   display: flex;
   align-items: center;
 }
-.punchGoalCard__content-information {
+.punchGoalCard > .punchGoalCard__content > .punchGoalCard__content-information {
   margin-left: 20rpx;
 }
-.punchGoalCard__content-count {
+.punchGoalCard
+  > .punchGoalCard__content
+  > .punchGoalCard__content-information
+  > .punchGoalCard__content-count {
   color: #aaaaaa;
 }
-.punchButton{
+.punchGoalCard > .punchGoalCard__button {
   width: 130rpx;
   height: 60rpx;
   line-height: 60rpx;
@@ -45,20 +45,4 @@
   color: #fff;
   background-color: #2fc4ff;
   border-radius: 35rpx;
-}
-.button {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 65rpx;
-  line-height: 65rpx;
-  text-align: center;
-  color: #fff;
-  background-color: #ffc01a;
-  border-radius: 30rpx;
-}
-
-.scroll{
-  height: 70vh;
 }
