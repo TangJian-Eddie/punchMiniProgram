@@ -28,10 +28,12 @@ Page({
       content: "确认删除这个打卡目标",
       success: (result) => {
         if (result.confirm) {
+          wx.showLoading({ mask: true });
           fetch({
             name: "deletePunchGoal",
             data: { id: item._id },
           }).then((res) => {
+            wx.hideLoading();
             app.toast(res.msg);
             if (res.code !== 200) return;
             const { punchGoalList } = this.data;

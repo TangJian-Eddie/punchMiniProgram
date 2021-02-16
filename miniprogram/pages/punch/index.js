@@ -15,7 +15,7 @@ Page({
     },
     todayPunch: true,
     punchBeforeDate: null,
-    pickerEnd: '',
+    pickerEnd: "",
   },
 
   inputChange(e) {
@@ -25,10 +25,12 @@ Page({
     this.setData({ "punch.date": e.detail.value });
   },
   punch() {
+    wx.showLoading({ mask: true });
     fetch({
       name: "punch",
       data: this.data.punch,
     }).then((res) => {
+      wx.hideLoading();
       app.toast(res.msg);
       if (res.code !== 200) return;
       app.event.emit("punchChange", {

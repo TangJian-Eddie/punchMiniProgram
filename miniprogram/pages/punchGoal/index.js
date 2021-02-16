@@ -77,10 +77,12 @@ Page({
       app.toast("有未填写完成的信息");
       return;
     }
+    wx.showLoading({ mask: true });
     fetch({
       name: "punchGoal",
       data: goal,
     }).then((res) => {
+      wx.hideLoading();
       app.toast(res.msg);
       if (res.code != 200) return;
       app.event.emit("punchGoalChange", {

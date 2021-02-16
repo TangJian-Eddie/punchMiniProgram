@@ -35,6 +35,7 @@ Page({
       content: "确认删除这次打卡记录",
       success: (result) => {
         if (result.confirm) {
+          wx.showLoading({ mask: true });
           fetch({
             name: "deletePunch",
             data: {
@@ -42,6 +43,7 @@ Page({
               punchGoalId: item.punchGoalId,
             },
           }).then((res) => {
+            wx.hideLoading();
             app.toast(res.msg);
             if (res.code != 200) return;
             app.toast("删除成功");
