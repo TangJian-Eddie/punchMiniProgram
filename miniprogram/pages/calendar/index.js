@@ -48,13 +48,15 @@ Page({
     console.log("afterTapDate", e.detail); // => { year: 2019, month: 12, date: 3, ...}
     const { year, month, date, todoText } = e.detail;
     const todayPunch = [];
-    for (const item of todoText) {
-      const punchGoal = this.data.punchGoalList.find(
-        (punchGoalItem) => punchGoalItem._id === item.punchGoalId
-      );
-      punchGoal.comment = item.comment;
-      punchGoal.punchId = item._id;
-      todayPunch.push(punchGoal);
+    if (todoText) {
+      for (const item of todoText) {
+        const punchGoal = this.data.punchGoalList.find(
+          (punchGoalItem) => punchGoalItem._id === item.punchGoalId
+        );
+        punchGoal.comment = item.comment;
+        punchGoal.punchId = item._id;
+        todayPunch.push(punchGoal);
+      }
     }
     this.setData({ selectDate: { year, month, date }, todayPunch });
   },
