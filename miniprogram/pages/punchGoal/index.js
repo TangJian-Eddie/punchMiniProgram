@@ -68,6 +68,10 @@ Page({
   },
   createPunchGoal() {
     const { goal } = this.data;
+    if (goal.endTime && new Date(goal.endTime) < new Date(goal.startTime)) {
+      app.toast("结束时间应在开始时间之后~");
+      return;
+    }
     if (
       Object.keys(goal).some((value) => {
         if (value == "comment" || value == "endTime") return false;

@@ -61,6 +61,6 @@
 			</slide-delete>
 		</view>
 	</scroll-view>
-	<view bindtap="rePunch" class="button">补打卡</view>
+	<view bindtap="rePunch" class="button {{info.isEnd ? 'disableButton':''}}">补打卡</view>
 </view>
 

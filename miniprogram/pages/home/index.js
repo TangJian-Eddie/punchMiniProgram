@@ -74,6 +74,10 @@ Page({
     wx.navigateTo({ url: `/pages/detail/index?info=${info}` });
   },
   toPunch(e) {
+    if (e.currentTarget.dataset.info.isEnd) {
+      app.toast("打卡目标已经结束~");
+      return;
+    }
     const info = JSON.stringify(e.currentTarget.dataset.info);
     wx.navigateTo({ url: `/pages/punch/index?info=${info}` });
   },
@@ -126,6 +130,11 @@ Page({
       name: "getPunchGoal",
       data: { userId },
     }).then((res) => {
+      for (const item of res.data.list) {
+        if (new Date(item.endTime) < new Date()) {
+          item.isEnd = true;
+        }
+      }
       this.setData({ punchGoalList: res.data.list });
     });
   },

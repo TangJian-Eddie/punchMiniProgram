@@ -22,6 +22,20 @@ Page({
     this.setData({ "punch.comment": e.detail.value });
   },
   timePick(e) {
+    if (
+      this.data.info.endTime &&
+      new Date(this.data.info.endTime) < new Date(e.detail.value)
+    ) {
+      app.toast("打卡时间不可以晚于目标结束时间~");
+      return;
+    }
+    if (
+      this.data.info.startTime &&
+      new Date(this.data.info.startTime) > new Date(e.detail.value)
+    ) {
+      app.toast("打卡时间不可以早于目标开始时间~");
+      return;
+    }
     this.setData({ "punch.date": e.detail.value });
   },
   punch() {

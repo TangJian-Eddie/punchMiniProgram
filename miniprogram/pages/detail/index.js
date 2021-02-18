@@ -64,6 +64,10 @@ Page({
     });
   },
   rePunch() {
+    if (this.data.info.isEnd) {
+      app.toast('打卡目标已经结束~')
+      return
+    }
     const info = JSON.stringify(this.data.info);
     wx.navigateTo({
       url: `/pages/punch/index?info=${info}&rePunch=1`,
@@ -97,6 +101,9 @@ Page({
     app.event.on("punchChange", this.punchChange, this);
     if (options.info) {
       const info = JSON.parse(options.info);
+      if (new Date(info.endTime) < new Date()) {
+        info.isEnd = true;
+      }
       this.setData({ info });
       this.getData(info._id);
     }

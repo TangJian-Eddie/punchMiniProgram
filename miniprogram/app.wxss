@@ -52,6 +52,12 @@
   background-color: #ffc01a;
   border-radius: 30rpx;
 }
+
+.disableButton {
+  color: #808695 !important;
+  background-color: #fff !important;
+  border: 1px solid #808695 !important;
+}
 .modal {
   position: fixed;
   top: 0;

@@ -46,7 +46,7 @@
 					<view
 					 catchtap="toPunch"
 					 data-info="{{item}}"
-					 class="punchGoalCard__button"
+					 class="{{item.isEnd?'disableButton':''}} punchGoalCard__button"
 					>打卡
 					</view>
 				</view>
