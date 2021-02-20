@@ -3,6 +3,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const collection = db.collection("punch");
 const goalCollection = db.collection("punchGoal");
+const userCollection = db.collection("users");
 const _ = db.command;
 
 const createPunch = (data) => {
@@ -40,12 +41,35 @@ const updatePunch = (data) => {
       });
   });
 };
+
+const checkRepunchLimit = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    userCollection
+      .doc(userId)
+      .field({ rePunch: true })
+      .get()
+      .then((res) => {
+        if (res.data.rePunch < 1) {
+          userCollection
+            .doc(userId)
+            .update({ data: { rePunch: ++res.data.rePunch } });
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 const checkLimit = (data) => {
   const { date, punchGoalId, _id = null } = data;
   return new Promise(async (resolve, reject) => {
     if (_id) {
       let dateRes = await collection.doc(_id).field({ date: true }).get();
-      if (String(dateRes.data.date).slice(0,10) === String(date).slice(0,10)) resolve(true);
+      if (String(dateRes.data.date).slice(0, 10) === String(date).slice(0, 10))
+        resolve(true);
     }
     goalCollection
       .doc(punchGoalId)
@@ -86,12 +110,20 @@ exports.main = async (event, context) => {
   event.data.date = new Date(event.data.date);
   event.data.userId = cloud.getWXContext().OPENID;
   try {
-    let res = await checkLimit(event.data);
+    if (event.data.rePunch) {
+      const res = await checkRepunchLimit(event.data.userId);
+      if (!res) {
+        return {
+          code: 403,
+          msg: "一天只可以补打卡一次，今天已达到限制",
+        };
+      }
+    }
+    const res = await checkLimit(event.data);
     if (!res) {
       return {
         code: 403,
-        msg: "今天打卡次数达到限制，请勿重复打卡",
-        result: null,
+        msg: "当天此打卡目标打卡次数已达到，请勿重复打卡",
       };
     }
     if (event.data._id) {

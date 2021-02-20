@@ -16,7 +16,6 @@
   text-align: center;
   line-height: 50rpx;
   background-color: #5fc79a;
-  border: 1px solid #fff;
   border-radius: 50%;
   font-size: 26rpx;
 }

@@ -101,7 +101,7 @@ Page({
     app.event.on("punchChange", this.punchChange, this);
     if (options.info) {
       const info = JSON.parse(options.info);
-      if (new Date(info.endTime) < new Date()) {
+      if (info.endTime &&new Date(info.endTime) < new Date()) {
         info.isEnd = true;
       }
       this.setData({ info });

@@ -131,7 +131,7 @@ Page({
       data: { userId },
     }).then((res) => {
       for (const item of res.data.list) {
-        if (new Date(item.endTime) < new Date()) {
+        if (item.endTime && new Date(item.endTime) < new Date()) {
           item.isEnd = true;
         }
       }

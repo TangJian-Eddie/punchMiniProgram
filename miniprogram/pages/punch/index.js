@@ -76,7 +76,7 @@ Page({
     // 补打卡
     if (options.rePunch) {
       this.data.punch.date = null;
-      this.setData({ todayPunch: false });
+      this.setData({ todayPunch: false, "punch.rePunch": true });
     }
   },
 });
