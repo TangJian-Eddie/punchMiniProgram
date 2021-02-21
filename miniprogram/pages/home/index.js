@@ -62,6 +62,7 @@ Page({
       if (res.code !== 200) return;
       wx.setStorageSync("userInfo", res.data);
       app.globalData.userInfo = res.dataÏ;
+      app.event.emit("login");
       this.setData({ userInfo: res.data });
       this.getData(res.data.userId);
     });

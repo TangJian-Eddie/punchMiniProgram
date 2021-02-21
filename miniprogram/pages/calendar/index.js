@@ -92,6 +92,7 @@ Page({
   onLoad: function () {
     app.event.on("punchGoalChange", this.punchGoalChange, this);
     app.event.on("punchChange", this.punchChange, this);
+    app.event.on("login", this.login, this);
     const { windowHeight, windowWidth } = wx.getSystemInfoSync();
     this.setData({ scrollHeight: windowHeight - (windowWidth / 750) * 810 });
     this.getData(this.data.selectDate.year, this.data.selectDate.month);
@@ -238,6 +239,11 @@ Page({
     }
   },
 
+  login() {
+    this.getGoalData();
+    this.getData(this.data.selectDate.year, this.data.selectDate.month);
+  },
+
   isSelectDate(year, month, date) {
     return (
       year === this.data.selectDate.year &&
@@ -331,6 +337,7 @@ Page({
   onUnload: function () {
     app.event.off("punchGoalChange", this.punchGoalChange);
     app.event.off("punchChange", this.punchChange);
+    app.event.off("login", this.login);
   },
 
   /**
