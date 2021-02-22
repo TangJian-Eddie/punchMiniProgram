@@ -1,43 +1,50 @@
 // pages/calendar/index.js
 const app = getApp();
+const nowYear = new Date().getFullYear();
+const nowMonth = new Date().getMonth() + 1;
+const newDate = new Date().getDate();
 import { fetch } from "../../utils/fetch";
 import { formatDate } from "../../utils/formatDate";
+import { useLocalStorage } from "../../constant/index";
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     selectDate: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      date: new Date().getDate(),
+      year: nowYear,
+      month: nowMonth,
+      date: newDate,
     },
     currentMonth: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      year: nowYear,
+      month: nowMonth,
     },
     todayPunch: [],
     punchGoalList: [],
     punchList: {},
     scrollHeight: "",
+    dates: [],
   },
 
   jumpToday() {
     const calendar = this.selectComponent("#calendar").calendar;
     calendar.jump();
-    this.whenChangeMonth({
-      detail: {
-        next: {
-          year: new Date().getFullYear(),
-          month: new Date().getMonth() + 1,
+    if (this.isCurMonth(nowYear, nowMonth)) {
+      this.whenChangeMonth({
+        detail: {
+          next: {
+            year: nowYear,
+            month: nowMonth,
+          },
         },
-      },
-    });
+      });
+    }
     for (const item of calendar.getTodos()) {
       if (
-        item.year === new Date().getFullYear() &&
-        item.month === new Date().getMonth() + 1 &&
-        item.date === new Date().getDate()
+        item.year === nowYear &&
+        item.month === nowMonth &&
+        item.date === newDate
       ) {
         this.afterTapDate({ detail: item });
         break;
@@ -83,6 +90,10 @@ Page({
       }
     }
     const calendar = this.selectComponent("#calendar").calendar;
+    if (!calendar) {
+      this.setData({ dates });
+      return;
+    }
     calendar.clearTodos();
     calendar.setTodos({ dates });
   },
@@ -120,6 +131,12 @@ Page({
           issue.list = issue.list.filter(
             (item) => item.punchGoalId !== punchGoal._id
           );
+        }
+        if (useLocalStorage) {
+          wx.setStorage({
+            key,
+            data: JSON.stringify(this.data.punchList[key]),
+          });
         }
       }
       const index = this.data.punchGoalList.findIndex(
@@ -170,7 +187,7 @@ Page({
               }
             }
           } else {
-            this.splicePunchList(
+            this.handlePunchList(
               this.data.punchList[`punchList-${year}-${month}`],
               beforeDate,
               punch._id,
@@ -181,10 +198,18 @@ Page({
           if (this.isCurMonth(year, month)) {
             this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
           }
+          if (useLocalStorage) {
+            wx.setStorage({
+              key: `punchList-${year}-${month}`,
+              data: JSON.stringify(
+                this.data.punchList[`punchList-${year}-${month}`]
+              ),
+            });
+          }
         }
       } else {
         if (this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]) {
-          this.splicePunchList(
+          this.handlePunchList(
             this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`],
             beforeDate,
             punch._id
@@ -193,6 +218,14 @@ Page({
             this.setTodos(
               this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]
             );
+          }
+          if (useLocalStorage) {
+            wx.setStorage({
+              key: `punchList-${beforeYear}-${beforeMonth}`,
+              data: JSON.stringify(
+                this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]
+              ),
+            });
           }
         }
         if (this.data.punchList[`punchList-${year}-${month}`]) {
@@ -215,6 +248,14 @@ Page({
           if (this.isCurMonth(year, month)) {
             this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
           }
+          if (useLocalStorage) {
+            wx.setStorage({
+              key: `punchList-${year}-${month}`,
+              data: JSON.stringify(
+                this.data.punchList[`punchList-${year}-${month}`]
+              ),
+            });
+          }
         }
       }
       if (this.isSelectDate(beforeYear, beforeMonth, beforeDate)) {
@@ -225,11 +266,19 @@ Page({
       }
     }
     if (type === 3 && this.data.punchList[`punchList-${year}-${month}`]) {
-      this.splicePunchList(
+      this.handlePunchList(
         this.data.punchList[`punchList-${year}-${month}`],
         date,
         punch._id
       );
+      if (useLocalStorage) {
+        wx.setStorage({
+          key: `punchList-${year}-${month}`,
+          data: JSON.stringify(
+            this.data.punchList[`punchList-${year}-${month}`]
+          ),
+        });
+      }
       if (this.isCurMonth(year, month)) {
         this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
       }
@@ -257,7 +306,7 @@ Page({
       month === this.data.currentMonth.month
     );
   },
-  splicePunchList(punchList, date, id, isPush = false, pushDate) {
+  handlePunchList(punchList, date, id, isPush = false, pushDate) {
     for (const issue of punchList) {
       if (issue._id === date) {
         const index = issue.list.findIndex((item) => item._id === id);
@@ -304,21 +353,34 @@ Page({
       app.toast("请返回首页登陆");
       return;
     }
+    if (useLocalStorage) {
+      let list = wx.getStorageSync(`punchList-${year}-${month}`);
+      if (list) {
+        list = JSON.parse(list);
+        this.data.punchList[`punchList-${year}-${month}`] = list;
+        this.setTodos(list);
+        return;
+      }
+    }
     fetch({
       name: "getPunchByMonth",
       data: { userId: app.globalData.userInfo.userId, year, month },
     }).then((res) => {
       this.data.punchList[`punchList-${year}-${month}`] = res.data.list;
       this.setTodos(res.data.list);
+      if (useLocalStorage) {
+        wx.setStorage({
+          key: `punchList-${year}-${month}`,
+          data: JSON.stringify(res.data.list),
+        });
+      }
     });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    setTimeout(() => {
-      this.jumpToday();
-    }, 500);
+    // todayPunch
   },
 
   /**

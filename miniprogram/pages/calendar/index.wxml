@@ -14,6 +14,7 @@
  id="calendar"
  bind:afterTapDate="afterTapDate"
  bind:whenChangeMonth="whenChangeMonth"
+ dates="{{dates}}"
 ></calendar>
 <view class="punchList">
 	<view class="punchList__title">

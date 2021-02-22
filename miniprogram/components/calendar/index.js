@@ -20,6 +20,10 @@ Component({
         autoChoosedWhenJump: true, // 设置默认日期及跳转到指定日期后是否需要自动选中
       },
     },
+    dates: {
+      type: Array,
+      value: [],
+    },
   },
   lifetimes: {
     attached: function () {
@@ -108,6 +112,10 @@ Component({
           }
           const initData = this.initCalendar(config);
           renderCalendar.call(this, initData, config);
+          const { dates } = this.data;
+          if (dates.length !== 0) {
+            this.calendar.setTodos({ dates });
+          }
         }
       );
     },
