@@ -98,7 +98,7 @@ const checkLimit = (data) => {
 exports.main = async (event, context) => {
   console.log(event);
   if (
-    !["comment", "date", "punchGoalId"].every(
+    !["date", "punchGoalId"].every(
       (item) =>
         event.data[item] !== "" &&
         event.data[item] !== null &&

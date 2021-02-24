@@ -5,7 +5,6 @@ const nowMonth = new Date().getMonth() + 1;
 const newDate = new Date().getDate();
 import { fetch } from "../../utils/fetch";
 import { formatDate } from "../../utils/formatDate";
-import { useLocalStorage } from "../../constant/index";
 Page({
   /**
    * 页面的初始数据
@@ -30,26 +29,14 @@ Page({
   jumpToday() {
     const calendar = this.selectComponent("#calendar").calendar;
     calendar.jump();
-    if (this.isCurMonth(nowYear, nowMonth)) {
-      this.whenChangeMonth({
-        detail: {
-          next: {
-            year: nowYear,
-            month: nowMonth,
-          },
+    this.whenChangeMonth({
+      detail: {
+        next: {
+          year: nowYear,
+          month: nowMonth,
         },
-      });
-    }
-    for (const item of calendar.getTodos()) {
-      if (
-        item.year === nowYear &&
-        item.month === nowMonth &&
-        item.date === newDate
-      ) {
-        this.afterTapDate({ detail: item });
-        break;
-      }
-    }
+      },
+    });
   },
   afterTapDate(e) {
     console.log("afterTapDate", e.detail); // => { year: 2019, month: 12, date: 3, ...}
@@ -101,13 +88,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    this.getGoalData();
     app.event.on("punchGoalChange", this.punchGoalChange, this);
     app.event.on("punchChange", this.punchChange, this);
     app.event.on("login", this.login, this);
     const { windowHeight, windowWidth } = wx.getSystemInfoSync();
     this.setData({ scrollHeight: windowHeight - (windowWidth / 750) * 810 });
-    this.getData(this.data.selectDate.year, this.data.selectDate.month);
-    this.getGoalData();
   },
 
   punchGoalChange(e) {
@@ -131,12 +117,6 @@ Page({
           issue.list = issue.list.filter(
             (item) => item.punchGoalId !== punchGoal._id
           );
-        }
-        if (useLocalStorage) {
-          wx.setStorage({
-            key,
-            data: JSON.stringify(this.data.punchList[key]),
-          });
         }
       }
       const index = this.data.punchGoalList.findIndex(
@@ -198,14 +178,6 @@ Page({
           if (this.isCurMonth(year, month)) {
             this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
           }
-          if (useLocalStorage) {
-            wx.setStorage({
-              key: `punchList-${year}-${month}`,
-              data: JSON.stringify(
-                this.data.punchList[`punchList-${year}-${month}`]
-              ),
-            });
-          }
         }
       } else {
         if (this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]) {
@@ -218,14 +190,6 @@ Page({
             this.setTodos(
               this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]
             );
-          }
-          if (useLocalStorage) {
-            wx.setStorage({
-              key: `punchList-${beforeYear}-${beforeMonth}`,
-              data: JSON.stringify(
-                this.data.punchList[`punchList-${beforeYear}-${beforeMonth}`]
-              ),
-            });
           }
         }
         if (this.data.punchList[`punchList-${year}-${month}`]) {
@@ -248,14 +212,6 @@ Page({
           if (this.isCurMonth(year, month)) {
             this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
           }
-          if (useLocalStorage) {
-            wx.setStorage({
-              key: `punchList-${year}-${month}`,
-              data: JSON.stringify(
-                this.data.punchList[`punchList-${year}-${month}`]
-              ),
-            });
-          }
         }
       }
       if (this.isSelectDate(beforeYear, beforeMonth, beforeDate)) {
@@ -271,14 +227,6 @@ Page({
         date,
         punch._id
       );
-      if (useLocalStorage) {
-        wx.setStorage({
-          key: `punchList-${year}-${month}`,
-          data: JSON.stringify(
-            this.data.punchList[`punchList-${year}-${month}`]
-          ),
-        });
-      }
       if (this.isCurMonth(year, month)) {
         this.setTodos(this.data.punchList[`punchList-${year}-${month}`]);
       }
@@ -344,6 +292,7 @@ Page({
       name: "getPunchGoal",
       data: { userId: app.globalData.userInfo.userId },
     }).then((res) => {
+      this.getData(this.data.selectDate.year, this.data.selectDate.month);
       this.setData({ punchGoalList: res.data.list });
     });
   },
@@ -353,27 +302,12 @@ Page({
       app.toast("请返回首页登陆");
       return;
     }
-    if (useLocalStorage) {
-      let list = wx.getStorageSync(`punchList-${year}-${month}`);
-      if (list) {
-        list = JSON.parse(list);
-        this.data.punchList[`punchList-${year}-${month}`] = list;
-        this.setTodos(list);
-        return;
-      }
-    }
     fetch({
       name: "getPunchByMonth",
       data: { userId: app.globalData.userInfo.userId, year, month },
     }).then((res) => {
       this.data.punchList[`punchList-${year}-${month}`] = res.data.list;
       this.setTodos(res.data.list);
-      if (useLocalStorage) {
-        wx.setStorage({
-          key: `punchList-${year}-${month}`,
-          data: JSON.stringify(res.data.list),
-        });
-      }
     });
   },
   /**

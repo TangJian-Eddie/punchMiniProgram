@@ -4,7 +4,6 @@ import { calcJumpData } from "./core";
 import { renderCalendar } from "./render";
 import { calcTargetYMInfo } from "./helper";
 import { dateUtil, calendarGesture, logger } from "./utils/index";
-import { formatDate } from "./utils/formatDate";
 
 Component({
   options: {
@@ -16,9 +15,26 @@ Component({
       type: Object,
       value: {
         emphasisWeek: true, // 是否高亮显示周末日期
-        defaultDate: formatDate(new Date()), // 默认选中指定某天，如需选中需配置 autoChoosedWhenJump: true
         autoChoosedWhenJump: true, // 设置默认日期及跳转到指定日期后是否需要自动选中
       },
+      // calendarConfig: {
+      //   multi: true, // 是否开启多选,
+      //   inverse: true, // 单选模式下是否支持取消选中,
+      //   markToday: '今', // 当天日期展示不使用默认数字，用特殊文字标记
+      //   takeoverTap: true, // 是否完全接管日期点击事件（日期不会选中)
+      //   emphasisWeek: true, // 是否高亮显示周末日期
+      //   highlightToday: true, // 是否高亮显示当天，区别于选中样式（初始化时当天高亮并不代表已选中当天）
+      //   defaultDate: '2018-3-6', // 默认选中指定某天，如需选中需配置 autoChoosedWhenJump: true， 默认今天
+      //   preventSwipe: true, // 是否禁用日历滑动切换月份
+      //   firstDayOfWeek: 'Mon', // 每周第一天为周一还是周日，默认按周日开始
+      //   onlyShowCurrentMonth: true, // 日历面板是否只显示本月日期
+      //   autoChoosedWhenJump: true, // 设置默认日期及跳转到指定日期后是否需要自动选中
+      //   disableMode: {
+      //     // 禁用某一天之前/之后的所有日期
+      //     type: 'after', // [‘before’, 'after']
+      //     date: '2020-3-24' // 无该属性或该属性值为假，则默认为当天
+      //   },
+      // }
     },
     dates: {
       type: Array,
@@ -76,6 +92,7 @@ Component({
             waitRenderData.selectedDates.push(target[0]);
           }
         }
+        this.triggerEvent("afterTapDate", target[0]);
       }
       return {
         ...waitRenderData,
@@ -112,6 +129,7 @@ Component({
           }
           const initData = this.initCalendar(config);
           renderCalendar.call(this, initData, config);
+          // 父组件传值，在生成后自动setTodos
           const { dates } = this.data;
           if (dates.length !== 0) {
             this.calendar.setTodos({ dates });
@@ -233,9 +251,6 @@ Component({
       }
       return renderCalendar.call(this, calendarData, config).then(() => {
         let triggerEventName = "whenChangeMonth";
-        if (config.weekMode) {
-          triggerEventName = "whenChangeWeek";
-        }
         this.triggerEvent(triggerEventName, {
           current: {
             year: +curYear,

@@ -140,6 +140,7 @@ export default () => {
               updatedRenderData.selectedDates.push(target)
             }
           }
+          // component.triggerEvent("afterTapDate", existCalendarData.selectedDates[0]);
           return renderCalendar.call(component, {
             ...existCalendarData,
             ...updatedRenderData
