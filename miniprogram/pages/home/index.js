@@ -30,7 +30,8 @@ Page({
         if (result.confirm) {
           wx.showLoading({ mask: true });
           fetch({
-            name: "deletePunchGoal",
+            url: "punchgoals",
+            method: "DELETE",
             data: { id: item._id },
           }).then((res) => {
             wx.hideLoading();
@@ -55,7 +56,8 @@ Page({
 
   getUserInfo(e) {
     fetch({
-      name: "login",
+      url: "login",
+      method: "POST",
       data: { userInfo: e.detail.userInfo },
     }).then((res) => {
       app.toast(res.msg);
@@ -128,7 +130,8 @@ Page({
   },
   getData(userId) {
     fetch({
-      name: "getPunchGoal",
+      url: "punchgoals",
+      method: "GET",
       data: { userId },
     }).then((res) => {
       for (const item of res.data.list) {

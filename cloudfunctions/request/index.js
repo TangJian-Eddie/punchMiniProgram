@@ -1,7 +1,5 @@
-// 云函数入口文件
-// const cloud = require("wx-server-sdk");
+const cloud = require("wx-server-sdk");
 const TcbRouter = require("tcb-router");
-// cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const punchGoalService = require("./service/punchGoalService");
 const punchService = require("./service/punchService");
@@ -51,7 +49,8 @@ exports.main = async (event, context) => {
         ctx.body = { code: 500, msg: "参数错误！" };
         return;
       }
-      ctx.body = await punchServices.createPunch(event.data);
+      const userId = cloud.getWXContext().OPENID;
+      ctx.body = await punchServices.createPunch(userId, event.data);
       return;
     }
     if (event.method === "PUT") {
@@ -79,7 +78,7 @@ exports.main = async (event, context) => {
     }
   });
 
-  app.router("punchgoales", async (ctx, next) => {
+  app.router("punchgoals", async (ctx, next) => {
     if (event.method === "GET") {
       if (!event.data.userId) {
         ctx.body = { code: 500, msg: "参数错误！" };
@@ -95,6 +94,7 @@ exports.main = async (event, context) => {
         "punchTimes",
         "startTime",
         "iconBackground",
+        "userId",
       ];
       if (
         !params.every(
@@ -118,6 +118,7 @@ exports.main = async (event, context) => {
         "punchTimes",
         "startTime",
         "iconBackground",
+        "userId",
       ];
       if (
         !params.every(

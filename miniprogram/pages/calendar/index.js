@@ -289,7 +289,8 @@ Page({
       return;
     }
     fetch({
-      name: "getPunchGoal",
+      url: "punchgoals",
+      method: "GET",
       data: { userId: app.globalData.userInfo.userId },
     }).then((res) => {
       this.getData(this.data.selectDate.year, this.data.selectDate.month);
@@ -303,8 +304,12 @@ Page({
       return;
     }
     fetch({
-      name: "getPunchByMonth",
-      data: { userId: app.globalData.userInfo.userId, year, month },
+      url: "punches",
+      method: "GET",
+      queryString: { year, month },
+      data: {
+        userId: app.globalData.userInfo.userId,
+      },
     }).then((res) => {
       this.data.punchList[`punchList-${year}-${month}`] = res.data.list;
       this.setTodos(res.data.list);

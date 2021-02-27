@@ -41,7 +41,8 @@ Page({
   punch() {
     wx.showLoading({ mask: true });
     fetch({
-      name: "punch",
+      url: "punches",
+      method: this.data.punch._id ? "PUT" : "POST",
       data: this.data.punch,
     }).then((res) => {
       wx.hideLoading();

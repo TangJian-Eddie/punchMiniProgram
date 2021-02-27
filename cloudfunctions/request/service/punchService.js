@@ -18,8 +18,7 @@ class punchService {
     const list = await this.punchDao.getPunchListByMonth(userId, year, month);
     return { code: 200, msg: "查询成功", data: { list } };
   }
-  async createPunch(data) {
-    const { userId, punch } = data;
+  async createPunch(userId, punch) {
     punch.date = new Date(punch.date);
     if (punch.date.toDateString() !== new Date().toDateString()) {
       const isRepunchLimit = await this.userDao.checkRepunchLimit(userId);
@@ -48,8 +47,7 @@ class punchService {
     await this.punchGoalDao.increaseCount(punch.punchGoalId);
     return { code: 200, msg: "新增成功", data: res };
   }
-  async updatePunch(data) {
-    const { punch } = data;
+  async updatePunch(punch) {
     punch.date = new Date(punch.date);
     const oldPunch = await this.punchDao.getPunchById(punch._id);
     if (punch.date.toDateString() !== new Date(oldPunch.date).toDateString()) {

@@ -27,6 +27,7 @@ Page({
       endTime: "",
       punchTimes: 1,
       iconBackground: "#FFFFFF",
+      userId: app.globalData.userInfo.userId,
     },
     isEndTime: false,
     modalShow: false,
@@ -83,7 +84,8 @@ Page({
     }
     wx.showLoading({ mask: true });
     fetch({
-      name: "punchGoal",
+      url: "punchgoals",
+      method: goal._id ? "PUT" : "POST",
       data: goal,
     }).then((res) => {
       wx.hideLoading();

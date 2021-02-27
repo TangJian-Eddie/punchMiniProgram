@@ -10,7 +10,7 @@ Page({
     punchList: [],
     fetchConf: {
       page: 1,
-      pageSize: 10,
+      size: 10,
       hasNext: true,
     },
   },
@@ -37,10 +37,10 @@ Page({
         if (result.confirm) {
           wx.showLoading({ mask: true });
           fetch({
-            name: "deletePunch",
+            url: "punches",
+            method: "DELETE",
             data: {
               id: item._id,
-              punchGoalId: item.punchGoalId,
             },
           }).then((res) => {
             wx.hideLoading();
@@ -65,8 +65,8 @@ Page({
   },
   rePunch() {
     if (this.data.info.isEnd) {
-      app.toast('打卡目标已经结束~')
-      return
+      app.toast("打卡目标已经结束~");
+      return;
     }
     const info = JSON.stringify(this.data.info);
     wx.navigateTo({
@@ -78,7 +78,7 @@ Page({
       punchList: [],
       fetchConf: {
         page: 1,
-        pageSize: 10,
+        size: 10,
         hasNext: true,
       },
     });
@@ -101,7 +101,7 @@ Page({
     app.event.on("punchChange", this.punchChange, this);
     if (options.info) {
       const info = JSON.parse(options.info);
-      if (info.endTime &&new Date(info.endTime) < new Date()) {
+      if (info.endTime && new Date(info.endTime) < new Date()) {
         info.isEnd = true;
       }
       this.setData({ info });
@@ -124,17 +124,14 @@ Page({
 
   getData(id) {
     const punchGoalId = id;
-    const { page, pageSize } = this.data.fetchConf;
+    const { page, size } = this.data.fetchConf;
     fetch({
-      name: "getPunchList",
-      data: {
-        punchGoalId,
-        page,
-        pageSize,
-      },
+      url: "punches",
+      method: "GET",
+      data: { punchGoalId, page, size },
     }).then((res) => {
       let hasNext = true;
-      if (res.data.total <= page * pageSize) {
+      if (res.data.total <= page * size) {
         hasNext = false;
       }
       this.setData({
