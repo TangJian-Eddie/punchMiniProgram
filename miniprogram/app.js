@@ -13,6 +13,22 @@ App({
     }
     const userInfo = wx.getStorageSync("userInfo");
     this.globalData = { userInfo };
+    wx.cloud.callFunction({
+      name: "request",
+      data: {
+        method: "GET",
+        $url: "punchgoales",
+        data: {
+          userId: userInfo.userId,
+        },
+      },
+      success: (res) => {
+        console.log("xx", res);
+      },
+      fail: (err) => {
+        console.log(err);
+      },
+    });
   },
   toast(title) {
     wx.showToast({
