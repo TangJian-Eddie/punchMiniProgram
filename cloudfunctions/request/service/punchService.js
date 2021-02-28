@@ -43,7 +43,7 @@ class punchService {
         msg: "当天此打卡目标打卡次数已达到，请勿重复打卡",
       };
     }
-    const res = await this.punchDao.createPunch(punch);
+    const res = await this.punchDao.createPunch({ ...punch, userId });
     await this.punchGoalDao.increaseCount(punch.punchGoalId);
     return { code: 200, msg: "新增成功", data: res };
   }
