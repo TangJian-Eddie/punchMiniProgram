@@ -8,13 +8,25 @@ Page({
   data: {
     userInfo: null,
     punchGoalList: [],
+    slideButtons: [
+      {
+        text: "修改",
+        data: 'edit'
+      },
+      {
+        type: "warn",
+        data: 'delete',
+        text: "删除",
+      },
+    ],
   },
 
   handleAction(e) {
-    const { type } = e.detail;
-    if (type === "edit") {
+    console.log(e)
+    const { data } = e.detail;
+    if (data === "edit") {
       this.handleEdit(e);
-    } else if (type === "delete") {
+    } else if (data === "delete") {
       this.handleDelete(e);
     }
   },

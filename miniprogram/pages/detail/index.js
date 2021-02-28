@@ -13,12 +13,23 @@ Page({
       size: 10,
       hasNext: true,
     },
+    slideButtons: [
+      {
+        text: "修改",
+        data: 'edit'
+      },
+      {
+        type: "warn",
+        data: 'delete',
+        text: "删除",
+      },
+    ],
   },
   handleAction(e) {
-    const { type } = e.detail;
-    if (type === "edit") {
+    const { data } = e.detail;
+    if (data === "edit") {
       this.handleEdit(e);
-    } else if (type === "delete") {
+    } else if (data === "delete") {
       this.handleDelete(e);
     }
   },

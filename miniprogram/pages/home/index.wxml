@@ -17,13 +17,13 @@
 		 enhanced="{{true}}"
 		 show-scrollbar="{{false}}"
 		>
-			<slide-delete
+			<slide-view
 			 wx:for="{{punchGoalList}}"
 			 wx:key="index"
-			 parentId="{{item._id}}"
+			 buttons="{{slideButtons}}"
 			 data-item="{{item}}"
 			 data-index="{{index}}"
-			 bind:action="handleAction"
+			 bindbuttontap="handleAction"
 			>
 				<view
 				 class="punchGoalCard"
@@ -50,7 +50,7 @@
 					>打卡
 					</view>
 				</view>
-			</slide-delete>
+			</slide-view>
 		</scroll-view>
 		<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
 	</view>

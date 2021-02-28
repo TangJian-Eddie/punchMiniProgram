@@ -43,13 +43,13 @@
 	 show-scrollbar="{{false}}"
 	>
 		<view class="punchContainer">
-			<slide-delete
-			 bind:action="handleAction"
-			 parentId="{{item._id}}"
+			<slide-view
 			 wx:for="{{punchList}}"
 			 wx:key="index"
+			 buttons="{{slideButtons}}"
 			 data-item="{{item}}"
 			 data-index="{{index}}"
+			 bindbuttontap="handleAction"
 			>
 				<view class="punchCard">
 					<view class="punchCard__time">
@@ -58,7 +58,7 @@
 					</view>
 					<view class="punchCard__comment">{{item.comment}}</view>
 				</view>
-			</slide-delete>
+			</slide-view>
 		</view>
 	</scroll-view>
 	<view bindtap="rePunch" class="button {{info.isEnd ? 'disableButton':''}}">补打卡</view>
