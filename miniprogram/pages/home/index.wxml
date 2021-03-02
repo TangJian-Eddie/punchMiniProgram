@@ -6,7 +6,7 @@
 	 wx:if="{{!userInfo}}"
 	>登录
 	</button>
-	<view wx:if="{{userInfo}}">
+	<view wx:if="{{userInfo}}" bindtouchstart='cancelSlide'>
 		<view class="userBox">
 			<view class="userBox__nickName">{{userInfo.nickName}}</view>
 			<image src="{{userInfo.avatarUrl}}" />
@@ -20,10 +20,12 @@
 			<slide-view
 			 wx:for="{{punchGoalList}}"
 			 wx:key="index"
+			 show="{{slideView}}"
 			 buttons="{{slideButtons}}"
 			 data-item="{{item}}"
 			 data-index="{{index}}"
 			 bindbuttontap="handleAction"
+			 bindshow="slideviewShow"
 			>
 				<view
 				 class="punchGoalCard"

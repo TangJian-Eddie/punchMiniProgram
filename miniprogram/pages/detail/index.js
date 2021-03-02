@@ -16,15 +16,43 @@ Page({
     slideButtons: [
       {
         text: "修改",
-        data: 'edit'
+        data: "edit",
       },
       {
         type: "warn",
-        data: 'delete',
+        data: "delete",
         text: "删除",
       },
     ],
+    slideView: false,
+    slideViewBoundary: null,
   },
+  cancelSlide(e) {
+    const { slideViewBoundary } = this.data;
+    if (
+      slideViewBoundary &&
+      !(
+        e.touches[0].pageX > slideViewBoundary.left &&
+        e.touches[0].pageX < slideViewBoundary.right &&
+        e.touches[0].pageY < slideViewBoundary.bottom &&
+        e.touches[0].pageY > slideViewBoundary.top
+      )
+    ) {
+      this.setData({ slideView: false });
+      this.slideViewBoundary = null;
+    }
+  },
+
+  slideviewShow(e) {
+    this.data.slideView = true;
+    wx.createSelectorQuery()
+      .select(`#slideview${e.currentTarget.dataset.index}`)
+      .boundingClientRect((rect) => {
+        this.data.slideViewBoundary = rect;
+      })
+      .exec();
+  },
+
   handleAction(e) {
     const { data } = e.detail;
     if (data === "edit") {
