@@ -35,7 +35,7 @@ Page({
       )
     ) {
       this.setData({ slideView: false });
-      this.slideViewBoundary = null;
+      this.data.slideViewBoundary = null;
     }
   },
 

@@ -18,17 +18,17 @@ class punchService {
     const list = await this.punchDao.getPunchListByMonth(userId, year, month);
     return { code: 200, msg: "查询成功", data: { list } };
   }
-  async createPunch(userId, punch) {
+  async createPunch(punch) {
     punch.date = new Date(punch.date);
     if (punch.date.toDateString() !== new Date().toDateString()) {
-      const isRepunchLimit = await this.userDao.checkRepunchLimit(userId);
+      const isRepunchLimit = await this.userDao.checkRepunchLimit(punch.userId);
       if (!isRepunchLimit) {
         return {
           code: 403,
           msg: "一天只可以补打卡一次，今天已达到限制",
         };
       }
-      await this.userDao.increaseRepunch(userId);
+      await this.userDao.increaseRepunch(punch.userId);
     }
     const { punchTimes } = await this.punchGoalDao.getPunchGoalById(
       punch.punchGoalId
@@ -43,7 +43,7 @@ class punchService {
         msg: "当天此打卡目标打卡次数已达到，请勿重复打卡",
       };
     }
-    const res = await this.punchDao.createPunch({ ...punch, userId });
+    const res = await this.punchDao.createPunch(punch);
     await this.punchGoalDao.increaseCount(punch.punchGoalId);
     return { code: 200, msg: "新增成功", data: res };
   }

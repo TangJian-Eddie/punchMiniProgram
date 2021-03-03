@@ -50,7 +50,7 @@ exports.main = async (event, context) => {
         return;
       }
       const userId = cloud.getWXContext().OPENID;
-      ctx.body = await punchServices.createPunch(userId, event.data);
+      ctx.body = await punchServices.createPunch({ userId, ...event.data });
       return;
     }
     if (event.method === "PUT") {

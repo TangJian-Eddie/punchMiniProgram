@@ -1,60 +1,31 @@
 <!-- pages/home/index.wxml -->
 <view class="container">
-	<button
-	 bindgetuserinfo="getUserInfo"
-	 open-type="getUserInfo"
-	 wx:if="{{!userInfo}}"
-	>登录
-	</button>
-	<view wx:if="{{userInfo}}" bindtouchstart='cancelSlide'>
-		<view class="userBox">
-			<view class="userBox__nickName">{{userInfo.nickName}}</view>
-			<image src="{{userInfo.avatarUrl}}" />
-		</view>
-		<scroll-view
-		 scroll-y="{{true}}"
-		 class="scroll"
-		 enhanced="{{true}}"
-		 show-scrollbar="{{false}}"
-		>
-			<slide-view
-			 wx:for="{{punchGoalList}}"
-			 wx:key="index"
-			 show="{{slideView}}"
-			 buttons="{{slideButtons}}"
-			 data-item="{{item}}"
-			 data-index="{{index}}"
-			 bindbuttontap="handleAction"
-			 bindshow="slideviewShow"
-			>
-				<view
-				 class="punchGoalCard"
-				 bindtap="toDetail"
-				 data-info="{{item}}"
-				>
-					<view class="punchGoalCard__content">
-						<view class="icon" style="background:{{item.iconBackground}}">
-							<image
-							 wx:if="{{item.iconName}}"
-							 src="../../assets/icon/{{item.iconName}}.png"
-							 mode="widthFix"
-							/>
-						</view>
-						<view class="punchGoalCard__content-information">
-							<view>{{item.goalName}}</view>
-							<view class="punchGoalCard__content-count">已打卡{{item.count}}天</view>
-						</view>
-					</view>
-					<view
-					 catchtap="toPunch"
-					 data-info="{{item}}"
-					 class="{{item.isEnd?'disableButton':''}} punchGoalCard__button"
-					>打卡
-					</view>
+		<button bindgetuserinfo="getUserInfo" open-type="getUserInfo" wx:if="{{!userInfo}}">登录</button>
+		<view wx:if="{{userInfo}}" bindtouchstart='cancelSlide'>
+				<view class="userBox">
+						<view class="userBox__nickName">{{userInfo.nickName}}</view>
+						<image src="{{userInfo.avatarUrl}}" />
 				</view>
-			</slide-view>
-		</scroll-view>
-		<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
-	</view>
+				<scroll-view scroll-y="{{true}}" class="scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+						<block wx:for="{{punchGoalList}}" wx:key="index">
+								<slide-view id="slideview{{index}}" show="{{slideView}}" buttons="{{slideButtons}}" data-item="{{item}}" data-index="{{index}}" bindbuttontap="handleAction" bindshow="slideviewShow">
+										<view class="punchGoalCard" bindtap="toDetail" data-info="{{item}}">
+												<view class="punchGoalCard__content">
+														<view class="icon" style="background:{{item.iconBackground}}">
+																<image wx:if="{{item.iconName}}" src="../../assets/icon/{{item.iconName}}.png" mode="widthFix" />
+														</view>
+														<view class="punchGoalCard__content-information">
+																<view>{{item.goalName}}</view>
+																<view class="punchGoalCard__content-count">已打卡{{item.count}}天</view>
+														</view>
+												</view>
+												<view catchtap="toPunch" data-info="{{item}}" class="{{item.isEnd?'disableButton':''}} punchGoalCard__button">
+														打卡
+												</view>
+										</view>
+								</slide-view>
+						</block>
+				</scroll-view>
+				<view bindtap="toCreatePunchGoal" class="button">创建打卡目标</view>
+		</view>
 </view>
-
