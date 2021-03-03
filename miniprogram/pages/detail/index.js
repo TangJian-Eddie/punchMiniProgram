@@ -1,5 +1,6 @@
 // pages/detail/index.js
 import { fetch } from "../../utils/fetch";
+import { PAGE_SIZE } from "../../constant/index";
 const app = getApp();
 Page({
   /**
@@ -7,12 +8,9 @@ Page({
    */
   data: {
     info: {},
-    punchList: [],
-    fetchConf: {
-      page: 1,
-      size: 10,
-      hasNext: true,
-    },
+    fuse: 0,
+    list: [],
+    punchList: null,
     slideButtons: [
       {
         text: "修改",
@@ -85,7 +83,6 @@ Page({
             wx.hideLoading();
             app.toast(res.msg);
             if (res.code != 200) return;
-            app.toast("删除成功");
             app.event.emit("punchChange", {
               punch: item,
               /* type 
@@ -102,6 +99,7 @@ Page({
       },
     });
   },
+
   rePunch() {
     if (this.data.info.isEnd) {
       app.toast("打卡目标已经结束~");
@@ -112,26 +110,11 @@ Page({
       url: `/pages/punch/index?info=${info}&rePunch=1`,
     });
   },
-  resetData() {
-    this.setData({
-      punchList: [],
-      fetchConf: {
-        page: 1,
-        size: 10,
-        hasNext: true,
-      },
-    });
-    this.getData(this.data.info._id);
-  },
+
   loadMore() {
-    const { page, hasNext } = this.data.fetchConf;
-    if (hasNext) {
-      console.log("load more...");
-      this.setData({
-        "fetchConf.page": page + 1,
-      });
-      this.getData(this.data.info._id);
-    }
+    this.setData({
+      fuse: this.data.fuse + 1,
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -144,7 +127,7 @@ Page({
         info.isEnd = true;
       }
       this.setData({ info });
-      this.getData(info._id);
+      this.getData();
     }
   },
 
@@ -161,21 +144,18 @@ Page({
     }
   },
 
-  getData(id) {
-    const punchGoalId = id;
-    const { page, size } = this.data.fetchConf;
+  getData(obj) {
+    const { detail = {} } = obj || {};
+    const { offset = 1 } = detail;
     fetch({
       url: "punches",
       method: "GET",
-      data: { punchGoalId, page, size },
+      data: { punchGoalId: this.data.info._id, page: offset, size: PAGE_SIZE },
     }).then((res) => {
-      let hasNext = true;
-      if (res.data.total <= page * size) {
-        hasNext = false;
-      }
+      const punchList = this.data.punchList ? this.data.punchList : [];
       this.setData({
-        punchList: this.data.punchList.concat(res.data.list),
-        "fetchConf.hasNext": hasNext,
+        list: res.data.list,
+        punchList: punchList.concat(res.data.list),
       });
     });
   },

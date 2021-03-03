@@ -7,7 +7,7 @@ Page({
    */
   data: {
     userInfo: null,
-    punchGoalList: [],
+    punchGoalList: null,
     slideButtons: [
       {
         text: "修改",
@@ -20,7 +20,7 @@ Page({
       },
     ],
     slideView: false,
-    slideViewBoundary: null
+    slideViewBoundary: null,
   },
 
   cancelSlide(e) {
@@ -38,7 +38,6 @@ Page({
       this.data.slideViewBoundary = null;
     }
   },
-
   slideviewShow(e) {
     this.data.slideView = true;
     wx.createSelectorQuery()
@@ -48,6 +47,7 @@ Page({
       })
       .exec();
   },
+
   handleAction(e) {
     console.log(e);
     const { data } = e.detail;
@@ -108,13 +108,16 @@ Page({
       this.getData(res.data.userId);
     });
   },
+
   toCreatePunchGoal() {
     wx.navigateTo({ url: "/pages/punchGoal/icon/index" });
   },
+
   toDetail(e) {
     const info = JSON.stringify(e.currentTarget.dataset.info);
     wx.navigateTo({ url: `/pages/detail/index?info=${info}` });
   },
+
   toPunch(e) {
     if (e.currentTarget.dataset.info.isEnd) {
       app.toast("打卡目标已经结束~");
@@ -123,10 +126,11 @@ Page({
     const info = JSON.stringify(e.currentTarget.dataset.info);
     wx.navigateTo({ url: `/pages/punch/index?info=${info}` });
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     app.event.on("punchGoalChange", this.punchGoalChange, this);
     app.event.on("punchChange", this.punchChange, this);
     if (app.globalData.userInfo) {
@@ -167,6 +171,7 @@ Page({
       [`punchGoalList[${index}].count`]: count,
     });
   },
+  
   getData(userId) {
     fetch({
       url: "punchgoals",

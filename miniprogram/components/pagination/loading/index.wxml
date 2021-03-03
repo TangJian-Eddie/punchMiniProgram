@@ -1,0 +1,3 @@
+<view class="load-container loadAnimation">
+  <view class="loader"></view>
+</view>

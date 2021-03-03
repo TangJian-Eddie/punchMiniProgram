@@ -1,0 +1,7 @@
+<scroll-view class="pagination">
+  <slot></slot>
+  <!-- loading -->
+  <view class="loadh" wx:if="{{loading}}">
+    <loading></loading>
+  </view>
+</scroll-view>

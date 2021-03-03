@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "slide-view": "/components/slideview/index"
+    "slide-view": "/components/slideview/index",
+    "pagination-wrap": "/components/pagination/index"
   }
 }

@@ -33,19 +33,22 @@
 				</view>
 				<view class="title">打卡详情</view>
 				<scroll-view scroll-y="{{true}}" bindscrolltolower="loadMore" class="scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
-						<view class="punchContainer">
-								<block wx:for="{{punchList}}" wx:key="index">
-										<slide-view id='slideview{{index}}' show="{{slideView}}" buttons="{{slideButtons}}" data-item="{{item}}" data-index="{{index}}" bindbuttontap="handleAction" bindshow="slideviewShow">
-												<view class="punchCard">
-														<view class="punchCard__time">
-																<view class="circle"></view>
-																<view>{{utils.substrvalue(item.date,0,10)}}</view>
+						<pagination-wrap fuse='{{fuse}}' bind:getList='getData' list='{{list}}' wx:if='{{punchList.length > 0}}'>
+								<view class="punchContainer">
+										<block wx:for="{{punchList}}" wx:key="index">
+												<slide-view id='slideview{{index}}' show="{{slideView}}" buttons="{{slideButtons}}" data-item="{{item}}" data-index="{{index}}" bindbuttontap="handleAction" bindshow="slideviewShow">
+														<view class="punchCard">
+																<view class="punchCard__time">
+																		<view class="circle"></view>
+																		<view>{{utils.substrvalue(item.date,0,10)}}</view>
+																</view>
+																<view class="punchCard__comment">{{item.comment}}</view>
 														</view>
-														<view class="punchCard__comment">{{item.comment}}</view>
-												</view>
-										</slide-view>
-								</block>
-						</view>
+												</slide-view>
+										</block>
+								</view>
+						</pagination-wrap>
+						<view wx:if="{{punchList.length===0}}" class="bottom-tip">没有找到你的打卡记录，快去打卡吧~</view>
 				</scroll-view>
 				<view bindtap="rePunch" class="button {{info.isEnd ? 'disableButton':''}}">补打卡</view>
 		</view>

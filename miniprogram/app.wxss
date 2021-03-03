@@ -3,6 +3,7 @@
   width: 90vw;
   margin: 5vh 5vw;
 }
+
 .icon {
   width: 68rpx;
   height: 68rpx;
@@ -11,7 +12,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* box-shadow: 0 2rpx 10rpx 0 #999; */
 }
 .icon > image {
   width: 25rpx;
@@ -25,13 +25,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* box-shadow: 0 2rpx 10rpx 0 #999; */
   margin: 20rpx auto 50rpx;
 }
 .customIcon > image {
   width: 40rpx;
   height: auto;
 }
+
 .circle {
   width: 10rpx;
   height: 10rpx;
@@ -52,12 +52,12 @@
   background-color: #ffc01a;
   border-radius: 30rpx;
 }
-
 .disableButton {
   color: #808695 !important;
   background-color: #fff !important;
   border: 1px solid #808695 !important;
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -75,6 +75,7 @@
   background-color: rgba(0, 0, 0, 0.31);
   z-index: -1;
 }
+
 .bottom-tip {
   width: 100%;
   height: 40rpx;
@@ -82,5 +83,5 @@
   line-height: 40rpx;
   font-size: 14px;
   color: #808695;
-  padding-bottom: 40rpx;
+  padding: 40rpx 0;
 }
