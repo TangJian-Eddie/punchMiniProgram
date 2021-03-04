@@ -1,4 +1,5 @@
 //app.js
+import { env } from "../config";
 const Event = require("./utils/event.js");
 App({
   event: new Event(),
@@ -7,7 +8,7 @@ App({
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
     } else {
       wx.cloud.init({
-        env: "eddie-7gd5wyqw65fac4df",
+        env,
         traceUser: true,
       });
     }

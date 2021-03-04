@@ -1,2 +1,3 @@
 /node_modules
 /cloudfunctions/**/node_modules
+config.js
