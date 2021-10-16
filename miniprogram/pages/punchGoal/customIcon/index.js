@@ -3,7 +3,7 @@ import {
   iconList_physical,
   iconList_learn,
   iconList_reflection,
-} from "../../../constant/iconList";
+} from '../../../constant/iconList';
 const app = getApp();
 Page({
   // 页面数据
@@ -12,8 +12,8 @@ Page({
     iconList_physical,
     iconList_learn,
     iconList_reflection,
-    iconName: "",
-    goalName: "",
+    iconName: '',
+    goalName: '',
   },
   chooseIcon(e) {
     const { type, index } = e.currentTarget.dataset;
@@ -30,16 +30,16 @@ Page({
   next() {
     const { goalName, iconName } = this.data;
     if (!iconName) {
-      app.toast("请选择一个图标~");
+      app.toast('请选择一个图标~');
       return;
     }
     if (!goalName) {
-      app.toast("请填写打卡目标~");
+      app.toast('请填写打卡目标~');
       return;
     }
     const punchGoal = JSON.stringify({
       goalName,
-      iconName
+      iconName,
     });
     wx.navigateTo({
       url: `../index?punchGoal=${punchGoal}`,

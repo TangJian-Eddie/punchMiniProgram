@@ -6,8 +6,8 @@
  * @Last Modified time: 2020-10-11 14:23:02
  * */
 
-import { getCalendarData, dateUtil } from "../utils/index";
-import { renderCalendar } from "../render";
+import { getCalendarData, dateUtil } from '../utils/index';
+import { renderCalendar } from '../render';
 
 function filterTodos({ curYear, curMonth, exsitedTodos, toSetTodos }) {
   const exsitedCurrentMonthTodos = dateUtil.filterDatesByYM(
@@ -32,11 +32,11 @@ function filterTodos({ curYear, curMonth, exsitedTodos, toSetTodos }) {
 
 function updateDatePropertyOfTodoLabel(todos, dates, showLabelAlways) {
   const datesInfo = [...dates];
-  for (let todo of todos) {
-    let targetIdx = datesInfo.findIndex(
+  for (const todo of todos) {
+    const targetIdx = datesInfo.findIndex(
       (item) => dateUtil.toTimeStr(item) === dateUtil.toTimeStr(todo)
     );
-    let target = datesInfo[targetIdx];
+    const target = datesInfo[targetIdx];
     if (!target) continue;
     if (showLabelAlways) {
       target.showTodoLabel = true;
@@ -53,20 +53,20 @@ function updateDatePropertyOfTodoLabel(todos, dates, showLabelAlways) {
 
 export default () => {
   return {
-    name: "todo",
+    name: 'todo',
     methods(component) {
       return {
         setTodos: (options = {}) => {
-          const calendar = getCalendarData("calendar", component);
+          const calendar = getCalendarData('calendar', component);
           if (!calendar || !calendar.dates) {
-            return Promise.reject("请等待日历初始化完成后再调用该方法");
+            return Promise.reject('请等待日历初始化完成后再调用该方法');
           }
           let dates = [...calendar.dates];
           const { curYear, curMonth } = calendar;
           const {
             circle = true,
-            dotColor = "",
-            pos = "bottom",
+            dotColor = '',
+            pos = 'bottom',
             showLabelAlways = true,
             dates: todoDates = [],
           } = options;
@@ -96,8 +96,8 @@ export default () => {
           }
           calendarData.todoLabelCircle = circle || false;
           calendarData.showLabelAlways = showLabelAlways || false;
-          component.triggerEvent("afterTapDate", calendar.selectedDates[0]);
-          const existCalendarData = getCalendarData("calendar", component);
+          component.triggerEvent('afterTapDate', calendar.selectedDates[0]);
+          const existCalendarData = getCalendarData('calendar', component);
           return renderCalendar.call(component, {
             ...existCalendarData,
             ...calendarData,
@@ -105,8 +105,8 @@ export default () => {
         },
         deleteTodos(todos = []) {
           if (!(todos instanceof Array) || !todos.length)
-            return Promise.reject("deleteTodos()应为入参为非空数组");
-          const existCalendarData = getCalendarData("calendar", component);
+            return Promise.reject('deleteTodos()应为入参为非空数组');
+          const existCalendarData = getCalendarData('calendar', component);
           const allTodos = existCalendarData.todos || [];
           const toDeleteTodos = todos.map((item) => dateUtil.toTimeStr(item));
           const remainTodos = allTodos.filter(
@@ -125,8 +125,8 @@ export default () => {
             item.showTodoLabel = false;
           });
           currentMonthTodos.forEach((item) => {
-            _dates[item.date - 1].showTodoLabel = !_dates[item.date - 1]
-              .choosed;
+            _dates[item.date - 1].showTodoLabel =
+              !_dates[item.date - 1].choosed;
           });
           return renderCalendar.call(component, {
             ...existCalendarData,
@@ -135,7 +135,7 @@ export default () => {
           });
         },
         clearTodos() {
-          const existCalendarData = getCalendarData("calendar", component);
+          const existCalendarData = getCalendarData('calendar', component);
           const _dates = [...existCalendarData.dates];
           _dates.forEach((item) => {
             item.showTodoLabel = false;
@@ -148,7 +148,7 @@ export default () => {
           });
         },
         getTodos() {
-          return getCalendarData("calendar.todos", component) || [];
+          return getCalendarData('calendar.todos', component) || [];
         },
       };
     },

@@ -1,6 +1,6 @@
 // pages/detail/index.js
-import { fetch } from "../../utils/fetch";
-import { PAGE_SIZE } from "../../constant/index";
+import { fetch } from '../../utils/fetch';
+import { PAGE_SIZE } from '../../constant/index';
 const app = getApp();
 Page({
   /**
@@ -13,13 +13,13 @@ Page({
     punchList: null,
     slideButtons: [
       {
-        text: "修改",
-        data: "edit",
+        text: '修改',
+        data: 'edit',
       },
       {
-        type: "warn",
-        data: "delete",
-        text: "删除",
+        type: 'warn',
+        data: 'delete',
+        text: '删除',
       },
     ],
     slideView: false,
@@ -53,9 +53,9 @@ Page({
 
   handleAction(e) {
     const { data } = e.detail;
-    if (data === "edit") {
+    if (data === 'edit') {
       this.handleEdit(e);
-    } else if (data === "delete") {
+    } else if (data === 'delete') {
       this.handleDelete(e);
     }
   },
@@ -69,13 +69,13 @@ Page({
   handleDelete(e) {
     const { item, index } = e.currentTarget.dataset;
     wx.showModal({
-      content: "确认删除这次打卡记录",
+      content: '确认删除这次打卡记录',
       success: (result) => {
         if (result.confirm) {
           wx.showLoading({ mask: true });
           fetch({
-            url: "punches",
-            method: "DELETE",
+            url: 'punches',
+            method: 'DELETE',
             data: {
               id: item._id,
             },
@@ -83,9 +83,9 @@ Page({
             wx.hideLoading();
             app.toast(res.msg);
             if (res.code != 200) return;
-            app.event.emit("punchChange", {
+            app.event.emit('punchChange', {
               punch: item,
-              /* type 
+              /* type
                          1 新增打卡
                          2 修改打卡
                          3 删除打卡 */
@@ -93,7 +93,7 @@ Page({
             });
             const { punchList, info } = this.data;
             punchList.splice(index, 1);
-            this.setData({ punchList, "info.count": --info.count });
+            this.setData({ punchList, 'info.count': --info.count });
           });
         }
       },
@@ -102,7 +102,7 @@ Page({
 
   rePunch() {
     if (this.data.info.isEnd) {
-      app.toast("打卡目标已经结束~");
+      app.toast('打卡目标已经结束~');
       return;
     }
     const info = JSON.stringify(this.data.info);
@@ -120,7 +120,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.event.on("punchChange", this.punchChange, this);
+    app.event.on('punchChange', this.punchChange, this);
     if (options.info) {
       const info = JSON.parse(options.info);
       if (info.endTime && new Date(info.endTime) < new Date()) {
@@ -135,8 +135,8 @@ Page({
     const { type, punch } = e;
     const { punchList } = this.data;
     if (type === 1) {
-      this.setData({ "info.count": ++this.data.info.count });
-      this.getData(this.data.info._id);
+      this.setData({ 'info.count': ++this.data.info.count });
+      this.resetList();
     }
     if (type === 2) {
       const index = punchList.findIndex((item) => item._id === punch._id);
@@ -148,14 +148,27 @@ Page({
     const { detail = {} } = obj || {};
     const { offset = 1 } = detail;
     fetch({
-      url: "punches",
-      method: "GET",
+      url: 'punches',
+      method: 'GET',
       data: { punchGoalId: this.data.info._id, page: offset, size: PAGE_SIZE },
     }).then((res) => {
-      const punchList = this.data.punchList ? this.data.punchList : [];
+      const punchList = this.data.punchList || [];
       this.setData({
         list: res.data.list,
         punchList: punchList.concat(res.data.list),
+      });
+    });
+  },
+
+  resetList() {
+    fetch({
+      url: 'punches',
+      method: 'GET',
+      data: { punchGoalId: this.data.info._id, page: 1, size: PAGE_SIZE },
+    }).then((res) => {
+      this.setData({
+        list: res.data.list,
+        punchList: res.data.list,
       });
     });
   },
@@ -178,7 +191,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    app.event.off("punchChange", this.punchChange);
+    app.event.off('punchChange', this.punchChange);
   },
 
   /**

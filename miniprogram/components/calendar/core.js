@@ -1,4 +1,4 @@
-import { dateUtil, getCalendarConfig } from './utils/index'
+import { dateUtil, getCalendarConfig } from './utils/index';
 
 /**
  * 计算当前月份前后两月应占的格子
@@ -6,12 +6,12 @@ import { dateUtil, getCalendarConfig } from './utils/index'
  * @param {number} month 月份
  */
 function calculateEmptyGrids(year, month, config) {
-  const prevMonthGrids = calculatePrevMonthGrids(year, month, config)
-  const nextMonthGrids = calculateNextMonthGrids(year, month, config)
+  const prevMonthGrids = calculatePrevMonthGrids(year, month, config);
+  const nextMonthGrids = calculateNextMonthGrids(year, month, config);
   return {
     prevMonthGrids,
-    nextMonthGrids
-  }
+    nextMonthGrids,
+  };
 }
 
 /**
@@ -20,35 +20,35 @@ function calculateEmptyGrids(year, month, config) {
  * @param {number} month 月份
  */
 function calculatePrevMonthGrids(year, month, config) {
-  let emptyGrids = []
-  const prevMonthDays = dateUtil.getDatesCountOfMonth(year, month - 1)
-  let firstDayOfWeek = dateUtil.firstDayOfWeek(year, month)
+  const emptyGrids = [];
+  const prevMonthDays = dateUtil.getDatesCountOfMonth(year, month - 1);
+  let firstDayOfWeek = dateUtil.firstDayOfWeek(year, month);
   if (config.firstDayOfWeek === 'Mon') {
     if (firstDayOfWeek === 0) {
-      firstDayOfWeek = 6
+      firstDayOfWeek = 6;
     } else {
-      firstDayOfWeek -= 1
+      firstDayOfWeek -= 1;
     }
   }
   if (firstDayOfWeek > 0) {
-    const len = prevMonthDays - firstDayOfWeek
-    const { onlyShowCurrentMonth } = config
-    const YMInfo = dateUtil.getPrevMonthInfo({ year, month })
+    const len = prevMonthDays - firstDayOfWeek;
+    const { onlyShowCurrentMonth } = config;
+    const YMInfo = dateUtil.getPrevMonthInfo({ year, month });
     for (let i = prevMonthDays; i > len; i--) {
       if (onlyShowCurrentMonth) {
-        emptyGrids.push('')
+        emptyGrids.push('');
       } else {
-        const week = dateUtil.getDayOfWeek(+year, +month, i)
+        const week = dateUtil.getDayOfWeek(+year, +month, i);
         emptyGrids.push({
           ...YMInfo,
           date: i,
-          week
-        })
+          week,
+        });
       }
     }
-    emptyGrids.reverse()
+    emptyGrids.reverse();
   }
-  return emptyGrids
+  return emptyGrids;
 }
 /**
  * 计算下一月日期是否需要多展示的日期
@@ -58,28 +58,32 @@ function calculatePrevMonthGrids(year, month, config) {
  * @param {object} config
  */
 function calculateExtraEmptyDate(year, month, config) {
-  let extDate = 0
+  let extDate = 0;
   if (+month === 2) {
-    extDate += 7
-    let firstDayofMonth = dateUtil.getDayOfWeek(year, month, 1)
+    extDate += 7;
+    const firstDayofMonth = dateUtil.getDayOfWeek(year, month, 1);
     if (config.firstDayOfWeek === 'Mon') {
-      if (+firstDayofMonth === 1) extDate += 7
+      if (+firstDayofMonth === 1) extDate += 7;
     } else {
-      if (+firstDayofMonth === 0) extDate += 7
+      if (+firstDayofMonth === 0) extDate += 7;
     }
   } else {
-    let firstDayofMonth = dateUtil.getDayOfWeek(year, month, 1)
+    const firstDayofMonth = dateUtil.getDayOfWeek(year, month, 1);
     if (config.firstDayOfWeek === 'Mon') {
       if (firstDayofMonth !== 0 && firstDayofMonth < 6) {
-        extDate += 7
+        extDate += 7;
       }
     } else {
-      if (firstDayofMonth <= 4 || (firstDayofMonth <= 4 && dateUtil.getDatesCountOfMonth(year, month) === 30)) {
-        extDate += 7
+      if (
+        firstDayofMonth <= 4 ||
+        (firstDayofMonth <= 4 &&
+          dateUtil.getDatesCountOfMonth(year, month) === 30)
+      ) {
+        extDate += 7;
       }
     }
   }
-  return extDate
+  return extDate;
 }
 /**
  * 计算下月应占的格子
@@ -87,36 +91,36 @@ function calculateExtraEmptyDate(year, month, config) {
  * @param {number} month  月份
  */
 function calculateNextMonthGrids(year, month, config) {
-  let emptyGrids = []
-  const datesCount = dateUtil.getDatesCountOfMonth(year, month)
-  let lastDayWeek = dateUtil.getDayOfWeek(year, month, datesCount)
+  const emptyGrids = [];
+  const datesCount = dateUtil.getDatesCountOfMonth(year, month);
+  let lastDayWeek = dateUtil.getDayOfWeek(year, month, datesCount);
   if (config.firstDayOfWeek === 'Mon') {
     if (lastDayWeek === 0) {
-      lastDayWeek = 6
+      lastDayWeek = 6;
     } else {
-      lastDayWeek -= 1
+      lastDayWeek -= 1;
     }
   }
-  let len = 7 - (lastDayWeek + 1)
-  const { onlyShowCurrentMonth } = config
+  let len = 7 - (lastDayWeek + 1);
+  const { onlyShowCurrentMonth } = config;
   if (!onlyShowCurrentMonth) {
-    len = len + calculateExtraEmptyDate(year, month, config)
+    len = len + calculateExtraEmptyDate(year, month, config);
   }
-  const YMInfo = dateUtil.getNextMonthInfo({ year, month })
+  const YMInfo = dateUtil.getNextMonthInfo({ year, month });
   for (let i = 1; i <= len; i++) {
-    const week = dateUtil.getDayOfWeek(+year, +month, i)
+    const week = dateUtil.getDayOfWeek(+year, +month, i);
     if (onlyShowCurrentMonth) {
-      emptyGrids.push('')
+      emptyGrids.push('');
     } else {
       emptyGrids.push({
         id: i - 1,
         ...YMInfo,
         date: i,
-        week: week || 7
-      })
+        week: week || 7,
+      });
     }
   }
-  return emptyGrids
+  return emptyGrids;
 }
 /**
  * 设置日历面板数据
@@ -125,20 +129,20 @@ function calculateNextMonthGrids(year, month, config) {
  * @param {number} curDate  日期
  */
 function calculateCurrentMonthDates(year, month) {
-  return dateUtil.calcDates(year, month)
+  return dateUtil.calcDates(year, month);
 }
 
 export function calcJumpData({ dateInfo, config, component }) {
-  dateInfo = dateInfo || dateUtil.todayFMD()
-  const { year, month, date } = dateInfo
-  const calendarConfig = config || getCalendarConfig(component)
-  const emptyGrids = calculateEmptyGrids(year, month, calendarConfig)
+  dateInfo = dateInfo || dateUtil.todayFMD();
+  const { year, month, date } = dateInfo;
+  const calendarConfig = config || getCalendarConfig(component);
+  const emptyGrids = calculateEmptyGrids(year, month, calendarConfig);
   const calendar = {
     curYear: year,
     curMonth: month,
     curDate: date,
     dates: calculateCurrentMonthDates(year, month),
-    ...emptyGrids
-  }
-  return calendar
+    ...emptyGrids,
+  };
+  return calendar;
 }

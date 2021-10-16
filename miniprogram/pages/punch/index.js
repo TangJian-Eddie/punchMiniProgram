@@ -1,6 +1,6 @@
 // pages/punch/index.js
-import { fetch } from "../../utils/fetch";
-import { formatDate } from "../../utils/formatDate";
+import { fetch } from '../../utils/fetch';
+import { formatDate } from '../../utils/format';
 const app = getApp();
 Page({
   /**
@@ -9,49 +9,49 @@ Page({
   data: {
     info: {},
     punch: {
-      punchGoalId: "",
-      comment: "",
+      punchGoalId: '',
+      comment: '',
       date: null,
     },
     todayPunch: true,
     punchBeforeDate: null,
-    pickerEnd: "",
+    pickerEnd: '',
   },
 
   inputChange(e) {
-    this.setData({ "punch.comment": e.detail.value });
+    this.setData({ 'punch.comment': e.detail.value });
   },
   timePick(e) {
     if (
       this.data.info.endTime &&
       new Date(this.data.info.endTime) < new Date(e.detail.value)
     ) {
-      app.toast("打卡时间不可以晚于目标结束时间~");
+      app.toast('打卡时间不可以晚于目标结束时间~');
       return;
     }
     if (
       this.data.info.startTime &&
       new Date(this.data.info.startTime) > new Date(e.detail.value)
     ) {
-      app.toast("打卡时间不可以早于目标开始时间~");
+      app.toast('打卡时间不可以早于目标开始时间~');
       return;
     }
-    this.setData({ "punch.date": e.detail.value });
+    this.setData({ 'punch.date': e.detail.value });
   },
   punch() {
     wx.showLoading({ mask: true });
     fetch({
-      url: "punches",
-      method: this.data.punch._id ? "PUT" : "POST",
+      url: 'punches',
+      method: this.data.punch._id ? 'PUT' : 'POST',
       data: this.data.punch,
     }).then((res) => {
       wx.hideLoading();
       app.toast(res.msg);
       if (res.code !== 200) return;
-      app.event.emit("punchChange", {
+      app.event.emit('punchChange', {
         punch: this.data.punch,
         punchBeforeDate: this.data.punchBeforeDate,
-        /* type 
+        /* type
                    1 新增打卡
                    2 修改打卡
                    3 删除打卡 */

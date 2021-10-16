@@ -3,8 +3,8 @@ const app = getApp();
 const nowYear = new Date().getFullYear();
 const nowMonth = new Date().getMonth() + 1;
 const newDate = new Date().getDate();
-import { fetch } from "../../utils/fetch";
-import { formatDate } from "../../utils/formatDate";
+import { fetch } from '../../utils/fetch';
+import { formatDate } from '../../utils/format';
 Page({
   /**
    * 页面的初始数据
@@ -22,12 +22,12 @@ Page({
     todayPunch: [],
     punchGoalList: [],
     punchList: {},
-    scrollHeight: "",
+    scrollHeight: '',
     dates: [],
   },
 
   jumpToday() {
-    const calendar = this.selectComponent("#calendar").calendar;
+    const calendar = this.selectComponent('#calendar').calendar;
     calendar.jump();
     this.whenChangeMonth({
       detail: {
@@ -39,7 +39,7 @@ Page({
     });
   },
   afterTapDate(e) {
-    console.log("afterTapDate", e.detail); // => { year: 2019, month: 12, date: 3, ...}
+    console.log('afterTapDate', e.detail); // => { year: 2019, month: 12, date: 3, ...}
     const { year, month, date, todoText } = e.detail;
     const todayPunch = [];
     if (todoText) {
@@ -56,7 +56,7 @@ Page({
   },
 
   whenChangeMonth(e) {
-    console.log("whenChangeMonth", e.detail); // => { current: { month: 3, ... }, next: { month: 4, ... }}
+    console.log('whenChangeMonth', e.detail); // => { current: { month: 3, ... }, next: { month: 4, ... }}
     const { year, month } = e.detail.next;
     this.data.currentMonth = { year, month };
     this.data.punchList[`punchList-${year}-${month}`]
@@ -76,7 +76,7 @@ Page({
         });
       }
     }
-    const calendar = this.selectComponent("#calendar").calendar;
+    const calendar = this.selectComponent('#calendar').calendar;
     if (!calendar) {
       this.setData({ dates });
       return;
@@ -89,9 +89,9 @@ Page({
    */
   onLoad: function () {
     this.getGoalData();
-    app.event.on("punchGoalChange", this.punchGoalChange, this);
-    app.event.on("punchChange", this.punchChange, this);
-    app.event.on("login", this.login, this);
+    app.event.on('punchGoalChange', this.punchGoalChange, this);
+    app.event.on('punchChange', this.punchChange, this);
+    app.event.on('login', this.login, this);
     const { windowHeight, windowWidth } = wx.getSystemInfoSync();
     this.setData({ scrollHeight: windowHeight - (windowWidth / 750) * 810 });
   },
@@ -155,7 +155,7 @@ Page({
       if (beforeYear === year && beforeMonth === month) {
         if (this.data.punchList[`punchList-${year}-${month}`]) {
           if (beforeDate === date) {
-            for (let issue of this.data.punchList[
+            for (const issue of this.data.punchList[
               `punchList-${year}-${month}`
             ]) {
               if (issue._id === date) {
@@ -261,9 +261,9 @@ Page({
         issue.list.splice(index, 1);
         if (!isPush) break;
       }
-      if (isPush && issue._id === pushDate) {
-        issue.list.push(punch);
-      }
+      // if (isPush && issue._id === pushDate) {
+      //   issue.list.push(punch);
+      // }
     }
   },
   spliceTodayPunch(id) {
@@ -274,7 +274,7 @@ Page({
   },
   unshiftTodayPunch(punch) {
     const { todayPunch } = this.data;
-    let punchGoal = this.data.punchGoalList.find(
+    const punchGoal = this.data.punchGoalList.find(
       (item) => item._id === punch.punchGoalId
     );
     punchGoal.comment = punch.comment;
@@ -285,12 +285,12 @@ Page({
 
   getGoalData() {
     if (!app.globalData.userInfo) {
-      app.toast("请返回首页登陆");
+      app.toast('请返回首页登陆');
       return;
     }
     fetch({
-      url: "punchgoals",
-      method: "GET",
+      url: 'punchgoals',
+      method: 'GET',
       data: { userId: app.globalData.userInfo.userId },
     }).then((res) => {
       this.getData(this.data.selectDate.year, this.data.selectDate.month);
@@ -300,13 +300,13 @@ Page({
 
   getData(year, month) {
     if (!app.globalData.userInfo) {
-      app.toast("请返回首页登陆");
+      app.toast('请返回首页登陆');
       return;
     }
     fetch({
-      url: "punches",
-      method: "GET",
-      queryString: { year, month },
+      url: 'punches',
+      method: 'GET',
+      params: { year, month },
       data: {
         userId: app.globalData.userInfo.userId,
       },
@@ -336,9 +336,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    app.event.off("punchGoalChange", this.punchGoalChange);
-    app.event.off("punchChange", this.punchChange);
-    app.event.off("login", this.login);
+    app.event.off('punchGoalChange', this.punchGoalChange);
+    app.event.off('punchChange', this.punchChange);
+    app.event.off('login', this.login);
   },
 
   /**

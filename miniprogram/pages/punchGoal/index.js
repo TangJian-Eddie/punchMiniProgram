@@ -1,13 +1,13 @@
 // pages/punchGoal/index.js
-import { fetch } from "../../utils/fetch";
-import { colorList } from "../../constant/colorList";
-import { formatDate } from "../../utils/formatDate";
+import { fetch } from '../../utils/fetch';
+import { colorList } from '../../constant/colorList';
+import { formatDate } from '../../utils/format';
 import {
   iconList_habit,
   iconList_physical,
   iconList_learn,
   iconList_reflection,
-} from "../../constant/iconList";
+} from '../../constant/iconList';
 const app = getApp();
 Page({
   /**
@@ -20,18 +20,18 @@ Page({
     iconList_reflection,
     colorList,
     goal: {
-      iconName: "",
-      goalName: "",
-      comment: "",
+      iconName: '',
+      goalName: '',
+      comment: '',
       startTime: formatDate(new Date()),
-      endTime: "",
+      endTime: '',
       punchTimes: 1,
-      iconBackground: "#FFFFFF",
-      userId: app.globalData.userInfo.userId,
+      iconBackground: '#FFFFFF',
+      userId: app.globalData.userInfo?.userId,
     },
     isEndTime: false,
     modalShow: false,
-    pickerStart: "",
+    pickerStart: '',
   },
   inputChange(e) {
     const { type } = e.currentTarget.dataset;
@@ -43,10 +43,10 @@ Page({
   timePick(e) {
     const { type } = e.currentTarget.dataset;
     if (
-      type === "endTime" &&
+      type === 'endTime' &&
       new Date(e.detail.value) < new Date(this.data.goal.startTime)
     ) {
-      app.toast("结束时间应在开始时间之后~");
+      app.toast('结束时间应在开始时间之后~');
       return;
     }
     this.setData({ [`goal.${type}`]: e.detail.value });
@@ -58,48 +58,48 @@ Page({
     const { type, index } = e.currentTarget.dataset;
     const icon = `${type}_${index + 1}`;
     this.setData({
-      "goal.iconName": icon,
+      'goal.iconName': icon,
     });
   },
   chooseColor(e) {
     const { item } = e.currentTarget.dataset;
     this.setData({
-      "goal.iconBackground": item,
+      'goal.iconBackground': item,
     });
   },
   createPunchGoal() {
     const { goal } = this.data;
     if (goal.endTime && new Date(goal.endTime) < new Date(goal.startTime)) {
-      app.toast("结束时间应在开始时间之后~");
+      app.toast('结束时间应在开始时间之后~');
       return;
     }
     if (
       Object.keys(goal).some((value) => {
-        if (value == "comment" || value == "endTime") return false;
-        return goal[value] === "";
+        if (value == 'comment' || value == 'endTime') return false;
+        return goal[value] === '';
       })
     ) {
-      app.toast("有未填写完成的信息");
+      app.toast('有未填写完成的信息');
       return;
     }
     wx.showLoading({ mask: true });
     fetch({
-      url: "punchgoals",
-      method: goal._id ? "PUT" : "POST",
+      url: 'punchgoals',
+      method: goal._id ? 'PUT' : 'POST',
       data: goal,
     }).then((res) => {
       wx.hideLoading();
       app.toast(res.msg);
       if (res.code != 200) return;
-      app.event.emit("punchGoalChange", {
+      app.event.emit('punchGoalChange', {
         punchGoal: goal,
-        /* type 
+        /* type
              1 新增打卡目标
              2 修改打卡目标
              3 删除打卡目标 */
         type: goal._id ? 2 : 1,
       });
-      wx.switchTab({ url: "/pages/home/index" });
+      wx.switchTab({ url: '/pages/home/index' });
     });
   },
   /**

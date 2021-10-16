@@ -3,7 +3,7 @@ import {
   iconList_physical,
   iconList_learn,
   iconList_reflection,
-} from "../../../constant/iconList";
+} from '../../../constant/iconList';
 Page({
   // 页面数据
   data: {
@@ -24,7 +24,7 @@ Page({
 
   customIcon() {
     wx.navigateTo({
-      url: "../customIcon/index",
+      url: '../customIcon/index',
     });
   },
 });

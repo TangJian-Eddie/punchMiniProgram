@@ -31,10 +31,7 @@
 .punchGoalCard > .punchGoalCard__content > .punchGoalCard__content-information {
   margin-left: 20rpx;
 }
-.punchGoalCard
-  > .punchGoalCard__content
-  > .punchGoalCard__content-information
-  > .punchGoalCard__content-count {
+.punchGoalCard > .punchGoalCard__content > .punchGoalCard__content-information > .punchGoalCard__content-count {
   color: #aaaaaa;
 }
 .punchGoalCard > .punchGoalCard__button {
@@ -46,4 +43,7 @@
   color: #fff;
   background-color: #2fc4ff;
   border-radius: 35rpx;
+}
+.button {
+  margin-bottom: 0;
 }

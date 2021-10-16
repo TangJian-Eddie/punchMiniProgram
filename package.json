@@ -4,7 +4,20 @@
   "description": "这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint --fix **.js",
+    "prettier": "npx prettier --write **/*.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "miniprogram/**/*.js": [
+      "npx eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -15,5 +28,13 @@
   "bugs": {
     "url": "https://github.com/TangJian-Eddie/punchMiniProgram/issues"
   },
-  "homepage": "https://github.com/TangJian-Eddie/punchMiniProgram#readme"
+  "homepage": "https://github.com/TangJian-Eddie/punchMiniProgram#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.0"
+  }
 }

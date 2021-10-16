@@ -1,4 +1,4 @@
-import { dateUtil } from './utils/index'
+import { dateUtil } from './utils/index';
 
 export function calcTargetYMInfo() {
   return {
@@ -7,6 +7,6 @@ export function calcTargetYMInfo() {
     prev_month: dateUtil.getPrevMonthInfo,
     next_month: dateUtil.getNextMonthInfo,
     prev_year: dateUtil.getPrevYearInfo,
-    next_year: dateUtil.getNextYearInfo
-  }
+    next_year: dateUtil.getNextYearInfo,
+  };
 }

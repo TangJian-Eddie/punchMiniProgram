@@ -1,6 +1,6 @@
 <!-- pages/home/index.wxml -->
 <view class="container">
-		<button bindgetuserinfo="getUserInfo" open-type="getUserInfo" wx:if="{{!userInfo}}">登录</button>
+		<button bindtap="getUserProfile" wx:if="{{!userInfo}}">登录</button>
 		<view wx:if="{{userInfo}}" bindtouchstart='cancelSlide'>
 				<view class="userBox">
 						<view class="userBox__nickName">{{userInfo.nickName}}</view>

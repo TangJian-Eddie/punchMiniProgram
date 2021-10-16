@@ -1,7 +1,7 @@
-const cloud = require("wx-server-sdk");
+const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
-const collection = db.collection("users");
+const collection = db.collection('users');
 const _ = db.command;
 
 const clearRepunch = () => {

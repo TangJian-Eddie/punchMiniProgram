@@ -2,8 +2,8 @@
 
 class Event {
   on(event, fn, ctx) {
-    if (typeof fn != "function") {
-      console.error("fn must be a function");
+    if (typeof fn != 'function') {
+      console.error('fn must be a function');
       return;
     }
     this._stores = this._stores || {};

@@ -1,13 +1,13 @@
-import plugins from "./plugins/index";
-import todo from "./plugins/todo";
-import { calcJumpData } from "./core";
-import { renderCalendar } from "./render";
-import { calcTargetYMInfo } from "./helper";
-import { dateUtil, calendarGesture, logger } from "./utils/index";
+import plugins from './plugins/index';
+import todo from './plugins/todo';
+import { calcJumpData } from './core';
+import { renderCalendar } from './render';
+import { calcTargetYMInfo } from './helper';
+import { dateUtil, calendarGesture, logger } from './utils/index';
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
     multipleSlots: true, // 在组件定义时的选项中启用多slot支持
   },
   properties: {
@@ -64,10 +64,10 @@ Component({
     initCalendar(config) {
       const { defaultDate } = config;
       let date = dateUtil.todayFMD();
-      if (defaultDate && typeof defaultDate === "string") {
-        const dateInfo = defaultDate.split("-");
+      if (defaultDate && typeof defaultDate === 'string') {
+        const dateInfo = defaultDate.split('-');
         if (dateInfo.length < 3) {
-          return logger.warn("defaultDate配置格式应为: 2018-4-2 或 2018-04-02");
+          return logger.warn('defaultDate配置格式应为: 2018-4-2 或 2018-04-02');
         } else {
           date = {
             year: +dateInfo[0],
@@ -92,7 +92,7 @@ Component({
             waitRenderData.selectedDates.push(target[0]);
           }
         }
-        this.triggerEvent("afterTapDate", target[0]);
+        this.triggerEvent('afterTapDate', target[0]);
       }
       return {
         ...waitRenderData,
@@ -101,7 +101,7 @@ Component({
       };
     },
     setConfig(config) {
-      if (config.markToday && typeof config.markToday === "string") {
+      if (config.markToday && typeof config.markToday === 'string') {
         config.highlightToday = true;
       }
       this.setData(
@@ -110,17 +110,17 @@ Component({
         },
         () => {
           plugins.use(todo);
-          for (let plugin of plugins.installed) {
+          for (const plugin of plugins.installed) {
             const [, p] = plugin;
-            if (typeof p.install === "function") {
+            if (typeof p.install === 'function') {
               p.install(this);
             }
-            if (typeof p.methods === "function") {
+            if (typeof p.methods === 'function') {
               const methods = p.methods(this);
-              for (let fnName in methods) {
-                if (fnName.startsWith("__")) continue;
+              for (const fnName in methods) {
+                if (fnName.startsWith('__')) continue;
                 const fn = methods[fnName];
-                if (typeof fn === "function") {
+                if (typeof fn === 'function') {
                   if (!this.calendar) this.calendar = {};
                   this.calendar[fnName] = fn;
                 }
@@ -145,11 +145,11 @@ Component({
       let calendarData = calendar;
       let calendarConfig = config;
       if (config.takeoverTap) {
-        return this.triggerEvent("takeoverTap", info);
+        return this.triggerEvent('takeoverTap', info);
       }
-      for (let plugin of plugins.installed) {
+      for (const plugin of plugins.installed) {
         const [, p] = plugin;
-        if (typeof p.onTapDate === "function") {
+        if (typeof p.onTapDate === 'function') {
           const {
             calendarData: __calendarData,
             calendarConfig: __calendarConfig,
@@ -159,7 +159,7 @@ Component({
         }
       }
       renderCalendar.call(this, calendarData, calendarConfig).then(() => {
-        this.triggerEvent("afterTapDate", info);
+        this.triggerEvent('afterTapDate', info);
       });
     },
     /**
@@ -172,8 +172,8 @@ Component({
       const startY = t.clientY;
       this.swipeLock = true;
       this.setData({
-        "gesture.startX": startX,
-        "gesture.startY": startY,
+        'gesture.startX': startX,
+        'gesture.startY': startY,
       });
     },
     /**
@@ -185,30 +185,30 @@ Component({
       const { preventSwipe } = this.properties.config;
       if (!this.swipeLock || preventSwipe) return;
       if (calendarGesture.isLeft(gesture, e.touches[0])) {
-        this.handleSwipe("left");
+        this.handleSwipe('left');
         this.swipeLock = false;
       }
       if (calendarGesture.isRight(gesture, e.touches[0])) {
-        this.handleSwipe("right");
+        this.handleSwipe('right');
         this.swipeLock = false;
       }
     },
     calendarTouchend(e) {
       this.setData({
-        "calendar.leftSwipe": 0,
-        "calendar.rightSwipe": 0,
+        'calendar.leftSwipe': 0,
+        'calendar.rightSwipe': 0,
       });
     },
     handleSwipe(direction) {
-      let swipeKey = "calendar.leftSwipe";
-      if (direction === "right") {
-        swipeKey = "calendar.rightSwipe";
+      let swipeKey = 'calendar.leftSwipe';
+      if (direction === 'right') {
+        swipeKey = 'calendar.rightSwipe';
       }
       this.setData({
         [swipeKey]: 1,
       });
       const { calendar } = this.data;
-      let calendarData = calendar;
+      const calendarData = calendar;
       const { curYear, curMonth } = calendarData;
       const getMonthInfo = calcTargetYMInfo()[direction];
       const target = getMonthInfo({
@@ -241,16 +241,17 @@ Component({
       this.renderCalendar(target);
     },
     renderCalendar(target) {
-      let { calendar: calendarData, config } = this.data;
+      let { calendar: calendarData } = this.data;
+      const { config } = this.data;
       const { curYear, curMonth } = calendarData || {};
-      for (let plugin of plugins.installed) {
+      for (const plugin of plugins.installed) {
         const [, p] = plugin;
-        if (typeof p.onSwitchCalendar === "function") {
+        if (typeof p.onSwitchCalendar === 'function') {
           calendarData = p.onSwitchCalendar(target, calendarData, this);
         }
       }
       return renderCalendar.call(this, calendarData, config).then(() => {
-        let triggerEventName = "whenChangeMonth";
+        const triggerEventName = 'whenChangeMonth';
         this.triggerEvent(triggerEventName, {
           current: {
             year: +curYear,

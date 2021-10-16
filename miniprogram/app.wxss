@@ -43,15 +43,18 @@
 .button {
   position: fixed;
   bottom: 2vh;
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);
   left: 5vw;
   width: 90vw;
-  height: 65rpx;
-  line-height: 65rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #fff;
   background-color: #ffc01a;
-  border-radius: 30rpx;
+  border-radius: 50rpx;
 }
+
 .disableButton {
   color: #808695 !important;
   background-color: #fff !important;

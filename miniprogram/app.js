@@ -1,24 +1,18 @@
 //app.js
-import { env } from "../config";
-const Event = require("./utils/event.js");
+import { env } from './config';
+const Event = require('./utils/event.js');
 App({
   event: new Event(),
   onLaunch: function () {
-    if (!wx.cloud) {
-      console.error("请使用 2.2.3 或以上的基础库以使用云能力");
-    } else {
-      wx.cloud.init({
-        env,
-        traceUser: true,
-      });
-    }
-    const userInfo = wx.getStorageSync("userInfo");
-    this.globalData = { userInfo };
+    wx.cloud.init({ env });
+    this._initUserInfo();
+  },
+  globalData: {},
+  async _initUserInfo() {
+    const userInfo = wx.getStorageSync('userInfo');
+    this.globalData.userInfo = userInfo;
   },
   toast(title) {
-    wx.showToast({
-      title,
-      icon: "none",
-    });
+    wx.showToast({ title, icon: 'none' });
   },
 });
