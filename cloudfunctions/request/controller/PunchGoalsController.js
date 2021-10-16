@@ -2,7 +2,7 @@ const MethodController = require('../utils/method');
 
 const PunchGoalService = require('../service/punchGoalService');
 const punchGoalService = new PunchGoalService();
-const PunchService = require('../service/PunchService');
+const PunchService = require('../service/punchService');
 const punchService = new PunchService();
 
 const { validator } = require('../utils/validator');

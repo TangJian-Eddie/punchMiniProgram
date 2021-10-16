@@ -1,6 +1,7 @@
 function parseUrlQuery(url) {
   const [rawUrl, queryString = ''] = url.split('?');
   const query = queryString.split('&').reduce((result, item) => {
+    if (!item) return result;
     const index = item.indexOf('=');
     const key = item.slice(0, index);
     const value = item.slice(index + 1);
